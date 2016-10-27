@@ -130,96 +130,14 @@ class PostController {
 
 	public function threadView($topicID) {
 		//to be continued...
-
-	}
-
-
-	public function addProduct() {
-		$pageName = 'Add Product';
+		$thread = Thread::getThreadByTopic($topicID);
+		
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/addproduct.tpl';
+		include_once SYSTEM_PATH.'/view/threadview.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
-	public function editProduct($id) {
-		$p = Product::loadById($id);
-		$pageName = 'Edit '.$p->get('title');
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/editproduct.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
 
-	public function deleteProduct($id) {
-		$p = Product::loadByID($id);
-		$pageName = 'Confirm?';
-
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS)
-			or die ('Error: Could not connect to MySql database');
-		mysql_select_db(DB_DATABASE);
-
-		$q = "SELECT * FROM product ORDER BY date_created DESC; ";
-		$result = mysql_query($q);
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/myproducts.tpl';
-		include_once SYSTEM_PATH.'/view/deleteproduct.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
-	public function processAdd() {
-		$title = $_POST['title'];
-		$category = $_POST['category'];
-		$description = $_POST['description'];		
-		$price = $_POST['price'];
-		$sizes = $_POST['sizes'];
-		$image_url = $_POST['image_url'];
-		if(!isset($_SESSION)) { 
-			session_start(); 
-		}
-		$user = User::loadByUsername($_SESSION['user']);
-		$creator_id = $user->get('id');
-
-		$newProduct = new Product(
-			array(
-				'title' => $title,
-				'category' => $category,
-				'description' => $description,
-				'price' => $price,
-				'sizes' => $sizes,
-				'image_url' => $image_url,
-				'creator_id' => $creator_id
-			)
-		);
-		$newProduct->save();
-
-		session_start();
-		$_SESSION['msg'] = "You added a product called ".$title;
-		$pageName = 'My Products';
-		header('Location: '.BASE_URL.'/myProducts/');
-	}
-
-
-	public function processEdit($id) {
-		$title = $_POST['title'];
-		$category = $_POST['category'];
-		$description = $_POST['description'];		
-		$price = $_POST['price'];
-		$sizes = $_POST['sizes'];
-		$image_url = $_POST['image_url'];
-
-
-		$p = Product::loadById($id);
-		$p->set('title', $title);
-		$p->set('category', $category);
-		$p->set('description', $description);		
-		$p->set('price', $price);
-		$p->set('sizes', $sizes);
-		$p->set('image_url', $image_url);
-		$p->save();
-
-		session_start();
-		$_SESSION['msg'] = "You edited the product called ".$title;
-		header('Location: '.BASE_URL.'/myProducts/');
-	}
 
 	public function processDelete($id) {
 		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS)
