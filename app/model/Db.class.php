@@ -116,7 +116,7 @@ class Db {
 		$fields = '';
 		$values = '';
 
-		foreach ($data as $field => $value) {
+		foreach ($data as $field=>$value) {
 			if($value !== null) { // skip unset fields
 				$fields .= "`".$field . "`, ";
 				$values .= $this->quoteString($value) . ", ";

@@ -18,7 +18,7 @@ class SiteController {
 				$this->explore();
 				break;			
 
-;			case 'recentTopics':
+  		case 'recentTopics':
 				$this->recentTopics();
 				break;
 
@@ -144,7 +144,7 @@ class SiteController {
 			$newUser = new User(
 				array(
 					'username' => $u,
-					'pw' => $p,
+					'password' => $p,
 					'email' => $m
 				)
 			);	

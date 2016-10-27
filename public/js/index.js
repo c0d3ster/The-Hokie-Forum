@@ -27,7 +27,7 @@ function signupClicked() {
 	$('.popsignup').fadeIn(1000);
 	$('form').submit(function(e){
 		e.preventDefault();
-	 	verifySignup($('#user').val(), $('#pass').val(),$('#first').val(),$('#last').val(),$('#mail').val());
+	 	verifySignup($('#user').val(), $('#pass').val(), $('#mail').val());
 	 	return false;
 	});
 }
@@ -81,8 +81,8 @@ function verifyCredentials(username, password) {
 						return false;
 	  			}	
         },  
-        error: function () {
-            alert(data.status);
+        error: function (e) {
+            alert(e.responseText);
         }                                 
 	    }) 	
 		}
@@ -96,14 +96,14 @@ function verifyCredentials(username, password) {
 
 
 /* 
- * @function
+ * @functiond
  * @name verifyCredentials
  * This function will verify user credentials before submitting a database query
  * @param {string} username the user to find.
  * @param {string} password the password that was entered.
  * @returns {boolean} true if user is a available and created
  */
-function verifySignup(user, pass, first, last, mail) {
+function verifySignup(user, pass, mail) {
   for (var i = 0, j = arguments.length; i < j; i++){ //more parameters so I just looped through to check for invalid values instead
       if(!checkString(arguments[i]) || /\s/.test(arguments[i])) {
     		$('#pass').val('');
@@ -112,7 +112,7 @@ function verifySignup(user, pass, first, last, mail) {
       	return false;
       }
   }
-		var datastr = 'u=' + user + '&p=' + pass + '&f=' + first + '&l=' + last + '&m=' + mail;
+		var datastr = 'u=' + user + '&p=' + pass + '&m=' + mail;
 		$.ajax({    
       type: "POST",
       url: baseURL+'/signup/process/', 

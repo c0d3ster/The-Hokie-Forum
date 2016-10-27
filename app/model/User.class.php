@@ -9,6 +9,7 @@ class User extends DbObject {
     protected $username;
     protected $password;
     protected $email;
+    protected $admin;
 
     // constructor
     public function __construct($args = array()) {
@@ -17,6 +18,7 @@ class User extends DbObject {
             'username' => '',
             'password' => '',
             'email' => null,
+            'admin' => 0
             );
 
         $args += $defaultArgs;
@@ -25,6 +27,7 @@ class User extends DbObject {
         $this->username = $args['username'];
         $this->password = $args['password'];
         $this->email = $args['email'];
+        $this->admin = $args['admin'];
     }
 
     // save changes to object
@@ -35,20 +38,21 @@ class User extends DbObject {
             'username' => $this->username,
             'password' => $this->password,
             'email' => $this->email,
+            'admin' => $this->admin
             );
-        $db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
+        $db->store($this, self::DB_TABLE, $db_properties);
     }
 
     // load object by ID
     public static function loadById($id) {
         $db = Db::instance();
-        $obj = $db->fetchById($id, self::DB_TABLE);
+        $obj = $db->fetchById($id, __CLASS__, self::DB_TABLE);
         return $obj;
     }
 
     // load user by username
     public static function loadByUsername($username=null) {
-        if($username === null)
+        if($username == null)
             return null;
 
         $query = sprintf(" SELECT id FROM %s WHERE username = '%s' ",
@@ -69,10 +73,10 @@ class User extends DbObject {
 
     //validate user information
     public static function loadByUsernameAndPassword($username=null, $password=null) {
-        if($username === null || $password === null) {
+        if($username == null || $password == null) {
             return null;
         }
-        $query = sprintf(" SELECT id FROM %s WHERE username = '%s' AND pw = '%s' ",
+        $query = sprintf(" SELECT id FROM %s WHERE username = '%s' AND password = '%s' ",
             self::DB_TABLE,
             $username,
             $password
