@@ -11,7 +11,9 @@ function checkUser() {
 	if(!isset($_SESSION)) { 
 		session_start(); 
 	}
-	return User::loadByUsername($_SESSION['user']);
+	if(isset($_SESSION['user'])) {
+		return User::loadByUsername($_SESSION['user']);
+	} return null;
 }
 
 	//returns true if user is an admin, false otherwise
@@ -30,7 +32,10 @@ if(session_status() == PHP_SESSION_DISABLED || session_status() == PHP_SESSION_N
 
 
 $currUser = checkUser();
-$admin = checkAdmin($currUser);
+$admin = 0;
+if($currUser) {
+	$admin = checkAdmin($currUser);
+}
 ?>
 <!DOCTYPE HTML>
 <html lang="en">

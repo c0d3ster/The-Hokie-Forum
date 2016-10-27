@@ -5,9 +5,9 @@ RewriteEngine on
 # ErrorDocument 404 /app/controller/error.php
 
 
-# Site Controller
+# SITE CONTROLLER
 
-## Menu Items
+# Menu Items
 
 RewriteRule ^$ app/controller/siteController.php?action=explore [QSA,L]
 
@@ -17,7 +17,7 @@ RewriteRule ^recentTopics/?$ app/controller/siteController.php?action=recentTopi
 
 RewriteRule ^myActivity/?$ app/controller/siteController.php?action=myActivity [QSA,L]
 
-## Account Management
+# Account Management
 
 RewriteRule ^check/?$ app/controller/siteController.php?action=checkUser [QSA,L]
 
@@ -28,10 +28,9 @@ RewriteRule ^login/process/?$ app/controller/siteController.php?action=processLo
 RewriteRule ^logout/?$ app/controller/siteController.php?action=logout [QSA,L]
 
 
+# POST CONTROLLER
 
-# Post Controller
-
-## Topics
+# Topics
 
 RewriteRule ^addTopic/?$ app/controller/postController.php?action=addTopic [QSA,L]
 
@@ -47,7 +46,7 @@ RewriteRule ^deleteTopic/(\d+)/?$ app/controller/postController.php?action=delet
 
 RewriteRule ^deleteTopic/process/(\d+)/?$ app/controller/postController.php?action=processDelete&tid=$1 [QSA,L]
 
-## Replies
+# Replies
 
 # May need to include the topic id in this form to link to the foreign key
 RewriteRule ^addReply/process/?$ app/controller/postController.php?action=processAddReply [QSA,L]

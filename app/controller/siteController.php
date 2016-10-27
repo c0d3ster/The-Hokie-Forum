@@ -18,7 +18,7 @@ class SiteController {
 				$this->explore();
 				break;			
 
-			case 'recentTopics':
+;			case 'recentTopics':
 				$this->recentTopics();
 				break;
 
@@ -60,9 +60,9 @@ class SiteController {
 				break;
 
 			// redirect to home page if all else fails
-      default:
-        header('Location: '.BASE_URL);
-        exit();
+			default:
+        			header('Location: '.BASE_URL);
+        			exit();
 		}
 	}
   public function explore() {

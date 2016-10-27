@@ -94,8 +94,9 @@ class Topic extends DbObject {
     
     public static function getTopicsByUsername($uname) {
     	
-    	$query = sprintf("SELECT id FROM %s ORDER BY date_created",
-            self::TOP_TABLE
+    	$query = sprintf("SELECT id FROM %s WHERE username = '%s' ORDER BY date_created",
+            self::TOP_TABLE,
+            $uname
             );
         $db = Db::instance();
         $result = $db->lookup($query);
