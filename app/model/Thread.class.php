@@ -60,6 +60,42 @@ class Thread extends DbObject {
     public function deleteThread() {
     	/*TO DO*/
     }
+    
+    /*=====================Private helper functions=================*/
+   
+    
+    private function getLocations($id) {
+    	$query = sprintf("SELECT * FROM 'locations' WHERE topic_id = %s;",
+        	$id);
+        	
+        $result = $db->lookup($query);
+    	if(!mysql_num_rows($result))
+            return null;
+            
+        $locs = array();
+        while($row = mysql_fetch_assoc($result)) {
+        	array_push($locs, $row);
+        }
+        return $locs;
+    }
+	
+	private function getCategories($id) {
+    	$query = sprintf("SELECT * FROM 'categories' WHERE topic_id = %s;",
+        	$this->id);
+        	
+        $result = $db->lookup($query);
+    	if(!mysql_num_rows($result))
+            return null;
+            
+        $cats = array();
+        while($row = mysql_fetch_assoc($result)) {
+        	array_push($cats, $row);
+        }
+        return $cats;
+    }
+    
+    
+    
 
 	/*=======================Static functions========================*/
     public static function loadById($id, $db_table) {
@@ -105,41 +141,6 @@ class Thread extends DbObject {
 		return $topics;
 	}
 	
-    
-    /*=====================Private helper functions=================*/
-   
-    
-    private function getLocations($id) {
-    	$query = sprintf("SELECT * FROM 'locations' WHERE topic_id = %s;",
-        	$id);
-        	
-        $result = $db->lookup($query);
-    	if(!mysql_num_rows($result))
-            return null;
-            
-        $locs = array();
-        while($row = mysql_fetch_assoc($result)) {
-        	array_push($locs, $row);
-        }
-        return $locs;
-    }
-	
-	private function getCategories($id) {
-    	$query = sprintf("SELECT * FROM 'categories' WHERE topic_id = %s;",
-        	$this->id);
-        	
-        $result = $db->lookup($query);
-    	if(!mysql_num_rows($result))
-            return null;
-            
-        $cats = array();
-        while($row = mysql_fetch_assoc($result)) {
-        	array_push($cats, $row);
-        }
-        return $cats;
-    }
-    
-    
     
     
     
