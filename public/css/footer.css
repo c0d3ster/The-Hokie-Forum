@@ -1,0 +1,62 @@
+/*
+Author: Cody Douglass
+MyFit Project 2 Stylesheet for footer
+*/
+
+/*footer styles*/
+
+#footer
+{
+	width: 90%;
+	padding: 2.5% 0% 2.5% 0%;
+	margin: auto;
+	opacity: .75;
+	}
+
+#footer h2 {
+	display: inline;
+	clear: both;
+	float: left;
+	padding: 0%;
+	margin: -5px 4% 0px 0px;
+}
+
+#footer p
+{
+	display: inline;
+	float:left;
+	margin: 0px;
+}
+
+#footer .title-info {
+	display: inline;
+	width: 50%;
+}
+
+#footer .contact-info {
+	display: inline;
+	float: right;
+	width: 50%;
+}
+/*///////////////////////*/
+
+/*///Responsive Design///*/
+
+/*mobile*/
+@media all and (max-width: 575px) {
+
+	#footer .title-info p
+	{
+		display: inline;
+		float: left;
+		width: 30%;
+	}
+
+	#footer .contact-info p
+	{
+		display: inline;
+		float: left;
+		width: 50%;
+	}
+}
+/*/////////////////////*/

@@ -1,0 +1,110 @@
+/*
+Author: Cody Douglass
+MyFit Project 2 Stylesheet for fonts
+*/
+
+/*main fonts*/
+
+@font-face {
+	font-family: 'Athletic';
+	src: url('Athletic.ttf') format('truetype');
+}
+
+@font-face {
+	font-family: 'Athletic Body';
+	src: url('builttitlingbd.ttf') format('truetype');
+}
+
+
+#header *, #footer h2 {
+		font-family: Athletic;
+}
+
+#wrapper *, #footer p, #primary-nav a, #verify-login, #hype, #username, #password{
+	font-family: Athletic Body;
+	letter-spacing: 1px;
+	font-variant: small-caps;
+}
+
+h1 {
+	font-size: 36px;
+	letter-spacing: 3px;
+}
+
+#verify-login, #hype, #username, #password, option, select, .product-name-mini{
+	font-size: 24px;
+}
+
+#login, #verify-signup, #primary-nav a, .product-price, .product-name, #intro, #user, #pass, #first, #last, #mail{
+	font-size: 20px;
+}
+
+#checkout, #login-menu p{
+	font-size: 16px;
+}
+
+.workout-details ul li{
+	font-size: 14px;
+}
+
+a {
+	color: black;
+}
+
+/*////////////////*/
+
+/*///Responsive Design///*/
+
+/*mobile*/
+@media all and (max-width: 575px) {
+
+	#main-product-details h1, #primary-nav a {
+		font-size: 16px !important;
+	}
+
+	#wrapper a, h2, option, select{
+		font-size: 14px !important;
+	} 
+
+	a, h3, span,{
+		font-size: 12px !important;
+	}
+
+	button, input, p, #checkout, a #customize-products{
+		font-size: 10px !important;
+	}
+
+	#login-menu p  {
+		font-size: 9px !important;
+	}
+
+	#logout {
+		font-size: 8px !important;
+	}
+}
+
+/*///////////////////////*/
+
+/*tablets*/
+@media all and (min-width: 576px) and (max-width: 825px)  {
+	
+	h2, #login, option, select{
+		font-size: 18px;
+	}
+	
+	a, #footer h2, h3, #primary-nav a, input, #intro {
+		font-size: 13px !important;
+	}
+
+	span, p, #signup, #checkout {
+		font-size: 12px !important;
+	}
+
+	#login-menu p, #logout{
+		font-size: 10px !important;
+	}
+}
+
+/*///////////////////////*/
+
+

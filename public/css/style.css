@@ -1,0 +1,178 @@
+/*
+Author: Cody Douglass
+MyFit Project 2 Stylesheet for explore page main content
+*/
+
+/*body*/
+
+.not-active {
+	pointer-events: none;
+	opacity:.5 !important;
+}
+
+body {
+	/*background-image: url("http://www.pointsincase.com/files/images/gym-small-weights.jpg");*/
+	margin: 0;
+	background: linear-gradient(rgba(236,130,5,1), rgba(236,130,5,.75), orange);
+	background-color: rgba(0,0,0,.4);
+	background-attachment: fixed;
+	opacity: .90;
+	overflow: overlay;
+	height: 100%;
+}
+
+#wrapper {
+	width: 90%;
+	margin: auto;
+	padding: 2%;
+	background-color: rgba(0,0,0,.4);
+	border: 5px ridge grey;
+	align-items: center;
+	overflow: auto;
+}
+
+#intro {
+	margin: 1%;
+}
+
+#intro h1 {
+	display: inline;
+	padding: 1%;
+	margin: 2%;
+	background: radial-gradient(azure, rgba(0,0,0,.75));
+	border: 3px ridge grey;
+	text-align: center;
+	width: 30%;
+}
+
+#intro p {
+	float: right;
+	width: 60%;
+}
+
+#wrapper h2 {
+	clear: both;
+	float: left;
+	margin: 0;
+	padding: 2%;
+	width: 26%;
+}
+
+.favorite-item {
+	float: right;
+	padding-left: 10px;
+	width: 10%;
+	height: 10%;
+	transition: width 2s;
+}
+
+.favorite-item:hover {
+	width: 12.5%;
+	height: 12.5%;
+}
+
+.category-description {
+	float: left;
+	width: 50%;
+}
+
+/*topic posts*/
+
+.topic {
+	clear: both;
+	padding: 2%;
+	display: block;
+	background: radial-gradient(azure, rgba(0,0,0,.75));
+	border: 3px ridge grey;
+	opacity: .85;
+	overflow: overlay; /*overlay isnt supported by mozilla, but not sure if overflow-y supports all browsers so I kept both*/
+	overflow-y: hidden;
+}
+
+.topic-title {
+	width: 45%;
+	display: inline;
+	float: right;
+}
+
+.topic-text {
+	clear: both;
+	margin: 0px 10% 0px 2.5%;
+	padding-top: 5%;
+}
+
+/*///////////////////////*/
+
+/*reply posts*/
+
+.reply {
+	clear: both;
+	padding: 2%;
+	display: block;
+	background: radial-gradient(azure, rgba(0,0,0,.75));
+	border-style: ridge;
+	border-width: 3px;
+	border-color: grey;
+	opacity: .85;
+	overflow: overlay;
+	overflow-y: hidden;
+}
+
+.reply-text {
+	font-size: 20px;
+	width: 50%;
+	float:left;
+	margin: 10px 0px 20px 0px;
+}
+
+
+.prev-page {
+	display: inline;
+	width: 15%;
+}
+
+.page-number {
+	display: inline-block;
+	width: 70%;
+	margin: auto;
+	text-align: center;
+}
+
+.next-page {
+	float: right;
+	width: 15%;
+
+}
+
+/*///////////////////////*/
+
+
+/*///Responsive Design///*/
+
+/*mobile*/
+@media all and (max-width: 575px) {
+
+	.topic-text {
+		clear: both;
+		display: block;
+		width: 100%;
+		margin: auto;
+		padding: 10px 0px 10px 0px;
+	}
+
+	.reply-text {
+		clear: both;
+		display: block;
+		width: 100%;
+		margin: auto;
+		padding: 10px 0px 10px 0px;
+	}
+}
+
+/*///////////////////////*/
+
+/*tablets*/
+@media all and (min-width: 576px) and (max-width: 825px)  {
+
+
+}

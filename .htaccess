@@ -1,0 +1,62 @@
+Options -Indexes
+
+RewriteEngine on
+
+# ErrorDocument 404 /app/controller/error.php
+
+
+# Site Controller
+
+## Menu Items
+
+RewriteRule ^$ app/controller/siteController.php?action=explore [QSA,L]
+
+RewriteRule ^recentTopics/?$ app/controller/siteController.php?action=recentTopics [QSA,L]
+
+#RewriteRule ^hotTopics/?$ app/controller/siteController.php?action=hotTopics [QSA,L]
+
+RewriteRule ^myActivity/?$ app/controller/siteController.php?action=myActivity [QSA,L]
+
+## Account Management
+
+RewriteRule ^check/?$ app/controller/siteController.php?action=checkUser [QSA,L]
+
+RewriteRule ^signup/process/?$ app/controller/siteController.php?action=processSignup [QSA,L]
+
+RewriteRule ^login/process/?$ app/controller/siteController.php?action=processLogin [QSA,L]
+
+RewriteRule ^logout/?$ app/controller/siteController.php?action=logout [QSA,L]
+
+
+# Post Controller
+
+## Topics
+
+RewriteRule ^addTopic/?$ app/controller/postController.php?action=addTopic [QSA,L]
+
+RewriteRule ^addTopic/process/?$ app/controller/postController.php?action=processAdd [QSA,L]
+
+RewriteRule ^view/(\d+)/?$ app/controller/postController.php?action=viewTopic&tid=$1 [QSA,L]
+
+RewriteRule ^editTopic/(\d+)/?$ app/controller/postController.php?action=editTopic&tid=$1 [QSA,L]
+
+RewriteRule ^editTopic/process/(\d+)/?$ app/controller/postController.php?action=processEdit&tid=$1 [QSA,L]
+
+RewriteRule ^deleteTopic/(\d+)/?$ app/controller/postController.php?action=deleteTopic&tid=$1 [QSA,L]
+
+RewriteRule ^deleteTopic/process/(\d+)/?$ app/controller/postController.php?action=processDelete&tid=$1 [QSA,L]
+
+## Replies
+
+# May need to include the topic id in this form to link to the foreign key
+RewriteRule ^addReply/process/?$ app/controller/postController.php?action=processAddReply [QSA,L]
+
+RewriteRule ^editReply/(\d+)/?$ app/controller/postController.php?action=editReply&rid=$1 [QSA,L]
+
+RewriteRule ^editReply/process/(\d+)/?$ app/controller/postController.php?action=processEditReply&rid=$1 [QSA,L]
+
+RewriteRule ^deleteReply/(\d+)/?$ app/controller/postController.php?action=deleteReply&rid=$1 [QSA,L]
+
+RewriteRule ^deleteReply/process/(\d+)/?$ app/controller/postController.php?action=processDeleteReply&rid=$1 [QSA,L]
+
+

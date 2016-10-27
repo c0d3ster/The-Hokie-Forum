@@ -1,0 +1,212 @@
+/*
+Author: Cody Douglass
+MyFit Project 2 Stylesheet for header and login page
+*/
+/*popups*/
+
+.background-fade{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: .75;
+	background-color: azure;
+	display: none;
+	z-index: 1;
+}
+
+.popup, .popsignup{
+	position: fixed;
+	height: 40vh;
+	width: 40vw;
+	top: 30vh;
+	left: 30vw;
+	padding: 5%;
+	text-align: center;
+	opacity: .9;
+	background: linear-gradient(rgba(236,130,5,1), orange);
+	border: 5px ridge grey;
+	background-color: rgba(0,0,0,.4);
+	display: none;
+	overflow: hidden;
+	z-index: 1;
+}
+
+#verify-login, #hype, #username, #password, #user, #pass, #mail{
+	display: block;
+	margin-left: auto;
+	margin-right: auto ;
+	float: none !important;
+	padding: 8px 10%; /*top right bottom left*/
+	margin-top: 0px;
+	margin-bottom: 3vh;
+}
+
+#verify-signup {
+	margin-top: 10px;
+}
+
+/*////////////////*/
+
+/*header styles*/
+
+
+h1 {
+	float: left;
+	width: 20%;
+	margin-left: 2.5%;
+}
+
+button, input, textarea, select {
+	opacity: .75;
+	background: radial-gradient(rgba(0,0,0,.75), rgba(0,0,0,.25));
+	border: none;
+}
+
+#search {
+	float: left;
+	width: 30%;
+	margin-top: 30px;
+	align-content: center;
+	opacity: .75;
+}
+
+#search input {
+	padding: 5px 10px;
+	margin: 10px 0px;
+}
+
+#login-menu {
+	float: right;
+	padding: 0px 2%;
+	margin: 4px 4px;
+	border: 3px ridge grey;
+	opacity: .75;
+
+}
+
+#login{
+	padding: 4px 20px ; /*top right bottom left*/
+	margin: 4px auto;
+}
+
+#signup {
+	display: block;
+	align-items: stretch;
+	padding: 2px 10px;
+	margin: 2px auto;
+}
+
+#login-menu p {
+	display: block;
+	float: right;
+	margin: 5px;
+}
+
+#login-menu img {
+	display: inline;
+	float: right;
+}
+
+#login-menu a {
+	display: inline;
+	float: right;
+	margin-right: 5px;
+}
+
+.exit {
+	float: right;
+	margin: -10% -10% 0% 0%;
+}
+
+#checkout {
+	display: inline;
+	float: right;
+	padding: 4px 10px;
+	margin: 4px 4px;
+}
+
+#logout {
+	clear: both;
+	display: inline;
+	float: right;
+	padding: 4px 5px;
+	margin: 4px 4px;
+}
+
+#primary-nav {
+	clear: both;
+	text-align: center;
+	margin: 0px;
+	padding: 5px 2.5%;
+	background-color: transparent;
+}
+
+#primary-nav li {
+	display:inline;
+	padding: 1% 5%;
+}
+
+#primary-nav li:hover {
+	background: linear-gradient(transparent, rgba(100,100,100,.75));
+}
+
+#this-tab {
+	background: linear-gradient(transparent ,rgba(0,0,0,.5));
+}
+
+/*//////////////////////////////*/
+
+/*///Responsive Design///*/
+
+/*mobile*/
+@media all and (max-width: 575px) {
+
+	#search {
+		clear: both;
+		display: block;
+		margin: auto;
+		width: 100%;
+		padding: 2.5%;
+	}
+
+	#primary-nav {
+		width: 95%;
+		margin: auto;
+		padding: 0px;
+	}
+
+	#primary-nav li {
+		display: block;
+		padding: 3px;
+		background-color: rgba(100, 200, 255, .65);
+	}
+
+	#login-menu {
+		right: 0px;
+		position: absolute;
+	}
+
+		#cart {
+		height: 15px;
+		width: 15px;
+	}
+}
+
+/*tablets*/
+@media all and (min-width: 576px) and (max-width: 825px)  {
+	
+	#primary-nav li {
+			padding: 5px;
+	}
+
+	#cart {
+		height: 20px;
+		width: 20px;
+	}
+}
+
+/*///////////////////////*/
+
+/*//////////////////////////////*/
