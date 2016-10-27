@@ -27,7 +27,8 @@ class PostController {
 			/////cases for topic control/////
 
 			case 'threadView':
-				$topicID = $_GET['tid'];	
+				$topicID = $_GET['tid'];
+				echo $topicID;	
 				$this->threadView($topicID);
 				break;			
 
@@ -131,6 +132,7 @@ class PostController {
 	public function threadView($topicID) {
 		//to be continued...
 		$thread = Thread::getThreadByTopic($topicID);
+		echo $thread;
 		
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/threadview.tpl';

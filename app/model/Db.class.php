@@ -29,7 +29,7 @@ class Db {
 			return null;
 		}
 
-		$query = sprintf("SELECT * FROM `%s` WHERE id = %s;",
+		$query = sprintf("SELECT * FROM %s WHERE id = %s;",
 				$db_table,
 				$id
 			     );
