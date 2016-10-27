@@ -28,7 +28,7 @@ RewriteRule ^login/process/?$ app/controller/siteController.php?action=processLo
 RewriteRule ^logout/?$ app/controller/siteController.php?action=logout [QSA,L]
 
 
-<<<<<<< HEAD
+
 # Post Controller
 
 ## Topics
@@ -46,7 +46,6 @@ RewriteRule ^editTopic/process/(\d+)/?$ app/controller/postController.php?action
 RewriteRule ^deleteTopic/(\d+)/?$ app/controller/postController.php?action=deleteTopic&tid=$1 [QSA,L]
 
 RewriteRule ^deleteTopic/process/(\d+)/?$ app/controller/postController.php?action=processDelete&tid=$1 [QSA,L]
-
 
 ## Replies
 
