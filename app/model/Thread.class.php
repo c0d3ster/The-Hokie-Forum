@@ -31,7 +31,7 @@
  
  */
 
-class Thread {
+class Thread extends DbObject {
     // name of database table
 
     // database fields
@@ -56,6 +56,10 @@ class Thread {
         $this->locations = $args['locations'];
         $this->categories = $args['categories'];
     }
+    
+    public function deleteThread() {
+    	/*TO DO*/
+    }
 
 	/*=======================Static functions========================*/
     public static function loadById($id, $db_table) {
@@ -79,17 +83,28 @@ class Thread {
 		
 		return $thread;
     }
-
+	
+	/* Actually returns an array of Topic objects... better name?*/
 	public static function getThreadsByUsername($uname) {
 		
-		$threads = array();
 		$user = User::loadByUsername($uname);
 		if (!$user)
 			return null;
 		
 		$user_id = $user->get('id');
+		$topics = Topic::getTopicsByUsername($uname);
+		$replies = Reply::getRepliesByUsername($uname);
 		
+		foreach($replies as $rep) {
+			//is it already the user's topic?
+			$top = Topic::loadById($rep->get('topic_id'), 'topics');
+			if (!in_array($top, $topics)) {
+				array_push($topics, $top);
+			}
+		}
+		return $topics;
 	}
+	
     
     /*=====================Private helper functions=================*/
    

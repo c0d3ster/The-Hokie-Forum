@@ -94,6 +94,26 @@ class Reply extends DbObject {
             return ($objects);
         }
     }
+
+	public static function getRepiesByUsername($uname) {
+		
+		$query = sprintf("SELECT id FROM %s WHERE username = '%s' ORDER BY date_created",
+            self::REP_TABLE,
+            $uname
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+            	$obj = $this->loadById($row);
+            	array_push($objects, $obj);
+            }
+            return ($objects);
+        }
+	}
         
     
 }
