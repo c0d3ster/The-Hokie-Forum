@@ -81,6 +81,9 @@ class Reply extends DbObject {
             self::REP_TABLE,
             $t_id
             );
+            
+        echo $query; 
+        
         $db = Db::instance();
         $result = $db->lookup($query);
         if(!mysql_num_rows($result))
