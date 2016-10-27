@@ -2,7 +2,7 @@
 
 class Db {
 
-    private static $_instance = null;
+	private static $_instance = null;
     private $conn;
 
 	private function __construct() {
@@ -12,7 +12,7 @@ class Db {
 		$password = DB_PASS;
 
 		$conn = mysql_connect($host, $username, $password)
-			or die ('Error: Could not connect to MySql database oh nooooo');
+			or die ('Error: Could not connect to MySql database');
 
 		mysql_select_db($database);
 	}
@@ -24,7 +24,7 @@ class Db {
 		return self::$_instance;
 	}
 
-  public function fetchById($id, $class_name, $db_table) {
+	public function fetchById($id,, $class_name $db_table) {
 		if ($id === null) {
 			return null;
 		}
@@ -33,7 +33,7 @@ class Db {
 				$db_table,
 				$id
 			     );
-		//echo $query;
+			     
 		$result = $this->lookup($query);
 
 		if(!mysql_num_rows($result)) {
@@ -45,26 +45,37 @@ class Db {
 		}
 	}
 
-	public function store(&$obj, $class_name, $db_table, $data)
+	public function store(&$obj, $db_table, $data)
 	{
-		// find out if this item already exists so we know to use INSERT or UPDATE
+		//does item already exist?
 		if($obj->getId() === null) {
-			// ID would only be null for a new item, so let's use INSERT
 			$query = $this->buildInsertQuery($db_table, $data);
-			//echo $query;
-			$this->execute($query); // execute the query we've built
-			$obj->setId($this->getLastInsertID()); //get back the ID for the new item
+			$error = $this->execute($query);
+			if($error) {
+				return $error;			
+			}
+			$obj->setId($this->getLastInsertID());
 		} else {
-			// item ID exists, so let's use UPDATE
-			// only hit the database if the instance has been modified
 			if($obj->getModified()) {
 				$query = $this->buildUpdateQuery($db_table, $data, $obj->getId());
-				//echo $query;
-				$this->execute($query); // execute the query we've built
+				$error = $this->execute($query);
+				if($error) {
+					return $error;			
+				}
 			}
 		}
-		//echo $query; // print the query
 		$obj->setModified(false); // reset the flag
+		return null;
+	}
+	
+	public function delete($obj, $db_table) {
+		
+		$query = sprintf("DELETE FROM %s WHERE id = %s;", $db_table, $obj->get('id'));
+		$error = $this->execute($query); 
+		if ($error) {
+			return $error;
+		}
+		return null;
 	}
 
 	// Formats a string for use in SQL queries.
@@ -89,8 +100,10 @@ class Db {
 	//Execute operations like UPDATE or INSERT
 	public function execute($query) {		
 		$ex = mysql_query($query);
-		if(!$ex)
-			die ('Query failed:' . mysql_error());
+		if(!$ex) {
+			return mysql_error();}
+		return null;
+		
 	}
 
 	//Build an INSERT query.  Mostly here to make things neater elsewhere.
@@ -132,7 +145,7 @@ class Db {
 		foreach ($data as $field => $value) {
 			if($value === null) {
 				$query .= $field . "` = NULL, `";
-        } else {
+      } else {
 				$query .= $field . "` = " . $this->quoteString($value) . ", `";
 				$all_null = false;
 			}

@@ -2,14 +2,12 @@
 
 class User extends DbObject {
     // name of database table
-    const DB_TABLE = 'user';
+    const DB_TABLE = 'users';
 
     // database fields
     protected $id;
     protected $username;
-    protected $pw;
-    protected $first_name;
-    protected $last_name;
+    protected $password;
     protected $email;
 
     // constructor
@@ -17,20 +15,16 @@ class User extends DbObject {
         $defaultArgs = array(
             'id' => null,
             'username' => '',
-            'pw' => '',
+            'password' => '',
             'email' => null,
-            'first_name' => null,
-            'last_name' => null
             );
 
         $args += $defaultArgs;
 
         $this->id = $args['id'];
         $this->username = $args['username'];
-        $this->pw = $args['pw'];
+        $this->password = $args['password'];
         $this->email = $args['email'];
-        $this->first_name = $args['first_name'];
-        $this->last_name = $args['last_name'];
     }
 
     // save changes to object
@@ -39,10 +33,8 @@ class User extends DbObject {
         // omit id and any timestamps
         $db_properties = array(
             'username' => $this->username,
-            'pw' => $this->pw,
+            'password' => $this->password,
             'email' => $this->email,
-            'first_name' => $this->first_name,
-            'last_name' => $this->last_name
             );
         $db->store($this, __CLASS__, self::DB_TABLE, $db_properties);
     }
@@ -50,7 +42,7 @@ class User extends DbObject {
     // load object by ID
     public static function loadById($id) {
         $db = Db::instance();
-        $obj = $db->fetchById($id, __CLASS__, self::DB_TABLE);
+        $obj = $db->fetchById($id, self::DB_TABLE);
         return $obj;
     }
 
@@ -74,24 +66,4 @@ class User extends DbObject {
         }
     }
 
-    //validate user information
-    public static function loadByUsernameAndPassword($username=null, $password=null) {
-        if($username === null || $password === null) {
-            return null;
-        }
-        $query = sprintf(" SELECT id FROM %s WHERE username = '%s' AND pw = '%s' ",
-            self::DB_TABLE,
-            $username,
-            $password
-            );
-        $db = Db::instance();
-        $result = $db->lookup($query);
-        if(!mysql_num_rows($result))
-            return null;
-        else {
-            $row = mysql_fetch_assoc($result);
-            $obj = self::loadById($row['id']);
-            return ($obj);
-        }
-    }
 }
