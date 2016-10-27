@@ -6,7 +6,8 @@
 	<?php foreach($thread->replies as $reply) { ?>
 		<div class='reply'>
 			<p><?=$reply->get('post') ?></p>
-			<h5><?php $user = User::loadById($reply->get('user_id'));
+			<h5><?php 
+				$user = User::loadById($reply->get('user_id'));
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
