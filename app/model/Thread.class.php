@@ -83,10 +83,10 @@ class Thread extends DbObject {
 		
 		return $thread;
     }
-
+	
+	/* Actually returns an array of Topic objects... better name?*/
 	public static function getThreadsByUsername($uname) {
 		
-		$threads = array();
 		$user = User::loadByUsername($uname);
 		if (!$user)
 			return null;
@@ -95,25 +95,16 @@ class Thread extends DbObject {
 		$topics = Topic::getTopicsByUsername($uname);
 		$replies = Reply::getRepliesByUsername($uname);
 		
-		$t_ids = array();
-		foreach($topics as $top) {
-			array_push($t_ids, $top->get('id'));
-			$th = getThreadByTopic($top->get('id'));
-			array_push($threads, $th);
-		}
 		foreach($replies as $rep) {
 			//is it already the user's topic?
-			if (!in_array($rep->get('id'), $t_ids)) {
-				array_push($t_ids, $rep->('topic_id'));
-				$th = getThreadByTopic($rep->('topic_id'));
-				array_push($threads, $th);
+			$top = Topic::loadById($rep->get('topic_id'), 'topics');
+			if (!in_array($top, $topics)) {
+				array_push($topics, $top);
 			}
 		}
-		return $threads;
+		return $topics;
 	}
 	
-    
-    
     
     /*=====================Private helper functions=================*/
    
