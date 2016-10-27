@@ -31,7 +31,7 @@
  
  */
 
-class Thread {
+class Thread extends DbObject {
     // name of database table
 
     // database fields
@@ -55,6 +55,10 @@ class Thread {
         $this->replies = $args['replies'];
         $this->locations = $args['locations'];
         $this->categories = $args['categories'];
+    }
+    
+    public function deleteThread() {
+    	/*TO DO*/
     }
 
 	/*=======================Static functions========================*/
@@ -88,8 +92,28 @@ class Thread {
 			return null;
 		
 		$user_id = $user->get('id');
+		$topics = Topic::getTopicsByUsername($uname);
+		$replies = Reply::getRepliesByUsername($uname);
 		
+		$t_ids = array();
+		foreach($topics as $top) {
+			array_push($t_ids, $top->get('id'));
+			$th = getThreadByTopic($top->get('id'));
+			array_push($threads, $th);
+		}
+		foreach($replies as $rep) {
+			//is it already the user's topic?
+			if (!in_array($rep->get('id'), $t_ids)) {
+				array_push($t_ids, $rep->('topic_id'));
+				$th = getThreadByTopic($rep->('topic_id'));
+				array_push($threads, $th);
+			}
+		}
+		return $threads;
 	}
+	
+    
+    
     
     /*=====================Private helper functions=================*/
    
