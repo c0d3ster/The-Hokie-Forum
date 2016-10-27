@@ -1,7 +1,7 @@
 <?php
 
 /*	
-	DIAGRAM OF THREAD STRUCTURE/DEFINITIONS
+	DIAGRAM OF THREAD STRUCTURE/DEFINITIONS (tab width 4)
 
  	+-----------------------This is a 'THREAD'----------------------+	
  	|																|
@@ -35,10 +35,10 @@ class Thread {
     // name of database table
 
     // database fields
-	protected $topic;
-	protected $replies;
-	protected $locations;
-	protected $categories;
+	protected $topic;		/* One Topic object */
+	protected $replies;		/* Array of Reply objects */
+	protected $locations;	/* Array of location rows */
+	protected $categories;	/* Array of category rows */
 
     // constructor
     public function __construct($args = array()) {
@@ -67,25 +67,6 @@ class Thread {
 	/*+===============================================+
 	  |	loadByLocation() when maps API is figured out |
 	  +===============================================+*/
-	  
-
-    public static function getAllTopics($limit=null) {
-        
-		$query = sprintf("SELECT * FROM %s ORDER BY date_created",
-            self::TOP_TABLE
-            );
-        $db = Db::instance();
-        $result = $db->lookup($query);
-        if(!mysql_num_rows($result))
-            return null;
-        else {
-            $objects = array();
-            while($row = mysql_fetch_assoc($result)) {
-               array_push($objects, $row);
-            }
-            return ($objects);
-        }
-    }
     
     public static function getThreadByTopic($t_id) {
     	
@@ -93,29 +74,29 @@ class Thread {
     	
     	$thread->topic = Topic::loadById($t_id);
     	$thread->replies = Reply::getAllReplies($t_id);
-    	        
-        $thread = array(
-        	'id' = $result['id'];
-        	'title' = $result['title'];
-	        'post' = $result['post'];
-   	     	'date_created' = $result['date_created'];
-   	    	'user_id' = $result['user_id'];
-		    'replies' = $this->getReplies();
-   	     	'locations' = $this->getLocations();
-			'categories' = $this->getCategories();
-		);
+    	$thread->locations = getLocations($t_id);        
+        $thread->categories = getCategories($t_id);
 		
 		return $thread;
-        
     }
+
+	public static function getThreadsByUsername($uname) {
+		
+		$threads = array();
+		$user = User::loadByUsername($uname);
+		if (!$user)
+			return null;
+		
+		$user_id = $user->get('id');
+		
+	}
     
     /*=====================Private helper functions=================*/
    
     
-    private function getLocations() {
-    	$query = sprintf("SELECT * FROM %s WHERE topic_id = %s;",
-        	self::LOC_TABLE,
-        	$this->topic->get('id'));
+    private function getLocations($id) {
+    	$query = sprintf("SELECT * FROM 'locations' WHERE topic_id = %s;",
+        	$id);
         	
         $result = $db->lookup($query);
     	if(!mysql_num_rows($result))
@@ -128,9 +109,8 @@ class Thread {
         return $locs;
     }
 	
-	private function getCategories() {
-    	$query = sprintf("SELECT * FROM %s WHERE topic_id = %s;",
-        	self::CAT_TABLE,
+	private function getCategories($id) {
+    	$query = sprintf("SELECT * FROM 'categories' WHERE topic_id = %s;",
         	$this->id);
         	
         $result = $db->lookup($query);
