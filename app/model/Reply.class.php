@@ -77,13 +77,11 @@ class Reply extends DbObject {
 
     public static function getAllReplies($t_id) {
         
-		$query = sprintf("SELECT id FROM %s WHERE topic_id = %s ORDER BY date_created",
+		$query = sprintf("SELECT id FROM '%s' WHERE topic_id = %s ORDER BY date_created",
             self::REP_TABLE,
             $t_id
             );
             
-        echo $query; 
-        
         $db = Db::instance();
         $result = $db->lookup($query);
         if(!mysql_num_rows($result))
