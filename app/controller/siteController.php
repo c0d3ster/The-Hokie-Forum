@@ -14,7 +14,6 @@ class SiteController {
 	// route us to the appropriate class method for this action
 	public function route($action) {
 		switch($action) {
-
 			case 'explore':
 				$this->explore();
 				break;			
@@ -50,7 +49,7 @@ class SiteController {
 				$mail = $_POST['m'];
 				$this->processSignup($user, $pass, $mail);
 				break;
-			
+
 			case 'logout':
 				if(isset($_SESSION['user'])) {
 					session_unset();
@@ -66,7 +65,6 @@ class SiteController {
         exit();
 		}
 	}
-  
   public function explore() {
 		$pageName = 'Explore';
 		include_once SYSTEM_PATH.'/view/header.tpl';
@@ -102,7 +100,6 @@ class SiteController {
 		include_once SYSTEM_PATH.'/view/myactivity.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
   }
-
 
   //returns true if username is available false if it is taken
 	public function checkUsername($username) {

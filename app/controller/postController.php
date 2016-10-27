@@ -15,7 +15,6 @@ class PostController {
 	public function route($action) {
 
 		switch($action) {
-
 			/////cases for topic control/////
 
 			case 'viewTopic':
@@ -118,7 +117,6 @@ class PostController {
         exit();
 		}
 	}
-
 
   public function recentTopics() {
 		$topics = Topic::getAllTopics();
