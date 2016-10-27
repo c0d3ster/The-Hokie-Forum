@@ -6,10 +6,31 @@ function isSelected($pn, $link) {
 	}
 }
 
+//returns user object if a user is logged in, NULL otherwise
+function checkUser() {
+	if(!isset($_SESSION)) { 
+		session_start(); 
+	}
+	return User::loadByUsername($_SESSION['user']);
+}
+
+	//returns true if user is an admin, false otherwise
+function checkAdmin($user) {
+	if ($user->get('admin') == 1) {
+		return true;
+	}
+	else {
+		return false;
+	}
+ }
+
 if(session_status() == PHP_SESSION_DISABLED || session_status() == PHP_SESSION_NONE) {
 	session_start();
 }
 
+
+$currUser = checkUser();
+$admin = checkAdmin($currUser);
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -28,12 +49,6 @@ if(session_status() == PHP_SESSION_DISABLED || session_status() == PHP_SESSION_N
 		var baseURL = '<?= BASE_URL ?>';
 	</script>
 
-<?php if(isset($_SESSION['user']) and $_SESSION['user'] == 'Admin'): ?>
-	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/AdminFonts.css">
-	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/Admin.css">
-	<script src="<?= SCRIPTS ?>/Admin.js" type="text/javascript"> </script>
-<?php endif; ?>
-
 	<title> <?= $pageName ?> </title>
 </head>
 
@@ -47,7 +62,7 @@ if(session_status() == PHP_SESSION_DISABLED || session_status() == PHP_SESSION_N
 		</div>
 
 <?php
-if(isset($_SESSION['user']) and User::loadByUsername($_SESSION['user'])->get('admin')) { ?>
+if($admin) { ?>
 		<div id="login-menu">
 			<p> hi <?= $_SESSION['user'] ?>, you DA man... </p>
 		  <button id="logout"> Log Out </button>  
@@ -59,7 +74,7 @@ if(isset($_SESSION['user']) and User::loadByUsername($_SESSION['user'])->get('ad
 	  	<li <?= isSelected($pageName, 'Profile') ?>> <a href="<?= BASE_URL ?>/profile/" class="not-active"> Profile/Preferences </a>  </li>
 		</ul>
 
-<?php } else if(isset($_SESSION['user'])) { ?>
+<?php } else if($currUser) { ?>
 		<div id="login-menu">
 			<p> Check out the latest in the Burg <?= $_SESSION['user'] ?>... </p>	  
 		  <button id="logout"> Log Out :( </button>  

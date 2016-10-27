@@ -16,6 +16,20 @@ class SiteController {
 		switch($action) {
 			case 'explore':
 				$this->explore();
+				break;			
+
+			case 'recentTopics':
+				$this->recentTopics();
+				break;
+
+			case 'hotTopics':
+				$this->hotTopics();
+				break;
+
+			case 'myActivity':
+				if($currUser) {
+					$this->myActivity($currUser);
+				}
 				break;
 
 			case 'processLogin':
@@ -32,10 +46,8 @@ class SiteController {
 			case 'processSignup':
 				$user = $_POST['u'];
 				$pass = $_POST['p'];
-				$first = $_POST['f'];
-				$last = $_POST['l'];
 				$mail = $_POST['m'];
-				$this->processSignup($user, $pass, $first, $last, $mail);
+				$this->processSignup($user, $pass, $mail);
 				break;
 
 			case 'logout':
@@ -53,6 +65,41 @@ class SiteController {
         exit();
 		}
 	}
+  public function explore() {
+		$pageName = 'Explore';
+		include_once SYSTEM_PATH.'/view/header.tpl';
+ 		if(!isset($_SESSION['user'])) {
+			include_once SYSTEM_PATH.'/view/intro.tpl';
+		}
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+  }
+
+    public function recentTopics() {
+		$topics = Topic::getAllTopics();
+
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/recenttopics.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+  }
+
+    public function hotTopics() {
+		$topics = Topic::getAllTopics();
+
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/recenttopics.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+  }
+
+  public function myActivity() {
+		$pageName = 'My Activity';
+
+		//this should return an array of topics (or threads?) which you have partipated in
+		$activities = Thread::getThreadsByUser($currUser);
+
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/myactivity.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+  }
 
   //returns true if username is available false if it is taken
 	public function checkUsername($username) {
@@ -65,15 +112,6 @@ class SiteController {
 			return false;
 		}
 	}
-
-  public function explore() {
-		$pageName = 'Explore';
-		include_once SYSTEM_PATH.'/view/header.tpl';
- 		if(!isset($_SESSION['user'])) {
-			include_once SYSTEM_PATH.'/view/intro.tpl';
-		}
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-  }
 
 	public function processLogin($u, $p) {
 		$user = User::loadByUsernameAndPassword($u, $p);

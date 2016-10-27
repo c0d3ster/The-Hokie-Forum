@@ -13,34 +13,14 @@ class PostController {
 
 	// route us to the appropriate class method for this action
 	public function route($action) {
-		$currUser = checkUser();
-		$admin = checkAdmin($currUser);
 
 		switch($action) {
-
-			/////cases for topic subheadings//////
-			//addTopic is also a subheading but is under topic control cases
-			
-			case 'recentTopics':
-				$this->recentTopics();
-				break;
-
-			case 'hotTopics':
-				$this->hotTopics();
-				break;
-
-			case 'myActivity':
-				if($currUser) {
-					$this->myActivity($currUser);
-				}
-				break;
-
 			/////cases for topic control/////
 
 			case 'viewTopic':
 				$topicID = $_GET['tid'];	
 				$this->viewTopic($topicID);
-			break;			
+				break;			
 
 			case 'addTopic':
 				if($currUser) { //user needs to be logged in to post topics
@@ -137,24 +117,6 @@ class PostController {
         exit();
 		}
 	}
-
-	//returns user object if a user is logged in, NULL otherwise
-	public function checkUser() {
-		if(!isset($_SESSION)) { 
-			session_start(); 
-		}
-		return User::loadByUsername($_SESSION['user']);
-	}
-
-	//returns true if user is an admin, false otherwise
-  public function checkAdmin($user) {
-  	if ($user->get('admin') == 1) {
-  		return true;
-  	}
-  	else {
-  		return false;
-  	}
-  }
 
   public function recentTopics() {
 		$topics = Topic::getAllTopics();

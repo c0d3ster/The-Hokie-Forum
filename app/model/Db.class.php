@@ -33,7 +33,6 @@ class Db {
 				$db_table,
 				$id
 			     );
-			     
 		$result = $this->lookup($query);
 
 		if(!mysql_num_rows($result)) {
@@ -103,7 +102,6 @@ class Db {
 		if(!$ex) {
 			return mysql_error();}
 		return null;
-		
 	}
 
 	//Build an INSERT query.  Mostly here to make things neater elsewhere.

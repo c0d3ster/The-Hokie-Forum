@@ -7,6 +7,8 @@ $(function() {
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
 
+	//subheader menu control
+
   //sets current date
   var date = new Date();
   var day = date.getDate();

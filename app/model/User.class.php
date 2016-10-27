@@ -66,4 +66,25 @@ class User extends DbObject {
         }
     }
 
+
+    //validate user information
+    public static function loadByUsernameAndPassword($username=null, $password=null) {
+        if($username === null || $password === null) {
+            return null;
+        }
+        $query = sprintf(" SELECT id FROM %s WHERE username = '%s' AND pw = '%s' ",
+            self::DB_TABLE,
+            $username,
+            $password
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $row = mysql_fetch_assoc($result);
+            $obj = self::loadById($row['id']);
+            return ($obj);
+        }
+    }
 }
