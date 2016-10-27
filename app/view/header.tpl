@@ -39,8 +39,7 @@ $admin = checkAdmin($currUser);
 	<meta name="description" content="MyFit - Personalized Workouts and Equipment">
 
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/fonts.css">
-	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/style.css">	
-	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/shop.css">		
+	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/style.css">		
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/header.css">
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/footer.css">
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
