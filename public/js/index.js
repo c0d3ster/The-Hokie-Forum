@@ -66,11 +66,7 @@ function verifyCredentials(username, password) {
         data: datastr,      
         dataType: 'json',                   
         success: function(data){
-	  			if(data.status == 2) {
-	  				window.location.replace(baseURL + "/myProducts/");
-	  				return true;
-	  			}
-	  			else if(data.status == 1){
+					if(data.status == 1){
   					window.location.replace(baseURL);
   					return true;
 	  			}

@@ -5,37 +5,6 @@ function isSelected($pn, $link) {
 		return ' id="this-tab" ';
 	}
 }
-
-//returns user object if a user is logged in, NULL otherwise
-function checkUser() {
-	if(!isset($_SESSION)) { 
-		session_start(); 
-	}
-	if(isset($_SESSION['user'])) {
-		return User::loadByUsername($_SESSION['user']);
-	} return null;
-}
-
-	//returns true if user is an admin, false otherwise
-function checkAdmin($user) {
-	if ($user->get('admin') == 1) {
-		return true;
-	}
-	else {
-		return false;
-	}
- }
-
-if(session_status() == PHP_SESSION_DISABLED || session_status() == PHP_SESSION_NONE) {
-	session_start();
-}
-
-
-$currUser = checkUser();
-$admin = 0;
-if($currUser) {
-	$admin = checkAdmin($currUser);
-}
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -66,38 +35,27 @@ if($currUser) {
 		</div>
 
 <?php
-if($admin) { ?>
+if($this->currUser) { ?>
 		<div id="login-menu">
-			<p> hi <?= $_SESSION['user'] ?>, you DA man... </p>
-		  <button id="logout"> Log Out </button>  
-		</div>
-		<ul id="primary-nav">
-			<li <?= isSelected($pageName, 'Explore') ?>> <a href="<?= BASE_URL ?>/" > Explore </a>  </li>
-	  	<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/Recent Topics/"> Recent Topics </a>  </li>
-	  	<li <?= isSelected($pageName, 'My Posts') ?>> <a href="<?= BASE_URL ?>/posts/" class="not-active"> My Posts </a>  </li>
-	  	<li <?= isSelected($pageName, 'Profile') ?>> <a href="<?= BASE_URL ?>/profile/" class="not-active"> Profile/Preferences </a>  </li>
-		</ul>
-
-<?php } else if($currUser) { ?>
-		<div id="login-menu">
-			<p> Check out the latest in the Burg <?= $_SESSION['user'] ?>... </p>	  
+			<p> Check out the latest in the Burg <?= $_SESSION['user'] ?>... </p>	 
 		  <button id="logout"> Log Out :( </button>  
+		  <button id="profile"> Profile/Preferences </button>  
 		</div>
 		<ul id="primary-nav">
 	  	<li <?= isSelected($pageName, 'Explore') ?>> <a href="<?= BASE_URL ?>/" > Explore </a>  </li>
-	  	<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/Recent Topics/"> Recent Topics </a>  </li>
-	  	<li <?= isSelected($pageName, 'My Posts') ?>> <a href="<?= BASE_URL ?>/posts/" class="not-active"> My Posts </a>  </li>
-	  	<li <?= isSelected($pageName, 'Profile') ?>> <a href="<?= BASE_URL ?>/profile/" class="not-active"> Profile/Preferences </a>  </li>
+	  	<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/recentTopics/"> Recent Topics </a>  </li>
+	  	<li <?= isSelected($pageName, 'My Activity') ?>> <a href="<?= BASE_URL ?>/myActivity/"> My Activity </a>  </li>
 		</ul>
 
-<?php } else { ?>
+<?php } 
+else { ?>
 		<div id="login-menu">
 			<button id="login"> Login </button>
 			<button id="signup"> Sign Up </button>
 		</div>
 		<ul id="primary-nav">
 			<li <?= isSelected($pageName, 'Explore') ?>> <a href="<?= BASE_URL ?>/" > Explore </a>  </li>
-			<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/recent/"> Recent Topics</a>  </li>
+			<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/recentTopics/"> Recent Topics</a>  </li>
 		</ul>
 <?php } ?>
 

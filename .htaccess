@@ -19,7 +19,6 @@ RewriteRule ^myActivity/?$ app/controller/siteController.php?action=myActivity [
 
 # Account Management
 
-RewriteRule ^check/?$ app/controller/siteController.php?action=checkUser [QSA,L]
 
 RewriteRule ^signup/process/?$ app/controller/siteController.php?action=processSignup [QSA,L]
 
@@ -36,7 +35,7 @@ RewriteRule ^addTopic/?$ app/controller/postController.php?action=addTopic [QSA,
 
 RewriteRule ^addTopic/process/?$ app/controller/postController.php?action=processAdd [QSA,L]
 
-RewriteRule ^view/(\d+)/?$ app/controller/postController.php?action=viewTopic&tid=$1 [QSA,L]
+RewriteRule ^view/(\d+)/?$ app/controller/postController.php?action=threadView&tid=$1 [QSA,L]
 
 RewriteRule ^editTopic/(\d+)/?$ app/controller/postController.php?action=editTopic&tid=$1 [QSA,L]
 

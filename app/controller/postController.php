@@ -5,41 +5,50 @@ include_once '../global.php';
 // get the identifier for the page we want to load
 $action = $_GET['action'];
 
-// instantiate a ProductController and route it
+
+// instantiate a PostController and route it
 $pc = new PostController();
 $pc->route($action);
 
 class PostController {
 
+	public $currUser = 0;
+	public $admin = 0;
+
 	// route us to the appropriate class method for this action
 	public function route($action) {
+		session_start();
+		if(isset($_SESSION['user'])) {
+			$this->currUser = User::loadByUsername($_SESSION['user']);
+			$this->admin = $this->currUser->get('admin');
+		}
 
 		switch($action) {
 			/////cases for topic control/////
 
-			case 'viewTopic':
+			case 'threadView':
 				$topicID = $_GET['tid'];	
-				$this->viewTopic($topicID);
+				$this->threadView($topicID);
 				break;			
 
 			case 'addTopic':
-				if($currUser) { //user needs to be logged in to post topics
+				if($this->currUser) { //user needs to be logged in to post topics
 					$this->addTopic();
 				}
 				break;
 
 			case 'editTopic':
 				$topicID = $_GET['tid'];
-				$t = Thread::getThreadById($topicID);
-				if($currUser == $t->get('user_id')) { //always need to compare user_id's for security
+				$t = Topic::loadById($topicID);
+				if($this->currUser->get('user_id') == $t->get('user_id')) { //always need to compare user_id's for security
 					$this->editTopic($t);
 				}
 				break;
 
 			case 'deleteTopic':
 				$topicID = $_GET['tid'];
-				$t = Thread::getThreadById($topicID);
-				if($currUser == $t->get('user_id') || $admin) { //admins can delete any topic as well
+				$t = Topic::loadById($topicID);
+				if($this->currUser->get('user_id') == $t->get('user_id') || $admin) { //admins can delete any topic as well
 					$this->deleteTopic($t);
 				}
 				break;
@@ -47,58 +56,59 @@ class PostController {
 			/////cases for topic control processing//////
 
 			case 'processAdd':
-				if($currUser) {
-					$this->processAdd($currUser);
+				if($this->currUser) {
+					$this->processAdd($this->currUser);
 				}
 				break;
 
 			case 'processEdit':
 				$topicID = $_GET['tid'];
-				$t = Thread::getThreadById($topicID);
-				if($currUser == $t->get('user_id')) {
+				$t = Topic::loadById($topicID);
+				if($this->currUser->get('user_id') == $t->get('user_id')) {
 					$this->processEdit($t);
 				}
 				break;
 
 			case 'processDelete':
 				$topicID = $_GET['tid'];
-				$t = Thread::getThreadById($topicID);
-				if($currUser == $t->get('user_id') || $admin) {
+				$t = Topic::loadById($topicID);
+				if($this->currUser->get('user_id') == $t->get('user_id') || $admin) {
 					$this->processDelete($t);
 				}
 				break;
 
 
 			/////cases for reply control/////
+			//Add reply will be visible upon loading a thread//
 
 			case 'editReply':
 				$replyID = $_GET['rid'];
-				$r = Thread::getReplyById($replyID);
-				if($currUser == $r->get('user_id')) { //always need to compare user_id's for security
+				$t = Reply::loadById($topicID);
+				if($this->currUser->get('user_id') == $r->get('user_id')) { //always need to compare user_id's for security
 					$this->editReply($r);
 				}
 				break;
 
 			case 'deleteReply':
 				$replyID = $_GET['rid'];
-				$r = Thread::getReplyById($replyID);
-				if($currUser == $r->get('user_id') || $admin) { //admins can delete any reply as well
+				$t = Reply::loadById($topicID);
+				if($this->currUser->get('user_id') == $r->get('user_id') || $admin) { //admins can delete any reply as well
 					$this->deleteReply($r);
 				}
 				break;
 
-			/////cases for topic control processing/////
+			/////cases for reply control processing/////
 
 			case 'processAddReply':
-				if($currUser) {
-					$this->processAddReply($currUser);
+				if($this->currUser) {
+					$this->processAddReply($this->currUser);
 				}
 				break;
 
 			case 'processEditReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				if($currUser == $r->get('user_id')) {
+				if($this->currUser->get('user_id') == $r->get('user_id')) {
 					$this->processEditReply($r);
 				}
 				break;
@@ -106,7 +116,7 @@ class PostController {
 			case 'processDeleteReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				if($currUser == $r->get('user_id') || $admin) {
+				if($this->currUser->get('user_id') == $r->get('user_id') || $admin) {
 					$this->processDeleteReply($r);
 				}
 				break;
@@ -118,43 +128,10 @@ class PostController {
 		}
 	}
 
-  public function recentTopics() {
-		$topics = Topic::getAllTopics();
+	public function threadView($topicID) {
+		//to be continued...
 
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/recenttopics.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-  }
-
-    public function hotTopics() {
-		$topics = Topic::getAllTopics();
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/recenttopics.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-  }
-
-  public function myActivity() {
-		$pageName = 'My Activity';
-
-		//this should return an array of topics (or threads?) which you have partipated in
-		$activities = Thread::getMyActivities($currUser);
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/myactivity.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-  }
-
-	public function viewProduct($id) {
-		$p = Product::loadById($id);
-		$pageName = 'View '.$p->get('title');
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/viewproduct.tpl';
-		$category = $p->get('category');
-		//result = query for category - current item
-		include_once SYSTEM_PATH.'/view/productslider.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-  }
+	}
 
 
 	public function addProduct() {
