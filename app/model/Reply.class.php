@@ -79,7 +79,7 @@ class Reply extends DbObject {
         
 		$query = sprintf("SELECT id FROM %s WHERE topic_id = %s ORDER BY date_created",
             self::REP_TABLE,
-            $t_id
+            1
             );
             
         $db = Db::instance();
