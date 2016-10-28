@@ -39,8 +39,8 @@ class SiteController {
 				break;
 
 			case 'myActivity':
-				if($currUser) {
-					$this->myActivity($currUser);
+				if($this->currUser) {
+					$this->myActivity($this->currUser);
 				}
 				break;
 
