@@ -72,6 +72,7 @@ function verifyCredentials(username, password) {
 	  			}
 	  			else{
 	  				$('#password').val('');
+	  				alert(data.status);
 	  				$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>')
 						$('.popup > p').delay(2000).fadeOut();
 						return false;
