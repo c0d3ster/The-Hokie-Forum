@@ -81,7 +81,7 @@ class Thread extends DbObject {
         return $locs;
     }
 	
-	private function getCategories($id) {
+    private function getCategories($id) {
     	$query = sprintf("SELECT * FROM categories WHERE topic_id = %s;",
         	$id);
         $db = Db::instance();

@@ -55,7 +55,7 @@ MyFit Project 2 Stylesheet for header and login page
 h1 {
 	float: left;
 	width: 20%;
-	margin-left: 2.5%;
+	margin: 1.5% 2.5%;
 }
 
 button, input, textarea, select {
@@ -66,10 +66,10 @@ button, input, textarea, select {
 
 #search {
 	float: left;
-	width: 30%;
+	max-width: 25%;
 	margin-top: 30px;
 	align-content: center;
-	opacity: .75;
+	opacity: .90;
 }
 
 #search input {
@@ -140,7 +140,6 @@ button, input, textarea, select {
 	text-align: center;
 	margin: 0px;
 	padding: 5px 2.5%;
-	background-color: transparent;
 }
 
 #primary-nav li {
@@ -150,6 +149,7 @@ button, input, textarea, select {
 
 #primary-nav li:hover {
 	background: linear-gradient(transparent, rgba(100,100,100,.75));
+	text-shadow: 2px 4px 6px rgba(0,0,0, .75);
 }
 
 #this-tab {
@@ -167,7 +167,7 @@ button, input, textarea, select {
 		clear: both;
 		display: block;
 		margin: auto;
-		width: 100%;
+		max-width: 100%;
 		padding: 2.5%;
 	}
 
