@@ -65,7 +65,7 @@ class Thread extends DbObject {
    
     
     private function getLocations($id) {
-    	$query = sprintf("SELECT * FROM locations WHERE 'topic_id' = %s;",
+    	$query = sprintf("SELECT * FROM locations WHERE topic_id = %s;",
         	$id);
         
         $db = Db::instance();
@@ -82,7 +82,7 @@ class Thread extends DbObject {
     }
 	
 	private function getCategories($id) {
-    	$query = sprintf("SELECT * FROM categories WHERE 'topic_id' = %s;",
+    	$query = sprintf("SELECT * FROM categories WHERE topic_id = %s;",
         	$id);
         $db = Db::instance();
         $result = $db->lookup($query);
