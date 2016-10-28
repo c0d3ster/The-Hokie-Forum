@@ -83,7 +83,7 @@ class Thread extends DbObject {
 	
 	private function getCategories($id) {
     	$query = sprintf("SELECT * FROM categories WHERE 'topic_id' = %s;",
-        	$this->id);
+        	$id);
         $db = Db::instance();
         $result = $db->lookup($query);
     	if(!mysql_num_rows($result))
