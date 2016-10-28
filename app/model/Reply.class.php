@@ -77,10 +77,11 @@ class Reply extends DbObject {
 
     public static function getAllReplies($t_id) {
         
-		$query = sprintf("SELECT id FROM %s WHERE topic_id = %s ORDER BY date_created",
+		$query = sprintf("SELECT id FROM %s WHERE 'topic_id' = %s ORDER BY date_created",
             self::REP_TABLE,
             $t_id
             );
+            
         $db = Db::instance();
         $result = $db->lookup($query);
         if(!mysql_num_rows($result))
@@ -88,16 +89,16 @@ class Reply extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = $this->loadById($row);
+            	$obj = Reply::loadById($row);
             	array_push($objects, $obj);
             }
             return ($objects);
         }
     }
 
-	public static function getRepiesByUsername($uname) {
+	public static function getRepliesByUsername($uname) {
 		
-		$query = sprintf("SELECT id FROM %s WHERE username = '%s' ORDER BY date_created",
+		$query = sprintf("SELECT id FROM %s WHERE 'username' = '%s' ORDER BY date_created",
             self::REP_TABLE,
             $uname
             );
