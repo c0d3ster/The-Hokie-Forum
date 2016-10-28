@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 27, 2016 at 01:27 PM
+-- Generation Time: Oct 28, 2016 at 09:54 AM
 -- Server version: 5.5.52
 -- PHP Version: 5.6.26
 
@@ -35,10 +35,22 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `comments`
+-- Table structure for table `locations`
 --
 
-CREATE TABLE IF NOT EXISTS `comments` (
+CREATE TABLE IF NOT EXISTS `locations` (
+  `topic_id` int(11) NOT NULL,
+  `location` varchar(100) NOT NULL,
+  KEY `topic_id` (`topic_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `replies`
+--
+
+CREATE TABLE IF NOT EXISTS `replies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post` text NOT NULL,
   `location` varchar(100) DEFAULT NULL,
@@ -49,19 +61,18 @@ CREATE TABLE IF NOT EXISTS `comments` (
   KEY `user_id` (`user_id`),
   KEY `topic_id` (`topic_id`),
   KEY `topic_id_2` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
--- Table structure for table `locations`
+-- Dumping data for table `replies`
 --
 
-CREATE TABLE IF NOT EXISTS `locations` (
-  `topic_id` int(11) NOT NULL,
-  `location` varchar(100) NOT NULL,
-  KEY `topic_id` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `replies` (`id`, `post`, `location`, `user_id`, `topic_id`, `date_created`) VALUES
+(1, 'What''s up boss.\r\n\r\nUndoubtably N Main street. But you gotta watch out because it''s pretty illegal. SWIM went down at 3am and it was glorious.', NULL, 3, 1, '2016-10-27 15:10:10'),
+(2, 'Great question tommylee!  I heard there''s this really awesome hill over by "The Hill" golf course on Graves Avenue. The only thing is that there''s tons of sticks and gravel plus it''s very steep, so wear the proper safety gear!\r\nFun Fact: the highest point in Blacksburg is on that golf course...', NULL, 1, 1, '2016-10-27 15:10:10'),
+(3, 'Hey buddy!  All visitors are welcome here, glad to have you around.  As for the tacos, there''s a really great place on Prices Fork called Wicked Taco that''s also relatively cheap.  Be sure to check out the hooked deals before you go!', NULL, 1, 2, '2016-10-28 09:49:20'),
+(4, 'Not so sure about beefy tacos, but Cabo on Main street has some damn good fish tacos!', NULL, 2, 2, '2016-10-28 09:50:12'),
+(5, 'Yikes, longboarding down big hills is scary! I''m just visiting here, but my friend who goes here told me he goes longboarding around downtown a lot.', NULL, 4, 1, '2016-10-28 09:53:50');
 
 -- --------------------------------------------------------
 
@@ -78,7 +89,15 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+
+--
+-- Dumping data for table `topics`
+--
+
+INSERT INTO `topics` (`id`, `title`, `post`, `location`, `user_id`, `date_created`) VALUES
+(1, 'What''s the best hill in Blacksburg to bomb on a longboard?', 'Hey guys! I''ve been living here for 4 years and I still can''t find any hills that are intense enough for my live-on-the-edge lifestyle. \r\n\r\nCan someone help me out?', NULL, 2, '2016-10-27 15:02:25'),
+(2, 'Where can I get some good tacos around here?', 'Hi everyone! I''m not exactly sure if I''m supposed to be here considering I go to UVA, but I''m visiting for the week and I''m looking for somewhere to get good tacos.  There are tons of beefy cows around here, but I can''t seem to find any beefy tacos. Please help, I''m leaving in 2 days back to HooVille.', NULL, 4, '2016-10-28 09:43:01');
 
 -- --------------------------------------------------------
 
@@ -94,14 +113,17 @@ CREATE TABLE IF NOT EXISTS `users` (
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `admin`) VALUES
-(1, 'Admin', 'THFAdmin@vt.edu', 'Admin', 1);
+(1, 'Admin', 'THFAdmin@vt.edu', 'Admin', 1),
+(2, 'tommylee', 'tommylee@none.com', 'password', 0),
+(3, 'seymore', 'moresey@none.com', 'butts', 0),
+(4, 'hoosaidat', 'gouva@uva.edu', 'uva', 0);
 
 --
 -- Constraints for dumped tables
@@ -114,17 +136,17 @@ ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
 
 --
--- Constraints for table `comments`
---
-ALTER TABLE `comments`
-  ADD CONSTRAINT `comments_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `comments_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
-
---
 -- Constraints for table `locations`
 --
 ALTER TABLE `locations`
   ADD CONSTRAINT `locations_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
+
+--
+-- Constraints for table `replies`
+--
+ALTER TABLE `replies`
+  ADD CONSTRAINT `replies_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `replies_ibfk_2` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`);
 
 --
 -- Constraints for table `topics`
