@@ -55,7 +55,7 @@ class User extends DbObject {
         if($username == null)
             return null;
 
-        $query = sprintf(" SELECT id FROM %s WHERE username = '%s' ",
+        $query = sprintf(" SELECT id FROM %s WHERE 'username' = '%s' ",
             self::DB_TABLE,
             $username
             );
@@ -76,7 +76,7 @@ class User extends DbObject {
         if($username == null || $password == null) {
             return null;
         }
-        $query = sprintf(" SELECT id FROM %s WHERE username = '%s' AND password = '%s' ",
+        $query = sprintf(" SELECT id FROM %s WHERE 'username' = '%s' AND 'password' = '%s' ",
             self::DB_TABLE,
             $username,
             $password

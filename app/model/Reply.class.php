@@ -98,7 +98,7 @@ class Reply extends DbObject {
 
 	public static function getRepliesByUsername($uname) {
 		
-		$query = sprintf("SELECT id FROM %s WHERE username = '%s' ORDER BY date_created",
+		$query = sprintf("SELECT id FROM %s WHERE 'username' = '%s' ORDER BY date_created",
             self::REP_TABLE,
             $uname
             );
