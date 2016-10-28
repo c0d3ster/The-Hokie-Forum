@@ -3,7 +3,7 @@
 
 
 <div id='replies'>
-	<?php foreach($thread->replies as $reply) { ?>
+	<?php foreach($thread->get('replies') as $reply) { ?>
 		<div class='reply'>
 			<p><?=$reply->get('post') ?></p>
 			<h5><?php 

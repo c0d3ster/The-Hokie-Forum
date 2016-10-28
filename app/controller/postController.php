@@ -130,6 +130,7 @@ class PostController {
 
 	public function threadView($topicID) {
 		//to be continued...
+		$pageName = 'Thread View';
 		$thread = Thread::getThreadByTopic($topicID);
 		
 		include_once SYSTEM_PATH.'/view/header.tpl';
