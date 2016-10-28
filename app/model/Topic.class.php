@@ -85,7 +85,7 @@ class Topic extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = $this->loadById($row);
+            	$obj = self::loadById($row['id']);
             	array_push($objects, $obj);
             }
             return ($objects);

@@ -76,6 +76,7 @@ class SiteController {
  		if(!$this->currUser) {
 			include_once SYSTEM_PATH.'/view/intro.tpl';
 		}
+		include_once SYSTEM_PATH.'/view/explore.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
   }
 

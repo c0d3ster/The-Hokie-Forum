@@ -12,7 +12,7 @@ MyFit Project 2 Stylesheet for fonts
 
 @font-face {
 	font-family: 'Athletic Body';
-	src: url('builttitlingbd.ttf') format('truetype');
+	src: url('COLLEGIA.ttf') format('truetype');
 }
 
 
@@ -20,10 +20,10 @@ MyFit Project 2 Stylesheet for fonts
 		font-family: Athletic;
 }
 
-#wrapper *, #footer p, #primary-nav a, #verify-login, #hype, #username, #password{
+#wrapper *, #footer p, #verify-login, #hype, #username, #password{
 	font-family: Athletic Body;
 	letter-spacing: 1px;
-	font-variant: small-caps;
+	font-weight: bolder;
 }
 
 h1 {
@@ -35,7 +35,7 @@ h1 {
 	font-size: 24px;
 }
 
-#login, #verify-signup, #primary-nav a, .product-price, .product-name, #intro, #user, #pass, #first, #last, #mail{
+#login, #verify-signup, #primary-nav a, .product-price, .product-name, #intro, #user, #pass, #first, #last, #mail, #submit-response{
 	font-size: 20px;
 }
 
@@ -49,6 +49,7 @@ h1 {
 
 a {
 	color: black;
+	text-decoration: none;
 }
 
 /*////////////////*/
@@ -66,15 +67,15 @@ a {
 		font-size: 14px !important;
 	} 
 
-	a, h3, span,{
+	a,  span{
 		font-size: 12px !important;
 	}
 
-	button, input, p, #checkout, a #customize-products{
+	button, input, p, #checkout, a #customize-products, h3, .topic-user{
 		font-size: 10px !important;
 	}
 
-	#login-menu p  {
+	#login-menu p{
 		font-size: 9px !important;
 	}
 

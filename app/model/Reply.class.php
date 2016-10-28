@@ -89,7 +89,7 @@ class Reply extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = Reply::loadById($row);
+            	$obj = Reply::loadById($row['id']);
             	array_push($objects, $obj);
             }
             return ($objects);

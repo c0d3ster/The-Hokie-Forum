@@ -37,14 +37,14 @@ function isSelected($pn, $link) {
 <?php
 if($this->currUser) { ?>
 		<div id="login-menu">
-			<p> Check out the latest in the Burg <?= $_SESSION['user'] ?>... </p>	 
+			<p> Check the latest in the Burg <?= $_SESSION['user'] ?>... </p>	 
 		  <button id="logout"> Log Out :( </button>  
-		  <button id="profile"> Profile/Preferences </button>  
+		  <button id="profile"> Profile & Preferences </button>  
 		</div>
 		<ul id="primary-nav">
-	  	<li <?= isSelected($pageName, 'Explore') ?>> <a href="<?= BASE_URL ?>/" > Explore </a>  </li>
-	  	<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/recentTopics/"> Recent Topics </a>  </li>
-	  	<li <?= isSelected($pageName, 'My Activity') ?>> <a href="<?= BASE_URL ?>/myActivity/"> My Activity </a>  </li>
+	  	<a href="<?= BASE_URL ?>/" ><li <?= isSelected($pageName, 'Explore') ?>>  Explore </li> </a>
+	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>>  Recent Topics </li> </a> 
+	  	 <a href="<?= BASE_URL ?>/myActivity/"><li <?= isSelected($pageName, 'My Activity') ?>> My Activity </li></a> 
 		</ul>
 
 <?php } 
@@ -54,8 +54,8 @@ else { ?>
 			<button id="signup"> Sign Up </button>
 		</div>
 		<ul id="primary-nav">
-			<li <?= isSelected($pageName, 'Explore') ?>> <a href="<?= BASE_URL ?>/" > Explore </a>  </li>
-			<li <?= isSelected($pageName, 'Recent Topics') ?>> <a href="<?= BASE_URL ?>/recentTopics/"> Recent Topics</a>  </li>
+			<a href="<?= BASE_URL ?>/" > <li <?= isSelected($pageName, 'Explore') ?>>  Explore   </li></a>
+			 <a href="<?= BASE_URL ?>/recentTopics/"> <li <?= isSelected($pageName, 'Recent Topics') ?>> Recent Topics </li></a> 
 		</ul>
 <?php } ?>
 
