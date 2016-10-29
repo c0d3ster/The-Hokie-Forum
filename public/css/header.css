@@ -1,6 +1,6 @@
 /*
 Author: Cody Douglass
-MyFit Project 2 Stylesheet for header and login page
+MyFit Project 2 Stylesheet for header and login pages
 */
 /*popups*/
 
@@ -20,8 +20,8 @@ MyFit Project 2 Stylesheet for header and login page
 	position: fixed;
 	height: 40vh;
 	width: 40vw;
-	top: 30vh;
-	left: 30vw;
+	top: 22.5vh;
+	left: 24vw;
 	padding: 5%;
 	text-align: center;
 	opacity: .9;

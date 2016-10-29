@@ -20,7 +20,7 @@ MyFit Project 2 Stylesheet for fonts
 		font-family: Athletic;
 }
 
-#wrapper *, #footer p, #verify-login, #hype, #username, #password{
+#wrapper *, #footer p, #username, #password, #user, #pass, #mail{
 	font-family: Athletic Body;
 	letter-spacing: 1px;
 	font-weight: bolder;
@@ -35,7 +35,7 @@ h1 {
 	font-size: 24px;
 }
 
-#login, #verify-signup, #primary-nav a, .product-price, .product-name, #intro, #user, #pass, #first, #last, #mail, #submit-response{
+#login, #verify-signup, #primary-nav a, .product-price, .product-name, #intro, #user, #pass, #mail, #submit-response{
 	font-size: 20px;
 }
 

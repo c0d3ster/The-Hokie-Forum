@@ -102,9 +102,9 @@ function verifyCredentials(username, password) {
  */
 function verifySignup(user, pass, mail) {
   for (var i = 0, j = arguments.length; i < j; i++){ //more parameters so I just looped through to check for invalid values instead
-      if(!checkString(arguments[i]) || /\s/.test(arguments[i])) {
+      if(!checkString(arguments[i]) || /\s/.test(arguments[i]) || arguments[0].length > 10) {
     		$('#pass').val('');
-				$('.popsignup').append('<p> Please fill out all information with 1-10 chars</p>');
+				$('.popsignup').append('<p> Please fill out all information (username 1-10 chars)</p>');
 				$('.popsignup > p').delay(2000).fadeOut();
       	return false;
       }
