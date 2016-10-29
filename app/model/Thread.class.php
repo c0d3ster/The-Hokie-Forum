@@ -129,9 +129,9 @@ class Thread extends DbObject {
 		if (!$user)
 			return null;
 		
-		$user_id = $user->get('id');
-		$topics = Topic::getTopicsByUsername($uname);
-		$replies = Reply::getRepliesByUsername($uname);
+		$topics = Topic::getTopicsById($user->get('id'));
+		$replies = Reply::getRepliesById($user->get('id'));
+		
 		
 		foreach($replies as $rep) {
 			//is it already the user's topic?
