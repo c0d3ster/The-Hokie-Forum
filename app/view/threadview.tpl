@@ -17,12 +17,16 @@
 <?php if($thread->get('replies')) {
 	foreach($thread->get('replies') as $reply) { ?>
 		<div class='reply'>
-			<p><?=$reply->get('post') ?></p>
+			<p class='editable'><?=$reply->get('post') ?></p>
 			<h5><?php 
 				$user = User::loadById($reply->get('user_id'));
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
+			<?php if($uname == $currUser->get('username')): ?>
+				<img src='<?=IMAGES?>/edititem.png' class='edititem'>
+				<img src='<?=IMAGES?>/deleteitem.png' class='deleteitem'>
+			<?php endif;?>
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	

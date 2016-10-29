@@ -6,6 +6,20 @@ $(function() {
   $('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
+	$('#submit-response').click(submitReply);
+	$('.edititem').click(function() {
+		var text = $(this).siblings('p').filter('editable');
+		var val = text.innerHTML;
+		text.replaceWith("<textarea class='editing'>"+val+"</textarea>";
+		$(this).replaceWith("<button class='submitedit'>Save</button>");
+		
+	});
+	$('.submitedit').click(function() {
+		if ($(this).parent().attr('class') == 'reply') {
+			editReply($(this).siblings('input').filter('.hidden-id').val(), $(this).parent());
+		}
+		$(this).replaceWith("<img src='<?=IMAGES?>/edititem.png' class='edititem'>");
+	});
 
 	//event listeners to add topic manipulation
 	$('#start-thread').click(startThreadClicked);
@@ -65,14 +79,14 @@ function loginClicked() {
 function verifyCredentials(username, password) {
 	if (checkString(username) && checkString(password) && username.length <= 10  && !/\s/.test(username)  && !/\s/.test(password) ) {
 			//make an ajax post to check for valid password
-			var datastr = 'un=' + username + '&pw=' + password;
-			$.ajax({    
-        type: "POST",
-        url: baseURL+'/login/process/', 
-        data: datastr,      
-        dataType: 'json',                   
-        success: function(data){
-					if(data.status == 1){
+		var datastr = 'un=' + username + '&pw=' + password;
+		$.ajax({    
+	   	    type: "POST",
+			url: baseURL+'/login/process/', 
+    	    data: datastr,      
+			dataType: 'json',                   
+	        success: function(data){
+				if(data.status == 1){
   					window.location.replace(baseURL);
   					return true;
 	  			}
@@ -87,7 +101,7 @@ function verifyCredentials(username, password) {
             alert(e.responseText);
         }                                 
 	    }) 	
-		}
+	}
 	else {
 		$('#password').val('');
 		$('.popup').append('<p> Invalid Credentials. Please try again! (1-10 chars)</p>')
@@ -137,7 +151,7 @@ function verifySignup(user, pass, mail) {
       error: function () {
           alert(data.status);
       }                                 
-    }) 	
+    }); 	
 }
 
 /* 
@@ -234,3 +248,74 @@ function deleteClicked(id) {
 				<input id="letitlive" type="button" value="WAIT... let it live">
 		</form>*/
 }
+
+function submitReply() {
+
+	var post = $('#response').val();
+	var topic_id = $('#topic.hidden-id').val();
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/addReply/process', 
+    	data: {
+    		'post': post,
+    		'topic_id': topic_id
+    	},      
+      	dataType: 'html',                   
+      	success: function(data){
+  			if(data.status == 1){
+  				$('#replies').prepend(data);
+  			}
+		},  
+		error: function () {
+			alert(data.status);
+		}                                 
+    });
+}
+
+function editReply(id, replyVar) {
+	
+	var post = replyVar.find('.editing').val();
+	
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/editReply/process/'+id, 
+    	data: {
+    		'post': post,
+    	},      
+      	dataType: 'json',                   
+      	success: function(data){
+  			if(data.status == 1){
+  				replyVar.find('.editing').replaceWith("<p class='editable'>"data.post"</p>");
+  			}
+		},  
+		error: function () {
+			alert(data.status);
+		}                                 
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
