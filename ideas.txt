@@ -14,3 +14,5 @@
 4) Use the id attribute to distinguish edit/delete button event listeners while using the class attribute to create event listeners for all of the buttons.
 
 5) Rating system could go outside of topic and reply divs, another field would need to be added to the database though
+
+6) Implement a Poll of the Week feature that uses external poll apis

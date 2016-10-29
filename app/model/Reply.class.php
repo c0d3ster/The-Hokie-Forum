@@ -89,18 +89,18 @@ class Reply extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = Reply::loadById($row['id']);
+            	$obj = self::loadById($row['id']);
             	array_push($objects, $obj);
             }
             return ($objects);
         }
     }
 
-	public static function getRepliesByUsername($uname) {
+	public static function getRepliesById($u_id) {
 		
-		$query = sprintf("SELECT id FROM %s WHERE username = '%s' ORDER BY date_created",
+		$query = sprintf("SELECT id FROM %s WHERE user_id = %s ORDER BY date_created",
             self::REP_TABLE,
-            $uname
+            $u_id
             );
         $db = Db::instance();
         $result = $db->lookup($query);
@@ -109,7 +109,7 @@ class Reply extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = $this->loadById($row);
+            	$obj = self::loadById($row['id']);
             	array_push($objects, $obj);
             }
             return ($objects);

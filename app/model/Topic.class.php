@@ -92,11 +92,11 @@ class Topic extends DbObject {
         }
     }
     
-    public static function getTopicsByUsername($uname) {
+    public static function getTopicsById($u_id) {
     	
-    	$query = sprintf("SELECT id FROM %s WHERE username = '%s' ORDER BY date_created",
+    	$query = sprintf("SELECT id FROM %s WHERE user_id = %s ORDER BY date_created",
             self::TOP_TABLE,
-            $uname
+            $u_id
             );
         $db = Db::instance();
         $result = $db->lookup($query);
@@ -105,7 +105,7 @@ class Topic extends DbObject {
         else {
             $objects = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = $this->loadById($row);
+            	$obj = self::loadById($row['id']);
             	array_push($objects, $obj);
             }
             return ($objects);

@@ -130,16 +130,18 @@ class Thread extends DbObject {
 			return null;
 		
 		$user_id = $user->get('id');
-		$topics = Topic::getTopicsByUsername($uname);
-		$replies = Reply::getRepliesByUsername($uname);
+		$topics = Topic::getTopicsById($user_id);
+		$replies = Reply::getRepliesById($user_id);
 		
-		foreach($replies as $rep) {
-			//is it already the user's topic?
-			$top = Topic::loadById($rep->get('topic_id'), 'topics');
-			if (!in_array($top, $topics)) {
-				array_push($topics, $top);
-			}
-		}
+        if($replies) {
+    		foreach($replies as $rep) {
+    			//is it already the user's topic?
+    			$top = Topic::loadById($rep->get('topic_id'), 'topics');
+    			if (!in_array($top, $topics)) {
+    				array_push($topics, $top);
+    			}
+    		}
+        }
 		return $topics;
 	}
 	

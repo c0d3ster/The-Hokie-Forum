@@ -263,6 +263,17 @@ body {
 
 }
 
+#sad-message {
+	width: 95%;
+	margin-bottom: 5%;
+}
+
+#change {
+	margin-top: 0;
+	float: right;
+	min-width: 40%;
+}
+
 /*///////////////////////*/
 
 
