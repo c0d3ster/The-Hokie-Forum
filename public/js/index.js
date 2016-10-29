@@ -10,7 +10,7 @@ $(function() {
 	$('.edititem').click(function() {
 		var text = $(this).siblings('p').filter('editable');
 		var val = text.innerHTML;
-		text.replaceWith("<textarea class='editing'>"+val+"</textarea>";
+		text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
 		$(this).replaceWith("<button class='submitedit'>Save</button>");
 		
 	});
@@ -194,10 +194,10 @@ function deleteClicked(id) {
 function submitReply() {
 
 	var post = $('#response').val();
-	var topic_id = $('#topic.hidden-id').val();
+	var topic_id = $('.topic .hidden-id').val();
 	$.ajax({    
 		type: "POST",
-	    url: baseURL+'/addReply/process', 
+	    url: baseURL+'/addReply/process/', 
     	data: {
     		'post': post,
     		'topic_id': topic_id
@@ -227,7 +227,7 @@ function editReply(id, replyVar) {
       	dataType: 'json',                   
       	success: function(data){
   			if(data.status == 1){
-  				replyVar.find('.editing').replaceWith("<p class='editable'>"data.post"</p>");
+  				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
   			}
 		},  
 		error: function () {

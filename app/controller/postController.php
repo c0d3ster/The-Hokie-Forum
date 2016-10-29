@@ -41,7 +41,7 @@ class PostController {
 
 			case 'processAdd':
 				if($this->currUser) {
-					$this->processAddTopic($this->currUser);
+					$this->processAddTopic();
 				}
 				break;
 
@@ -114,10 +114,9 @@ class PostController {
 	public function processAddReply() {
 	
 		$newReply = new Reply(array(
-			'post' => $_POST('post'),
-			//'location' => $_POST('location'),
+			'post' => $_POST['post'],
 			'u_id' => $this->currUser->get('id'),
-			't_id' => $_POST('topic_id')
+			't_id' => $_POST['topic_id']
 		));
 		
 		$added = $this->processInsert($newReply, 'reply');

@@ -22,7 +22,7 @@
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
-			<?php if($uname == $currUser->get('username')): ?>
+			<?php if($this->currUser and $uname == $this->currUser->get('username')): ?>
 				<img src='<?=IMAGES?>/edititem.png' class='edititem'>
 				<img src='<?=IMAGES?>/deleteitem.png' class='deleteitem'>
 			<?php endif;?>

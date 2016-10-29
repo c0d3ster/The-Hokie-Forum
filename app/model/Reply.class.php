@@ -20,7 +20,7 @@ class Reply extends DbObject {
             'location' => null,
             'user_id' => null,
             'topic_id' => null,
-            'data_created' => null
+            'date_created' => null
             );
 
         $args += $defaultArgs;
@@ -38,13 +38,12 @@ class Reply extends DbObject {
         $db = Db::instance();
         // omit id and any timestamps
         $db_properties = array(
-            'title' => $this->title,
-            'location' => $this->location,
             'post' => $this->post,
+            'location' => $this->location,
             'user_id' => $this->user_id,
             'topic_id' => $this->topic_id
           	//leave out date_created, auto
-            );
+        );
 		$error = $db->store($this, self::REP_TABLE, $db_properties);
         if($error) {
 			return $error;
