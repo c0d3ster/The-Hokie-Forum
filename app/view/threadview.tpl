@@ -1,5 +1,7 @@
 <?php $top = $thread->get('topic'); ?>
 
+<a href="<?=BASE_URL?>/recentTopics/">&#60 Go Back</a>
+
 <div class="topic">
 	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
 	<div class="topic-user"> Posted By: <?= User::loadByID($top->get('user_id'))->get('username')?> </div>
