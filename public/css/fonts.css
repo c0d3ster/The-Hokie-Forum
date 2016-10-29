@@ -35,21 +35,27 @@ h1 {
 	font-size: 24px;
 }
 
-#login, #verify-signup, #primary-nav a, .product-price, .product-name, #intro, #user, #pass, #mail, #submit-response{
+#login, #verify-signup, #primary-nav a, #intro, #user, #pass, #mail, #submit, #submit-response{
 	font-size: 20px;
 }
 
-#checkout, #login-menu p{
+#checkout, #login-menu p, #cancel{
 	font-size: 16px;
-}
-
-.workout-details ul li{
-	font-size: 14px;
 }
 
 a {
 	color: black;
 	text-decoration: none;
+}
+
+input, textarea{
+	color: white;
+	opacity: .8;
+	letter-spacing: 2px !important;
+}
+
+.fine-print {
+	font-size: 10px;
 }
 
 /*////////////////*/

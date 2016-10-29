@@ -37,7 +37,7 @@ function isSelected($pn, $link) {
 <?php
 if($this->currUser) { ?>
 		<div id="login-menu">
-			<p> Check the latest in the Burg <?= $_SESSION['user'] ?>... </p>	 
+			<p> What's up <?= $_SESSION['user'] ?>? </p>	 
 		  <button id="logout"> Log Out :( </button>  
 		  <button id="profile"> Profile & Preferences </button>  
 		</div>

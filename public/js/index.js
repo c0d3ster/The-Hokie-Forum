@@ -1,9 +1,9 @@
 //Document.Ready equivilant
 $(function() {
 
-  //event listeners
-	$('#login').click(loginClicked);
-	$('#signup').click(signupClicked); 
+  //event listeners for user manipulation
+  $('#login').click(loginClicked);
+  $('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
 	$('#submit-response').click(submitReply);
@@ -20,6 +20,18 @@ $(function() {
 		}
 		$(this).replaceWith("<img src='<?=IMAGES?>/edititem.png' class='edititem'>");
 	});
+
+	//event listeners to add topic manipulation
+	$('#start-thread').click(startThreadClicked);
+	$('#add-location-new').click(newLocationClicked);
+	$('#cancel').click(resetForm);
+
+	//event listeners for add reply manipulation
+	$('#add-location').click(addLocationClicked);
+
+
+	//event listeners for editing and removing content
+	$('#letitlive').click(returned);
 
 	//subheader menu control
 
@@ -77,18 +89,17 @@ function verifyCredentials(username, password) {
 				if(data.status == 1){
   					window.location.replace(baseURL);
   					return true;
-		  		}
-		  		else{
-		  			$('#password').val('');
-		  			alert(data.status);
-		  			$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>')
-					$('.popup > p').delay(2000).fadeOut();
-					return false;
-		  		}	
-     	   },  
-			error: function (e) {
-				alert(e.responseText);
-           }                                 
+	  			}
+	  			else{
+	  				$('#password').val('');
+	  				$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>')
+						$('.popup > p').delay(2000).fadeOut();
+						return false;
+	  			}	
+        },  
+        error: function (e) {
+            alert(e.responseText);
+        }                                 
 	    }) 	
 	}
 	else {
@@ -165,6 +176,7 @@ function exitClicked() {
 	$('.background-fade').fadeOut(1000);
 	$('.popup').fadeOut(1000);
 	$('.popsignup').fadeOut(1000);
+	$('form').off();
 }
 
 /*
@@ -178,6 +190,52 @@ function exitClicked() {
  */
 function checkString(myVar) {
   return ((typeof myVar === 'string' || myVar instanceof String) && myVar != '');
+}
+
+/* 
+ * @function
+ * @name startThreadClicked
+ * Takes user to the Add Topic page to post new topic
+ */
+function startThreadClicked() {
+	window.location.replace(baseURL + "/addTopic/");
+}
+
+/* 
+ * @function
+ * @name newLocationClicked
+ * Fades the hidden map into view
+ */
+function newLocationClicked() {
+	$('#map-hidden').fadeIn(1000);
+}
+
+/* 
+ * @function
+ * @name resetForm
+ * Reloads the Add Topic page
+ */
+function resetForm() {
+	window.location.replace(baseURL + "/addTopic/");
+}
+
+/* 
+ * @function
+ * @name addLocationClicked
+ * puts the map into focus and blocks everything else
+ */
+function addLocationClicked() {
+	$('.background-fade-map').fadeIn(1000);
+}
+
+/* 
+ * @function
+ * @name returned
+ * fades out the popup to delete that post or reply
+ */
+function returned() {
+	$('.background-fade-red').fadeOut(1000);
+	$('.popup-red').fadeOut(1000);
 }
 
 function deleteClicked(id) {

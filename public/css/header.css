@@ -13,24 +13,24 @@ MyFit Project 2 Stylesheet for header and login pages
 	opacity: .75;
 	background-color: azure;
 	display: none;
-	z-index: 1;
+	z-index: 2;
 }
 
 .popup, .popsignup{
 	position: fixed;
-	height: 40vh;
-	width: 40vw;
+	min-height: 40vh;
+	min-width: 40vw;
 	top: 22.5vh;
 	left: 24vw;
-	padding: 5%;
+	padding: 2.5%;
 	text-align: center;
 	opacity: .9;
 	background: linear-gradient(rgba(236,130,5,1), orange);
 	border: 5px ridge grey;
 	background-color: rgba(0,0,0,.4);
 	display: none;
-	overflow: hidden;
-	z-index: 1;
+	overflow: overlay;
+	z-index: 2;
 }
 
 #verify-login, #hype, #username, #password, #user, #pass, #mail{
@@ -117,7 +117,7 @@ button, input, textarea, select {
 
 .exit {
 	float: right;
-	margin: -10% -10% 0% 0%;
+	margin: -5% -5% 0% 0%;
 }
 
 #profile {

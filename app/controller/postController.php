@@ -153,11 +153,12 @@ class PostController {
 		$newTopic = new Topic(array(
 			'title' => $_POST['title'],
 			'post' => $_POST['post'],
-			'location' => $_POST['location'],
+			//'location' => $_POST['location'],
 			'user_id' => $this->currUser->get('id')
 		));
 		
-		$this->processInsert($newTopic, 'topic');
+		$added = $this->processInsert($newTopic, 'topic');
+		header('Location: '.BASE_URL.'/view/'.$added->get('id'));
 		exit();
 	}
 	

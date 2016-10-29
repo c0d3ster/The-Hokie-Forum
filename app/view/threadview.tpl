@@ -13,8 +13,9 @@
 
 </div>
 
-<div id='replies'>
-	<?php foreach($thread->get('replies') as $reply) { ?>
+	<div id='replies'>
+<?php if($thread->get('replies')) {
+	foreach($thread->get('replies') as $reply) { ?>
 		<div class='reply'>
 			<p class='editable'><?=$reply->get('post') ?></p>
 			<h5><?php 
@@ -29,10 +30,13 @@
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
-	<?php } ?>
-</div>
+<?php }
+} else { ?>
+	<h2> Looks like no one has replied to this topic yet... :( </h2>
+<?php } ?>
+	</div>
 
-
+	<div class='background-fade-map'></div>
 	<div id="map"> 
 		<img src='<?=IMAGES?>/blacksburg.png' id='map-image'> 
 	</div>
