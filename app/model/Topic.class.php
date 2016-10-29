@@ -93,7 +93,6 @@ class Topic extends DbObject {
     }
     
     public static function getTopicsById($u_id) {
-    	
     	$query = sprintf("SELECT id FROM %s WHERE user_id = %s ORDER BY date_created",
             self::TOP_TABLE,
             $u_id
