@@ -2,19 +2,27 @@
 $(function() {
 
   //event listeners
-  $('#login').click(loginClicked);
-  $('#signup').click(signupClicked); 
+	$('#login').click(loginClicked);
+	$('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
+	$('#submit-response').click(submitReply);
+	$('.edititem').click(function() {
+		var text = $(this).siblings('p').filter('editable');
+		var val = text.innerHTML;
+		text.replaceWith("<textarea class='editing'>"+val+"</textarea>";
+		$(this).replaceWith("<button class='submitedit'>Save</button>");
+		
+	});
+	$('.submitedit').click(function() {
+		if ($(this).parent().attr('class') == 'reply') {
+			editReply($(this).siblings('input').filter('.hidden-id').val(), $(this).parent());
+		}
+		$(this).replaceWith("<img src='<?=IMAGES?>/edititem.png' class='edititem'>");
+	});
 
 	//subheader menu control
 
-  //sets current date
-  var date = new Date();
-  var day = date.getDate();
-  var month = date.getMonth() + 1;
-  var year = date.getFullYear();
-  $('.curr-date').html(month + '/' + day + '/' + year);
 });
 
 /* 
@@ -59,30 +67,30 @@ function loginClicked() {
 function verifyCredentials(username, password) {
 	if (checkString(username) && checkString(password) && username.length <= 10  && !/\s/.test(username)  && !/\s/.test(password) ) {
 			//make an ajax post to check for valid password
-			var datastr = 'un=' + username + '&pw=' + password;
-			$.ajax({    
-        type: "POST",
-        url: baseURL+'/login/process/', 
-        data: datastr,      
-        dataType: 'json',                   
-        success: function(data){
-					if(data.status == 1){
+		var datastr = 'un=' + username + '&pw=' + password;
+		$.ajax({    
+	   	    type: "POST",
+			url: baseURL+'/login/process/', 
+    	    data: datastr,      
+			dataType: 'json',                   
+	        success: function(data){
+				if(data.status == 1){
   					window.location.replace(baseURL);
   					return true;
-	  			}
-	  			else{
-	  				$('#password').val('');
-	  				alert(data.status);
-	  				$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>')
-						$('.popup > p').delay(2000).fadeOut();
-						return false;
-	  			}	
-        },  
-        error: function (e) {
-            alert(e.responseText);
-        }                                 
+		  		}
+		  		else{
+		  			$('#password').val('');
+		  			alert(data.status);
+		  			$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>')
+					$('.popup > p').delay(2000).fadeOut();
+					return false;
+		  		}	
+     	   },  
+			error: function (e) {
+				alert(e.responseText);
+           }                                 
 	    }) 	
-		}
+	}
 	else {
 		$('#password').val('');
 		$('.popup').append('<p> Invalid Credentials. Please try again! (1-10 chars)</p>')
@@ -132,7 +140,7 @@ function verifySignup(user, pass, mail) {
       error: function () {
           alert(data.status);
       }                                 
-    }) 	
+    }); 	
 }
 
 /* 
@@ -182,3 +190,74 @@ function deleteClicked(id) {
 				<input id="letitlive" type="button" value="WAIT... let it live">
 		</form>*/
 }
+
+function submitReply() {
+
+	var post = $('#response').val();
+	var topic_id = $('#topic.hidden-id').val();
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/addReply/process', 
+    	data: {
+    		'post': post,
+    		'topic_id': topic_id
+    	},      
+      	dataType: 'html',                   
+      	success: function(data){
+  			if(data.status == 1){
+  				$('#replies').prepend(data);
+  			}
+		},  
+		error: function () {
+			alert(data.status);
+		}                                 
+    });
+}
+
+function editReply(id, replyVar) {
+	
+	var post = replyVar.find('.editing').val();
+	
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/editReply/process/'+id, 
+    	data: {
+    		'post': post,
+    	},      
+      	dataType: 'json',                   
+      	success: function(data){
+  			if(data.status == 1){
+  				replyVar.find('.editing').replaceWith("<p class='editable'>"data.post"</p>");
+  			}
+		},  
+		error: function () {
+			alert(data.status);
+		}                                 
+    });
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

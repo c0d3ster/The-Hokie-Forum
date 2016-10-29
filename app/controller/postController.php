@@ -65,7 +65,7 @@ class PostController {
 
 			case 'processAddReply':
 				if($this->currUser) {
-					$this->processAddReply($this->currUser);
+					$this->processAddReply();
 				}
 				break;
 
@@ -115,12 +115,25 @@ class PostController {
 	
 		$newReply = new Reply(array(
 			'post' => $_POST('post'),
-			'location' => $_POST('location'),
+			//'location' => $_POST('location'),
 			'u_id' => $this->currUser->get('id'),
 			't_id' => $_POST('topic_id')
 		));
 		
-		$this->processInsert($newReply, 'reply');
+		$added = $this->processInsert($newReply, 'reply');
+		$html = null;
+		if ($added) {
+			$html = "<div class='reply'>
+				<p><?=$added->get('post') ?></p>
+				<h5><?php 
+					$user = User::loadById($added->get('user_id'));
+					$uname = $user->get('username');?>
+					<?=$uname?>
+				</h5>
+				<input class='hidden-id' type='hidden' value='<?=$added->get('id') ?>'> 
+			</div>";
+		}
+		echo $html;
 		exit();
 		
 	}
@@ -129,10 +142,9 @@ class PostController {
 	/* No editing locations yet */
 	public function processEditReply($editReply) {
 		$editReply->set('post',$_POST['post']);
-		$editReply->set('u_id',$_POST['u_id']);
-		$editReply->set('t_id',$_POST['t_id']);
 		
-		$this->processInsert($editReply, 'reply');
+		$edited = $this->processInsert($editReply, 'reply');
+		echo json_encode(get_object_var($edited));
 		exit();
 	}
 	
@@ -183,9 +195,9 @@ class PostController {
 		$error = $obj->save();
 		if ($error) {
 			$_SESSION['err'] = $error;
-			return false;
+			return null;
 		}
-		return true;
+		return $obj;
 	}
 
 
