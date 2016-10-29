@@ -116,7 +116,7 @@ class PostController {
 			case 'processDeleteReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				if($this->currUser->get('user_id') == $r->get('user_id') || $admin) {
+				if($this->currUser->get('id') == $r->get('user_id') || $admin) {
 					$this->processDeleteReply($r);
 				}
 				break;
@@ -143,7 +143,84 @@ class PostController {
 		include_once SYSTEM_PATH.'/view/addtopic.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
-
+	
+	/**For AJAX, does not reload page, use exit()! **/
+	public function processAddReply() {
+	
+		$newReply = new Reply(array(
+			'post' => $_POST('post'),
+			'location' => $_POST('location'),
+			'u_id' => $this->currUser->get('id'),
+			't_id' => $_POST('topic_id')
+		));
+		
+		$this->processInsert($newReply, 'reply');
+		exit();
+		
+	}
+	
+	/**For AJAX, does not reload page, use exit()! **/
+	/* No editing locations yet */
+	public function processEditReply($editReply) {
+		$editReply->set('post',$_POST['post']);
+		$editReply->set('u_id',$_POST['u_id']);
+		$editReply->set('t_id',$_POST['t_id']);
+		
+		$this->processInsert($editReply, 'reply');
+		exit();
+	}
+	
+	/**Not sure if using AJAX or PHP for adding topic **/
+	/**Assuming AJAX now, probably will be PHP though**/
+	public function processAddTopic() {
+		$newTopic = new Topic(array(
+			'title' = $_POST['title'],
+			'post' = $_POST['post'],
+			'location' = $_POST['location'],
+			'user_id' = $this->currUser->get('id')
+		));
+		
+		$this->processInsert($newTopic, 'topic');
+		exit();
+	}
+	
+	/* No editing locations yet*/
+	public function processEditTopic($editTopic) {
+		$editTopic->set('title',$_POST['title']);
+		$editTopic->set('post',$_POST['post']);
+		$editTopic->set('title',$_POST['title']);
+		
+		$this->processInsert($editTopic);
+		exit();
+	} 
+	
+	
+	/**need to associate topic/reply locations with locations
+		table **/
+	public function processInsert($obj, $type) {
+		
+		if (!$obj->get('id')) {
+			//if has no id, new insert, allow locations
+			if ($obj->get('location')) {
+				$newLoc = new Location(array(
+					'title' => $_POST['loctitle'],
+					'description' => $_POST['locdescription'],
+					'location' => $obj->get('location')
+				));
+				if ($type == 'topic')
+					$newLoc->set('topic_id',$obj->get('id'));
+				else if ($type == 'reply')
+					$newLoc->set('topic_id',$obj->get('topic_id'));
+				$newLoc->save();
+			}
+		}
+		$error = $obj->save();
+		if ($error) {
+			$_SESSION['err'] = $error;
+			return false;
+		}
+		return true;
+	}
 
 
 	public function processDelete($id) {
