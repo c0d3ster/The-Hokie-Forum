@@ -13,8 +13,9 @@
 
 </div>
 
-<div id='replies'>
-	<?php foreach($thread->get('replies') as $reply) { ?>
+	<div id='replies'>
+<?php if($thread->get('replies')) {
+	foreach($thread->get('replies') as $reply) { ?>
 		<div class='reply'>
 			<p><?=$reply->get('post') ?></p>
 			<h5><?php 
@@ -25,10 +26,13 @@
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
-	<?php } ?>
-</div>
+<?php }
+} else { ?>
+	<h2> Looks like no one has replied to this topic yet... :( </h2>
+<?php } ?>
+	</div>
 
-
+	<div class='background-fade-map'></div>
 	<div id="map"> 
 		<img src='<?=IMAGES?>/blacksburg.png' id='map-image'> 
 	</div>
@@ -37,7 +41,7 @@
 	<div id='response-options'>
 		<div id='add-location'>
 			<h3 id='add-location-text'> Add Location </h3>
-			<img id='add-location-image' src='<?= IMAGES ?>/additem.png?>' width='50' height='50'>
+			<img id='add-location-image' src='<?= IMAGES ?>/additem.png' width='50' height='50'>
 		</div>
 		<button id='submit-response' name="submit">Submit Response! </button>
 	</div>

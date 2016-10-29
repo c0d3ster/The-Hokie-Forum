@@ -10,6 +10,43 @@ MyFit Project 2 Stylesheet for explore page main content
 	opacity:.5 !important;
 }
 
+.background-fade-map{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: .5;
+	background-color: azure;
+	display: none;
+}
+
+.background-fade-red{
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	opacity: .75;
+	background-color: lightgray;
+	z-index: 2;
+}
+
+.popup-red {
+	position: fixed;
+	height: 30vh;
+	width: 40vw;
+	top: 35vh;
+	left: 30vw;
+	padding: 5%;
+	border-radius: 20px;
+	text-align: center;
+	opacity: .8;
+	background: radial-gradient( #DDBBBB, #EE0000);
+	overflow: hidden;
+	z-index: 2;
+}
+
 body {
 	/*background-image: url("http://www.pointsincase.com/files/images/gym-small-weights.jpg");*/
 	margin: 0;
@@ -19,6 +56,7 @@ body {
 	opacity: .90;
 	overflow: overlay;
 	height: 100%;
+	z-index: 1;
 }
 
 #wrapper {
@@ -79,6 +117,10 @@ body {
 	margin-bottom: 20px;
 }
 
+#start-thread:hover {
+	box-shadow: 0 0 15px rgba(0,0,0,1);
+}
+
 #start-thread-text{
 	float: right;
 	margin: 5px;
@@ -90,6 +132,61 @@ body {
 	height: 10%;
 	margin: 5px;
 }
+
+/*add topic*/
+
+#heck-yea {
+	margin: 0 0 20px 0;
+}
+
+#add-location-new {
+	width: 30%;
+	overflow: auto;
+	padding: 5px;
+	margin: 10px auto;
+	box-shadow: 0 0 10px rgba(0,0,0,.75);
+}
+
+.col {
+	float: left;
+	width: 45%;
+	margin: 0 2%;
+}
+
+.col textarea {
+	display: block;
+	min-width: 90%;
+	max-width: 90%;
+	padding: 10px;
+	height: 20px;
+	margin: 10px 0px 30px 25px;
+}
+
+#post {
+	height: 100px;
+}
+
+.col h2 {
+	clear: both;
+	display: inline-block;
+	vertical-align: top;
+	max-width: 50%;
+	margin: 0;
+}
+
+input[type=submit], #cancel {
+	clear: both;
+	display: block;	
+	margin: 15px auto;
+	padding: 20px 40px;
+	border: 3px ridge grey;
+}
+
+input:hover, button:hover {
+	box-shadow: 0 0 5px rgba(0,0,0,.75);
+}
+
+/*///////////////////////*/
 
 /*topic posts*/
 
@@ -103,6 +200,10 @@ body {
 	box-shadow: 5px 5px 3px rgba(0,0,0, .5);
 	overflow: overlay; /*overlay isnt supported by mozilla, but not sure if overflow-y supports all browsers so I kept both*/
 	overflow-y: hidden;
+}
+
+.topic:hover {
+	box-shadow: 7px 7px 8px rgba(0,0,0,.75);
 }
 
 .topic-title {	
@@ -136,7 +237,7 @@ body {
 #replies {	
 	float: left;
 	width: 55%;
-	min-height: 200px;
+	min-height: 150px;
 	max-height: 400px;
 	margin: 1% 2.5%;
 	opacity: .8;
@@ -188,7 +289,16 @@ body {
 #map {
 	float: right;
 	width: 38%;
-	margin: 1% 0;
+	margin: 2% 0;
+	box-shadow: 0 0 10px rgba(0,0,0,.75);
+	z-index: 3;	
+	opacity: .99;
+}
+
+#map-hidden {
+	display: none;
+	width: 90%;
+	margin: 2% auto;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 }
 

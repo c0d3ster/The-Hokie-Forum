@@ -6,7 +6,7 @@
 		</div>
 		<div class="contact-info">
 			<h2> Contact Us </h2>
-			<p> Hit Us Up: (757) 215-6436 <br>  Email works too: hokiemasterm@vt.edu </p>
+			<p> Hit Us Up: (757) 215-6436 <br>  Email works too: hokiemaster@vt.edu </p>
 		</div>
 	</div>
 
