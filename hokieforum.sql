@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Oct 28, 2016 at 09:54 AM
+-- Generation Time: Oct 29, 2016 at 04:36 PM
 -- Server version: 5.5.52
 -- PHP Version: 5.6.26
 
@@ -39,10 +39,14 @@ CREATE TABLE IF NOT EXISTS `categories` (
 --
 
 CREATE TABLE IF NOT EXISTS `locations` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `topic_id` int(11) NOT NULL,
-  `location` varchar(100) NOT NULL,
+  `location` point NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `description` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
   KEY `topic_id` (`topic_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -53,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `locations` (
 CREATE TABLE IF NOT EXISTS `replies` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `post` text NOT NULL,
-  `location` varchar(100) DEFAULT NULL,
+  `location` point DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -84,7 +88,7 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
   `post` text NOT NULL,
-  `location` varchar(100) DEFAULT NULL,
+  `location` point DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -107,13 +111,13 @@ INSERT INTO `topics` (`id`, `title`, `post`, `location`, `user_id`, `date_create
 
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(10) NOT NULL,
+  `username` varchar(10) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `email` varchar(50) NOT NULL,
-  `password` varchar(20) NOT NULL,
+  `password` varchar(20) CHARACTER SET latin1 COLLATE latin1_general_cs NOT NULL,
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `users`
@@ -123,7 +127,8 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `admin`) VALUES
 (1, 'Admin', 'THFAdmin@vt.edu', 'Admin', 1),
 (2, 'tommylee', 'tommylee@none.com', 'password', 0),
 (3, 'seymore', 'moresey@none.com', 'butts', 0),
-(4, 'hoosaidat', 'gouva@uva.edu', 'uva', 0);
+(4, 'hoosaidat', 'gouva@uva.edu', 'uva', 0),
+(5, 'c0d3ster', 'cody.douglass@vt.edu', 'therealadmin', 1);
 
 --
 -- Constraints for dumped tables

@@ -99,7 +99,7 @@ class Thread extends DbObject {
     	
     	$thread->topic = Topic::loadById($t_id);
     	$thread->replies = Reply::getAllReplies($t_id);
-    	$thread->locations = self::getLocations($t_id);        
+    	$thread->locations = Location::getLocationsByTopic($t_id);        
         $thread->categories = self::getCategories($t_id);
 		
 		return $thread;
@@ -129,28 +129,6 @@ class Thread extends DbObject {
     		}
         }
 		return $topics;
-	}
-	
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+	}  
     
 }

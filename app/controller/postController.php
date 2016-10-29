@@ -92,15 +92,6 @@ class PostController {
 		}
 	}
 
-
-	public function addTopic() {
-		$pageName = 'add Topic';
-
-		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/addtopic.tpl';
-		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-
 	public function threadView($topicID) {
 		//to be continued...
 		$pageName = 'Thread View';
@@ -110,8 +101,10 @@ class PostController {
 		include_once SYSTEM_PATH.'/view/threadview.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
-	
+
 	public function addTopic() {
+		$pageName = 'Add Topic';
+
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/addtopic.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
@@ -147,10 +140,10 @@ class PostController {
 	/**Assuming AJAX now, probably will be PHP though**/
 	public function processAddTopic() {
 		$newTopic = new Topic(array(
-			'title' = $_POST['title'],
-			'post' = $_POST['post'],
-			'location' = $_POST['location'],
-			'user_id' = $this->currUser->get('id')
+			'title' => $_POST['title'],
+			'post' => $_POST['post'],
+			'location' => $_POST['location'],
+			'user_id' => $this->currUser->get('id')
 		));
 		
 		$this->processInsert($newTopic, 'topic');
