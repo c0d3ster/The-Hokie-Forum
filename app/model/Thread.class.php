@@ -130,7 +130,10 @@ class Thread extends DbObject {
 			return null;
 		
 		$user_id = $user->get('id');
+
 		$topics = Topic::getTopicsById($user_id);
+        if(!$topics) //if topics returns null set it to an empty array
+            $topics = array();
 		$replies = Reply::getRepliesById($user_id);
 		
         if($replies) {

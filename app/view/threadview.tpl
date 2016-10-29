@@ -4,6 +4,7 @@
 	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
 	<div class="topic-user"> Posted By: <?= User::loadByID($top->get('user_id'))->get('username')?> </div>
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
+	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
 
 <div class='topic-rating'> 
@@ -19,6 +20,7 @@
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
+			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
 	<?php } ?>

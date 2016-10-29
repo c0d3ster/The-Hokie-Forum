@@ -171,3 +171,14 @@ function exitClicked() {
 function checkString(myVar) {
   return ((typeof myVar === 'string' || myVar instanceof String) && myVar != '');
 }
+
+function deleteClicked(id) {
+	//use this->syntax for parameter when each listener is created
+	/*		<div class="background-fade-red"></div>
+		<form class="popup-red" action="baseURL/deleteProduct/process/" method="POST">
+			<h2 id="confirm"> Are you sure you would like to get rid of this beautiful discussion forever??? </h2>
+				<input id="tid" type="text" name="pid" value="id" readonly>
+				<input id="submit" type="submit" name="submit" value="DESTROY IT NOW!">
+				<input id="letitlive" type="button" value="WAIT... let it live">
+		</form>*/
+}

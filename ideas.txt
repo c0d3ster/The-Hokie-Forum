@@ -16,3 +16,5 @@
 5) Rating system could go outside of topic and reply divs, another field would need to be added to the database though
 
 6) Implement a Poll of the Week feature that uses external poll apis
+
+7) Highlight reply box a different color when a pin is touched that is linked to it

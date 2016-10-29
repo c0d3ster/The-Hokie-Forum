@@ -37,27 +37,11 @@ class PostController {
 				}
 				break;
 
-			case 'editTopic':
-				$topicID = $_GET['tid'];
-				$t = Topic::loadById($topicID);
-				if($this->currUser->get('user_id') == $t->get('user_id')) { //always need to compare user_id's for security
-					$this->editTopic($t);
-				}
-				break;
-
-			case 'deleteTopic':
-				$topicID = $_GET['tid'];
-				$t = Topic::loadById($topicID);
-				if($this->currUser->get('user_id') == $t->get('user_id') || $admin) { //admins can delete any topic as well
-					$this->deleteTopic($t);
-				}
-				break;
-
 			/////cases for topic control processing//////
 
 			case 'processAdd':
 				if($this->currUser) {
-					$this->processAdd($this->currUser);
+					$this->processAddTopic($this->currUser);
 				}
 				break;
 
@@ -65,7 +49,7 @@ class PostController {
 				$topicID = $_GET['tid'];
 				$t = Topic::loadById($topicID);
 				if($this->currUser->get('user_id') == $t->get('user_id')) {
-					$this->processEdit($t);
+					$this->processEditTopic($t);
 				}
 				break;
 
@@ -73,27 +57,7 @@ class PostController {
 				$topicID = $_GET['tid'];
 				$t = Topic::loadById($topicID);
 				if($this->currUser->get('user_id') == $t->get('user_id') || $admin) {
-					$this->processDelete($t);
-				}
-				break;
-
-
-			/////cases for reply control/////
-			//Add reply will be visible upon loading a thread//
-
-			case 'editReply':
-				$replyID = $_GET['rid'];
-				$t = Reply::loadById($topicID);
-				if($this->currUser->get('user_id') == $r->get('user_id')) { //always need to compare user_id's for security
-					$this->editReply($r);
-				}
-				break;
-
-			case 'deleteReply':
-				$replyID = $_GET['rid'];
-				$t = Reply::loadById($topicID);
-				if($this->currUser->get('user_id') == $r->get('user_id') || $admin) { //admins can delete any reply as well
-					$this->deleteReply($r);
+					$this->processDeleteTopic($t);
 				}
 				break;
 
@@ -126,6 +90,15 @@ class PostController {
         header('Location: '.BASE_URL);
         exit();
 		}
+	}
+
+
+	public function addTopic() {
+		$pageName = 'add Topic';
+
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/addtopic.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 
 	public function threadView($topicID) {
