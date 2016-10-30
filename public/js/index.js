@@ -109,9 +109,9 @@ function verifyCredentials(username, password) {
  */
 function verifySignup(user, pass, mail) {
   for (var i = 0, j = arguments.length; i < j; i++){ //more parameters so I just looped through to check for invalid values instead
-      if(!checkString(arguments[i]) || /\s/.test(arguments[i]) || arguments[0].length > 10) {
+      if(!checkString(arguments[i]) || /\s/.test(arguments[i]) || arguments[0].length > 16) {
     		$('#pass').val('');
-				$('.popsignup').append('<p> Please fill out all information (username 1-10 chars)</p>');
+				$('.popsignup').append('<p> Please fill out all information (username 1-16 chars)</p>');
 				$('.popsignup > p').delay(2000).fadeOut();
       	return false;
       }
@@ -262,25 +262,25 @@ function submitReply() {
 }
 
 function editClicked() {
-		var text = $(this).siblings('p').eq(0);
-		var val = text.text();
-		text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
-		$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
-		$(this).replaceWith("<button class='submit-edit'>Save</button>");
-
-		text.siblings('.submit-edit').eq(0).click(submitEditClicked);
+	var text = $(this).siblings('p').eq(0);
+	var val = text.text();
+	text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
+	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
+	$(this).replaceWith("<button class='submit-edit'>Save</button>");
+	alert(text.siblings('.submit-edit').eq(0));
+		$('.submit-edit').click(submitEditClicked);
 }
 
 function submitEditClicked() {
-			if ($(this).parent().attr('class') === 'reply') {
-				alert($(this).parent().val());
-				var id = $(this).siblings('input').filter('.hidden-id').eq(0);
-				editReply(id.val(), $(this).parent());
-			}
-			$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
-			$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
-		
-			id.siblings('edit-item').click(editClicked);
+	if ($(this).parent().attr('class') == 'reply') {
+		var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+		editReply(id.val(), $(this).parent());
+	}
+	$(this).siblings('')
+	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
+	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
+
+	id.siblings('.edit-item').click(editClicked);
 }
 
 function editReply(id, replyVar) {
