@@ -209,7 +209,7 @@ input:hover, button:hover {
 	box-shadow: 7px 7px 8px rgba(0,0,0,.75);
 }
 
-.topic-title {	
+.topic-title, #title {	
 	display: inline;
 	float: left;
 	width: 65% !important;
@@ -218,7 +218,7 @@ input:hover, button:hover {
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 }
 
-.topic-post {
+.topic-post, #post {
 	clear: both;
 	float: left;
 	width: 80%;

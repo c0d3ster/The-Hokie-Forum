@@ -302,12 +302,12 @@ function editClicked() {
 	if (type == 'topic') {
 		topic_title = $(this).parent().find('h2');
 		topic_title_val = topic_title.text();
-		topic_title.replaceWith('<input class="topic-title" value="'+topic_title_val+'">');
+		topic_title.replaceWith('<input class="#title" value="'+topic_title_val+'">');
 	}
 	
 	var post = $(this).parent().find('p');
 	var val = post.text();
-	post.replaceWith('<textarea class="topic-post">'+val+'</textarea>');
+	post.replaceWith('<textarea id="post">'+val+'</textarea>');
 	
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
@@ -334,7 +334,7 @@ function submitEditClicked(type) {
 
 function editReply(id, replyVar) {
 	
-	var post = replyVar.find('.topic-post').val();
+	var post = replyVar.find('#post').val();
 	
 	$.ajax({    
 		type: "POST",
@@ -353,8 +353,8 @@ function editReply(id, replyVar) {
 }
 
 function editTopic(id, topicVar) {
-	var post = topicVar.find('.topic-post').val();
-	var title = topicVar.find('.topic-title').val();
+	var post = topicVar.find('#post').val();
+	var title = topicVar.find('#title').val();
 	
 	$.ajax({    
 		type: "POST",
