@@ -1,10 +1,19 @@
-<?php $top = $thread->get('topic'); ?>
+<?php $top = $thread->get('topic'); 
+			$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+
+?>
 
 <a href="<?=BASE_URL?>/recentTopics/">&#60 Go Back</a>
 
 <div class="topic">
-	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
-	<div class="topic-user"> Posted By: <?= User::loadByID($top->get('user_id'))->get('username')?> </div>
+	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>	
+	<div class="topic-user"> By: <?= $topicUsername  ?> </div>
+<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
+		<img src='<?=IMAGES?>/edititem.png' class='delete-item'>
+<?php endif;?>	
+<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
+		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
+<?php endif;?>		
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
 	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
@@ -23,10 +32,12 @@
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
-			<?php if($this->currUser and $uname == $this->currUser->get('username')): //this needs to include admin check for delete options?> 
-				<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
-				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
-			<?php endif;?>
+		<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
+			<img src='<?=IMAGES?>/edititem.png' class='delete-item'>
+		<?php endif;?>	
+		<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
+			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
+		<?php endif;?>	
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	

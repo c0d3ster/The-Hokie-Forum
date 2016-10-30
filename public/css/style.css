@@ -28,23 +28,25 @@ MyFit Project 2 Stylesheet for explore page main content
 	width: 100vw;
 	height: 100vh;
 	opacity: .75;
-	background-color: lightgray;
+	background-color: azure;
 	z-index: 2;
+	display: none;
 }
 
 .popup-red {
 	position: fixed;
 	height: 30vh;
 	width: 40vw;
-	top: 35vh;
-	left: 30vw;
+	top: 28vh;
+	left: 25vw;
 	padding: 5%;
-	border-radius: 20px;
 	text-align: center;
-	opacity: .8;
-	background: radial-gradient( #DDBBBB, #EE0000);
+	opacity: .9;
+	background: linear-gradient( rgba(236,130,5,1), rgba(224,70,40,1));
+	border: ridge 5px grey;
 	overflow: hidden;
 	z-index: 2;
+	display: none;
 }
 
 body {
@@ -90,15 +92,15 @@ body {
 
 .favorite-item, .edit-item, .delete-item{
 	float: right;
-	margin: 0 5px;
-	width: 7%;
-	height: 7%;
-	transition: width 1s;
+	margin: 2px 5px;
+	width: 5%;
+	height: 5%;
+	transition: width .5s;
 }
 
 .favorite-item:hover, .edit-item:hover, .delete-item:hover {
-	width: 8%;
-	height: 8%;
+	width: 6%;
+	height: 6%;
 }
 
 #recent-text {
@@ -209,7 +211,7 @@ input:hover, button:hover {
 .topic-title {	
 	display: inline;
 	float: left;
-	width: 70% !important;
+	width: 65% !important;
 	padding: 1%;
 	margin: 0%;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
@@ -225,7 +227,6 @@ input:hover, button:hover {
 
 .topic-user {
 	float: right;
-	width: 25%;
 	margin: 1%;
 	text-align: right;
 }
@@ -281,8 +282,10 @@ input:hover, button:hover {
 	display: block;
 	width: 95%;
 	min-height: 50px;
+	max-height: 200px;
 	padding: 5px 0px 0px 5px;
 	margin-bottom: 15px;
+	overflow: auto;
 }
 
 .submit-edit, .cancel-edit{
