@@ -151,7 +151,7 @@ class PostController {
 		$editReply->set('post',$_POST['post']);
 		
 		$edited = $this->processInsert($editReply, 'reply');
-		echo json_encode((array)$edited);
+		echo json_encode($edited);
 		exit();
 	}
 	
@@ -204,7 +204,7 @@ class PostController {
 		$error = $obj->save();
 		if ($error) {
 			$_SESSION['err'] = $error;
-			return null;
+			return $error;
 		}
 		return $obj;
 	}
