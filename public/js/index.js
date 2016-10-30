@@ -297,7 +297,7 @@ function editClicked() {
 	var links = $(this).parent().find('a');
 	link.click(function(e) {
 		e.preventDefault();
-	};
+	});
 	
 	if (type == 'topic') {
 		topic_title = $(this).parent().find('h2');
