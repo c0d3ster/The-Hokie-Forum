@@ -24,7 +24,7 @@
 		<?php endif;?>
 
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
-					<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?>... </p>	
+					<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?></p>	
 				</a>			
 				<label class="topic-time"> <?= $top->get('date_created') ?> </label>
 				<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 
