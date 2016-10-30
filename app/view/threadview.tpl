@@ -9,7 +9,7 @@
 	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>	
 	<div class="topic-user"> By: <?= $topicUsername  ?> </div>
 <?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
-		<img src='<?=IMAGES?>/edititem.png' class='delete-item'>
+		<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 <?php endif;?>	
 <?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
 		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
@@ -33,7 +33,7 @@
 				<?=$uname?>
 			</h5>
 		<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
-			<img src='<?=IMAGES?>/edititem.png' class='delete-item'>
+			<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 		<?php endif;?>	
 		<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
 			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
