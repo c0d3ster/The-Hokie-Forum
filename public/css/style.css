@@ -96,6 +96,7 @@ body {
 	width: 4%;
 	height: 4%;
 	transition: width .5s;
+	z-index: 2;
 }
 
 .favorite-item:hover, .edit-item:hover, .delete-item:hover {

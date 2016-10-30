@@ -8,18 +8,27 @@
 
 
 
-	<?php	foreach($activities as $top) { ?>
+	<?php	foreach($activities as $top) {
+		$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+	?>
 
 	<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
 		<div class="topic">
 			<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
-			<div class="topic-user"> Posted By: <?= User::loadByID($top->get('user_id'))->get('username')?> </div>
-			<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
-			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
-			<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?>... </p>
+			<div class="topic-user"> By: <?= $topicUsername ?> </div>	
+	</a>
+<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
+		<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
+<?php endif;?>	
+<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
+		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
+<?php endif;?>		
+				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
+					<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?>... </p>
+				</a>
 			<p class="topic-time"> <?= $top->get('date_created') ?> </p>
 		</div> 
-	</a>
+
 	<?php } 
 } else {?>
 	<h1 id = 'sad-message'> Looks like you haven't ever participated in any discussions... :( </h1>
