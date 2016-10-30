@@ -15,7 +15,7 @@
 		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 <?php endif;?>		
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
-	<p class="topic-time"> <?= $top->get('date_created') ?> </p>
+	<label class="topic-time"> <?= $top->get('date_created') ?> </label>
 	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
 
