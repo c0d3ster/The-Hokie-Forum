@@ -316,7 +316,7 @@ function editClicked() {
 }
 
 function submitEditClicked(type) {
-	var id = $(this).parent().find('input').filter('.hidden-id').eq(0);
+	var id = $(this).parent().find('.hidden-id');
 	if (type.data.param1 == 'reply') {
 		editReply(id.val(), $(this).parent());
 	}

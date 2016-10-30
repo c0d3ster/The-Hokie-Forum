@@ -41,7 +41,7 @@
 				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 		<?php endif;?>	
 
-			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
+		<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
 <?php }
