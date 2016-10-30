@@ -295,7 +295,7 @@ function editClicked() {
 	var topic_title_val = null;
 	
 	var links = $(this).parent().find('a');
-	link.click(function(e) {
+	links.click(function(e) {
 		e.preventDefault();
 	});
 	
