@@ -315,12 +315,13 @@ function submitEditClicked(type) {
 		editReply(id.val(), $(this).parent());
 	}
 	else if (type == 'topic') {
-		editTopic(id.val(), $(this).parent());
+		editTopic(id.text(), $(this).parent());
 	}
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 
 	id.siblings('.edit-item').click(editClicked);
+	id.siblings('.delete-item').click(deleteClicked);
 }
 
 function editReply(id, replyVar) {
@@ -343,6 +344,7 @@ function editReply(id, replyVar) {
     });
 }
 
+<<<<<<< HEAD
 function editTopic(id, topicVar) {
 	var post = topicVar.find('#post').val();
 	var title = topicVar.find('#title').val();
@@ -364,6 +366,20 @@ function editTopic(id, topicVar) {
 		}                                 
     });
 }
+=======
+function cancelEditClicked(info) {
+	var prevPost = info.data.param1;
+	var editBox = $(this).siblings('.editing').eq(0);
+	editBox.replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
+	$(this).prev().replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
+	$(this).replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
+
+	$('.edit-item').click(editClicked);
+	$('.delete-item').click(deleteClicked);
+
+}
+
+>>>>>>> 4b0d592177aa95b99b47069ec53adaf8aa2beed9
 
 
 
