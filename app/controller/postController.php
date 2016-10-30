@@ -72,7 +72,7 @@ class PostController {
 			case 'processEditReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				if($this->currUser->get('user_id') == $r->get('user_id')) {
+				if($this->currUser->get('id') == $r->get('user_id')) {
 					$this->processEditReply($r);
 				}
 				break;

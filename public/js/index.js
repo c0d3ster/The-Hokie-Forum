@@ -2,8 +2,8 @@
 $(function() {
 
   //event listeners for user manipulation
-  $('#login').click(loginClicked);
-  $('#signup').click(signupClicked); 
+	$('#login').click(loginClicked);
+	$('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
 
@@ -268,7 +268,7 @@ function editClicked() {
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
 	alert(text.siblings('.submit-edit').eq(0));
-		$('.submit-edit').click(submitEditClicked);
+	$('.submit-edit').click(submitEditClicked);
 }
 
 function submitEditClicked() {
@@ -297,7 +297,7 @@ function editReply(id, replyVar) {
       	success: function(data){
   				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
 		},  
-		error: function () {
+		error: function (data) {
 			alert(data.status);
 		}                                 
     });
