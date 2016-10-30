@@ -90,7 +90,7 @@ body {
 	width: 60%;
 }
 
-.favorite-item, .edit-item, .delete-item, .submit-edit, .cancel-edit{
+.favorite-item, .edit-item, .delete-item {
 	float: right;
 	margin: 2px 5px;
 	width: 4%;
@@ -296,9 +296,10 @@ input:hover, button:hover {
 }
 
 .submit-edit, .cancel-edit{
-		float: right;
-		padding: 1% 6%;
-		margin: 0px 6%;
+	float: right;
+	margin: 2px 5px;
+	width: 6%;
+	height: 6%;
 }
 
 
