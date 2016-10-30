@@ -17,10 +17,9 @@ $(function() {
 	$('#add-location').click(addLocationClicked);
 	$('#submit-response').click(submitReply);
 
-	//event listeners for editing and removing content
-	$('#letitlive').click(returned);	
+	//event listeners for editing and removing content	
 	$('.edit-item').click(editClicked);
-
+	$('.delete-item').click(deleteClicked);
 	//subheader menu control
 
 });
@@ -195,7 +194,7 @@ function startThreadClicked() {
  * Fades the hidden map into view
  */
 function newLocationClicked() {
-	$('#map-hidden').fadeIn(1000);
+	$('#map-hidden').slideToggle('slow');
 }
 
 /* 
@@ -216,25 +215,49 @@ function addLocationClicked() {
 	$('.background-fade-map').fadeIn(1000);
 }
 
+
 /* 
  * @function
- * @name returned
- * fades out the popup to delete that post or reply
+ * @name deleteClicked
+ * this will create a pop up for the confirm delete box
  */
-function returned() {
-	$('.background-fade-red').fadeOut(1000);
-	$('.popup-red').fadeOut(1000);
+function deleteClicked() {
+	//use this->syntax for parameter when each listener is created
+	var type = 'Topic';
+	var idString = '<input id="rid" type="hidden" name="rid" value="id">';
+	if ($(this).parent().attr('class') == 'reply') {
+		type = 'Reply';
+		idString = '<input id="rid" type="hidden" name="tid" value="id">';
+		}
+	var id = $(this).siblings('input').filter('.hidden-id').eq(0).val();
+	$('body').append(
+	'<div class="background-fade-red"></div>'+
+		'<form class="popup-red" action="'+baseURL+'/delete'+type+'/process/'+id+'" method="POST">'+
+		'<h2 id="confirm"> Are you sure you would like to get rid of this amazing '+type+' forever??? </h2>'+
+				idString+
+				'<input id="submit" type="submit" name="submit" value="Destroy it NOW!">'+
+				'<input id="letitlive" type="button" value="WAIT... let it live">'+
+		'</form>');
+	$('.background-fade-red').fadeIn(1000);
+	$('.popup-red').fadeIn(1000);
+
+	$('#letitlive').click(cancelDelete);
 }
 
-function deleteClicked(id) {
-	//use this->syntax for parameter when each listener is created
-	/*		<div class="background-fade-red"></div>
-		<form class="popup-red" action="baseURL/deleteProduct/process/" method="POST">
-			<h2 id="confirm"> Are you sure you would like to get rid of this beautiful discussion forever??? </h2>
-				<input id="tid" type="text" name="pid" value="id" readonly>
-				<input id="submit" type="submit" name="submit" value="DESTROY IT NOW!">
-				<input id="letitlive" type="button" value="WAIT... let it live">
-		</form>*/
+/* 
+ * @function
+ * @name cancelDelete
+ * fade out the popups then remove them
+ */
+function cancelDelete() {
+	var reply = $($(this).parent());
+	reply.fadeOut(1000);
+	reply.prev().fadeOut(1000);
+	setTimeout(function() {
+		reply.empty();
+		reply.prev().remove();
+		reply.remove();
+	}, 1000);
 }
 
 function submitReply() {
@@ -254,6 +277,9 @@ function submitReply() {
   				$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
   				$('#response').val('');
   				$('.background-fade-map').fadeOut(1000);
+
+  				$('.edit-item').click(editClicked);
+  				$('.delete-item').click(deleteClicked);
 			},  
 		error: function () {
 			alert(data);
@@ -262,6 +288,7 @@ function submitReply() {
 }
 
 function editClicked() {
+	//we need to check for topic vs reply here 
 	var text = $(this).siblings('p').eq(0);
 	var val = text.text();
 	text.replaceWith("<textarea class='editing'>"+val+"</textarea>");

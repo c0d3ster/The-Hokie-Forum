@@ -63,7 +63,7 @@ class PostController {
 			case 'processDelete':
 				$topicID = $_GET['tid'];
 				$t = Topic::loadById($topicID);
-				if($this->currUser->get('id') == $t->get('user_id') || $admin) {
+				if($this->currUser->get('id') == $t->get('user_id') || $this->admin) {
 					$this->processDeleteTopic($t);
 				}
 				break;
@@ -88,7 +88,7 @@ class PostController {
 			case 'processDeleteReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				if($this->currUser->get('id') == $r->get('user_id') || $admin) {
+				if($this->currUser->get('id') == $r->get('user_id') || $this->admin) {
 					$this->processDeleteReply($r);
 				}
 				break;
@@ -210,14 +210,14 @@ class PostController {
 	}
 
 
-	public function processDelete($id) {
-		$conn = mysql_connect(DB_HOST, DB_USER, DB_PASS)
-			or die ('Error: Could not connect to MySql database');
-		mysql_select_db(DB_DATABASE);
+	public function processDeleteReply($r) {
+		$r->remove();
+		header('Location: '.BASE_URL.'/view/'.$r->get('topic_id'));
+	}
 
-		$q = "DELETE FROM product WHERE id=$id";
-		mysql_query($q);
-		header('Location: '.BASE_URL.'/myProducts/');
+	public function processDeleteTopic($t) {
+		$t->remove();
+		header('Location: '.BASE_URL.'/myActivity/');
 	}
 
 
