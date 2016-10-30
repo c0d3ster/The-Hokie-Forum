@@ -294,6 +294,11 @@ function editClicked() {
 	var topic_title = null;
 	var topic_title_val = null;
 	
+	var links = $(this).parent().find('a');
+	link.click(function(e) {
+		e.preventDefault();
+	};
+	
 	if (type == 'topic') {
 		topic_title = $(this).parent().find('h2');
 		topic_title_val = topic_title.text();
@@ -319,7 +324,10 @@ function submitEditClicked(type) {
 	}
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
-
+	
+	var links = $(this).parent().find('a');
+	links.off('click');
+	
 	id.siblings('.edit-item').click(editClicked);
 	id.siblings('.delete-item').click(deleteClicked);
 }
