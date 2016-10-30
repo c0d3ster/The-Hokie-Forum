@@ -323,11 +323,13 @@ function submitEditClicked(type) {
 	else if (type.data.param1 == 'topic') {
 		editTopic(id.val(), $(this).parent());
 	}
-	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
-	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 	
 	var links = $(this).parent().find('a');
 	links.unbind('click');
+	
+	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
+	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
+	
 	
 	id.siblings('.edit-item').click(editClicked);
 	id.siblings('.delete-item').click(deleteClicked);
