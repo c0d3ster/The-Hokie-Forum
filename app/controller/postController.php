@@ -10,11 +10,18 @@ $action = $_GET['action'];
 $pc = new PostController();
 $pc->route($action);
 
+
+
 class PostController {
 
 	public $currUser = 0;
 	public $admin = 0;
 
+	public function console_log( $data ){
+	  echo '<script>';
+	  echo 'console.log('. json_encode( $data ) .')';
+	  echo '</script>';
+	}
 	// route us to the appropriate class method for this action
 	public function route($action) {
 		session_start();
@@ -48,7 +55,7 @@ class PostController {
 			case 'processEdit':
 				$topicID = $_GET['tid'];
 				$t = Topic::loadById($topicID);
-				if($this->currUser->get('user_id') == $t->get('user_id')) {
+				if($this->currUser->get('id') == $t->get('user_id')) {
 					$this->processEditTopic($t);
 				}
 				break;
@@ -56,7 +63,7 @@ class PostController {
 			case 'processDelete':
 				$topicID = $_GET['tid'];
 				$t = Topic::loadById($topicID);
-				if($this->currUser->get('user_id') == $t->get('user_id') || $this->admin) {
+				if($this->currUser->get('id') == $t->get('user_id') || $this->admin) {
 					$this->processDeleteTopic($t);
 				}
 				break;
@@ -72,7 +79,8 @@ class PostController {
 			case 'processEditReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				if($this->currUser->get('user_id') == $r->get('user_id')) {
+				$this->console_log($r);
+				if($this->currUser->get('id') == $r->get('user_id')) {
 					$this->processEditReply($r);
 				}
 				break;
@@ -143,7 +151,7 @@ class PostController {
 		$editReply->set('post',$_POST['post']);
 		
 		$edited = $this->processInsert($editReply, 'reply');
-		echo json_encode(get_object_vars($edited));
+		echo json_encode((array)$edited);
 		exit();
 	}
 	

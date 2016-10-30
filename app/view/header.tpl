@@ -20,6 +20,7 @@ function isSelected($pn, $link) {
 	<script src="<?= SCRIPTS ?>/index.js" type="text/javascript"> </script>
 	<script type="text/javascript">
 		var baseURL = '<?= BASE_URL ?>';
+		var pageName = '<?= $pageName ?>';
 	</script>
 
 	<title> <?= $pageName ?> </title>

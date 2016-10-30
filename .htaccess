@@ -51,6 +51,6 @@ RewriteRule ^deleteReply/process/(\d+)/?$ app/controller/postController.php?acti
 
 # For AJAX getting locations
 
-RewriteRule ^populateMap/?$ app/controller/postController.php?action=populateExplore [QSA,L]
+RewriteRule ^exploreMap/?$ app/controller/postController.php?action=populateExplore [QSA,L]
 
 RewriteRule ^populateMap/(\d+)/?$ app/controller/postController.php?action=populateThread&tid=$1 [QSA,L]

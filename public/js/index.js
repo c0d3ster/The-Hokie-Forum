@@ -2,8 +2,8 @@
 $(function() {
 
   //event listeners for user manipulation
-  $('#login').click(loginClicked);
-  $('#signup').click(signupClicked); 
+	$('#login').click(loginClicked);
+	$('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
 
@@ -294,8 +294,7 @@ function editClicked() {
 	text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
-	alert(text.siblings('.submit-edit').eq(0));
-		$('.submit-edit').click(submitEditClicked);
+	$('.submit-edit').click(submitEditClicked);
 }
 
 function submitEditClicked() {
@@ -303,7 +302,6 @@ function submitEditClicked() {
 		var id = $(this).siblings('input').filter('.hidden-id').eq(0);
 		editReply(id.val(), $(this).parent());
 	}
-	$(this).siblings('')
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 
@@ -324,7 +322,7 @@ function editReply(id, replyVar) {
       	success: function(data){
   				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
 		},  
-		error: function () {
+		error: function (data) {
 			alert(data.status);
 		}                                 
     });
