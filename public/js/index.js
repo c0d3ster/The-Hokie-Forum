@@ -344,7 +344,7 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  				replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
+  			replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
 		},  
 		error: function (data) {
 			alert(data.status);
