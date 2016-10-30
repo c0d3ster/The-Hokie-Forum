@@ -17,11 +17,6 @@ class PostController {
 	public $currUser = 0;
 	public $admin = 0;
 
-	public function console_log( $data ){
-	  echo '<script>';
-	  echo 'console.log('. json_encode( $data ) .')';
-	  echo '</script>';
-	}
 	// route us to the appropriate class method for this action
 	public function route($action) {
 		session_start();
@@ -79,7 +74,6 @@ class PostController {
 			case 'processEditReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				$this->console_log($r);
 				if($this->currUser->get('id') == $r->get('user_id')) {
 					$this->processEditReply($r);
 				}
@@ -151,7 +145,7 @@ class PostController {
 		$editReply->set('post',$_POST['post']);
 		
 		$edited = $this->processInsert($editReply, 'reply');
-		echo json_encode((array)$edited);
+		echo json_encode($edited);
 		exit();
 	}
 	
@@ -204,7 +198,7 @@ class PostController {
 		$error = $obj->save();
 		if ($error) {
 			$_SESSION['err'] = $error;
-			return null;
+			return $error;
 		}
 		return $obj;
 	}
