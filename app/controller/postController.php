@@ -17,7 +17,7 @@ class PostController {
 	public $currUser = 0;
 	public $admin = 0;
 
-	public static function console_log( $data ){
+	public function console_log( $data ){
 	  echo '<script>';
 	  echo 'console.log('. json_encode( $data ) .')';
 	  echo '</script>';
