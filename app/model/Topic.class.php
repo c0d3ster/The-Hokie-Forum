@@ -19,8 +19,8 @@ class Topic extends DbObject {
             'title' => '',
             'post' => '',
             'location' => null,
-            'user_id' => null
-            //date_created is auto in mySQL
+            'user_id' => null,
+            'date_created' => null
             );
 
         $args += $defaultArgs;
@@ -30,7 +30,8 @@ class Topic extends DbObject {
         $this->post = $args['post'];
         $this->location = $args['location'];
         $this->user_id = $args['user_id'];
-    }
+        $this->date_created = $args['date_created'];
+    }   
 
     // save changes to object
     public function save() {

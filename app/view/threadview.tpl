@@ -32,11 +32,11 @@
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
-		<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
-			<img src='<?=IMAGES?>/edititem.png' class='delete-item'>
+		<?php if($this->currUser and $uname == $this->currUser->get('username')):?> 
+				<img src='<?=IMAGES?>/edititem.png' class='delete-item'>
 		<?php endif;?>	
-		<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
-			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
+		<?php if(($this->currUser and $uname == $this->currUser->get('username')) or $this->admin):?> 
+				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 		<?php endif;?>	
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>

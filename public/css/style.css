@@ -219,16 +219,23 @@ input:hover, button:hover {
 
 .topic-post {
 	clear: both;
-	display: block;
+	float: left;
 	width: 80%;
 	padding-top: 2%;
-	margin: 1% 0 0 4%;
+	margin: 1% 0 0 3%;
 }
 
 .topic-user {
 	float: right;
 	margin: 1%;
 	text-align: right;
+}
+
+.topic-time {
+	float: right;
+	width: 17%;
+	text-align: right;
+	margin: 0;
 }
 
 /*///////////////////////*/
