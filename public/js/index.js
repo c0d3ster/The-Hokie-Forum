@@ -290,33 +290,54 @@ function submitReply() {
 
 function editClicked() {
 	//we need to check for topic vs reply here 
-	var text = $(this).siblings('p').eq(0);
-	var val = text.text();
-	text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
+	var type = $(this).parent().attr('class');
+	var topic_title = null;
+	var topic_title_val = null;
+	
+	var links = $(this).parent().find('a');
+	links.click(function(e) {
+		e.preventDefault();
+	});
+	
+	if (type == 'topic') {
+		topic_title = $(this).parent().find('h2');
+		topic_title_val = topic_title.text();
+		topic_title.replaceWith('<input id="title" value="'+topic_title_val+'">');
+	}
+	
+	var post = $(this).parent().find('p');
+	var val = post.text();
+	post.replaceWith('<textarea id="post">'+val+'</textarea>');
+	
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
-	$('.submit-edit').click(submitEditClicked);
-	$('.cancel-edit').click({param1: val}, cancelEditClicked);
+	$('.submit-edit').click({param1: type}, submitEditClicked);
+	$('.cancel-edit').click({param1: val, param2: topic_title_val}, cancelEditClicked); 
 }
 
-function submitEditClicked() {
-
-	var id = $(this).siblings('input').filter('.hidden-id').eq(0);
-	var val = $(this).siblings('textarea').filter('.editing').eq(0).text();
-
-	if ($(this).parent().attr('class') == 'reply') {
+function submitEditClicked(type) {
+	var id = $(this).parent().find('.hidden-id');
+	if (type.data.param1 == 'reply') {
 		editReply(id.val(), $(this).parent());
 	}
+	else if (type.data.param1 == 'topic') {
+		editTopic(id.val(), $(this).parent());
+	}
+	
+	var links = $(this).parent().find('a');
+	links.unbind('click');
+	
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
-
+	
+	
 	id.siblings('.edit-item').click(editClicked);
 	id.siblings('.delete-item').click(deleteClicked);
 }
 
 function editReply(id, replyVar) {
 	
-	var post = replyVar.find('.editing').val();
+	var post = replyVar.find('#post').val();
 	
 	$.ajax({    
 		type: "POST",
@@ -326,7 +347,7 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
+  			replyVar.find('#post').replaceWith("<p class='topic-post'>"+data.post+"</p>");
 		},  
 		error: function (data) {
 			alert(data.status);
@@ -334,10 +355,39 @@ function editReply(id, replyVar) {
     });
 }
 
+function editTopic(id, topicVar) {
+	var post = topicVar.find('#post').val();
+	var title = topicVar.find('#title').val();
+	
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/editTopic/process/'+id, 
+    	data: {
+    		'post': post,
+    		'title': title
+    	},      
+      dataType: 'json',                   
+      success: function(data){
+  			topicVar.find('#post').replaceWith("<p class='topic-post'>"+data.post+"</p>");
+  			topicVar.find('#title').replaceWith("<h2 class='topic-title'>"+data.title+"</h2>");
+			},  
+			error: function (data) {
+				alert(data.status);
+			}                                 
+    });
+}
+
 function cancelEditClicked(info) {
 	var prevPost = info.data.param1;
-	var editBox = $(this).siblings('.editing').eq(0);
-	editBox.replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
+	var prevTitle = null;
+	
+	$('#post').replaceWith("<p class='topic-post'>"+prevPost+"</p>").hide().fadeIn(1000);
+	
+	if(info.data.param2) {
+		prevTitle = info.data.param2;
+		$('#title').replaceWith("<h2 class='topic-title'>"+prevTitle+"</h2>");
+	}
+	
 	$(this).prev().replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 

@@ -12,10 +12,10 @@
 		$topicUsername = User::loadByID($top->get('user_id'))->get('username');
 	?>
 
-	<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
+	<a href="<?= BASE_URL ?>/view/<?=$top->get('id')?>"> 
 		<div class="topic">
-			<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
-			<div class="topic-user"> By: <?= $topicUsername ?> </div>	
+			<h2 class="topic-title"><?=$top->get('title')?></h2>
+			<div class="topic-user">By: <?=$topicUsername?></div>	
 	</a>
 <?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
 		<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
@@ -24,9 +24,10 @@
 		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 <?php endif;?>		
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
-					<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?>... </p>
+					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?></p>
 				</a>
-			<p class="topic-time"> <?= $top->get('date_created') ?> </p>
+			<label class="topic-time"><?=$top->get('date_created') ?></label>
+			<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 
 		</div> 
 
 	<?php } 

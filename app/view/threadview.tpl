@@ -15,7 +15,7 @@
 		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 <?php endif;?>		
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
-	<p class="topic-time"> <?= $top->get('date_created') ?> </p>
+	<label class="topic-time"> <?= $top->get('date_created') ?> </label>
 	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
 
@@ -33,7 +33,7 @@
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>			
-			<p class="topic-time"> <?= $reply->get('date_created') ?> </p>
+			<label class="topic-time"> <?= $reply->get('date_created') ?> </label>
 		<?php if($this->currUser and $uname == $this->currUser->get('username')):?> 
 				<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 		<?php endif;?>	
@@ -41,7 +41,7 @@
 				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 		<?php endif;?>	
 
-			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
+		<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
 <?php }
