@@ -171,10 +171,15 @@ class PostController {
 	public function processEditTopic($editTopic) {
 		$editTopic->set('title',$_POST['title']);
 		$editTopic->set('post',$_POST['post']);
-		$editTopic->set('title',$_POST['title']);
 		
-		$this->processInsert($editTopic);
+		$edited = $this->processInsert($editTopic);
+
+		$return = array('title' => $edited->get('title'),
+						'post' => $edited->get('post')
+						);
+		echo json_encode($return);
 		exit();
+		
 	} 
 	
 	

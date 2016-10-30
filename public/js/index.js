@@ -290,18 +290,32 @@ function submitReply() {
 
 function editClicked() {
 	//we need to check for topic vs reply here 
-	var text = $(this).siblings('p').eq(0);
-	var val = text.text();
-	text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
+	var type = $(this).parent().attr('class');
+	var topic_title = null;
+	var topic_title_val = null;
+	
+	if (type == 'topic') {
+		topic_title = $(this).siblings('h2').eq(0);
+		topic_title_val = topic_title.text();
+		topic_title.replaceWith("<input id='title'>"+topic_title_val+"</input>");
+	}
+	
+	var post = $(this).siblings('p').eq(0);
+	var val = post.text();
+	post.replaceWith("<textarea id='post'>"+val+"</textarea>");
+	
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
-	$('.submit-edit').click(submitEditClicked);
+	$('.submit-edit').click({param1: type}, submitEditClicked);
 }
 
-function submitEditClicked() {
-	if ($(this).parent().attr('class') == 'reply') {
-		var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+function submitEditClicked(type) {
+	var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+	if (type == 'reply') {
 		editReply(id.val(), $(this).parent());
+	}
+	else if (type == 'topic') {
+		editTopic(id.val(), $(this).parent());
 	}
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
@@ -311,7 +325,7 @@ function submitEditClicked() {
 
 function editReply(id, replyVar) {
 	
-	var post = replyVar.find('.editing').val();
+	var post = replyVar.find('#post').val();
 	
 	$.ajax({    
 		type: "POST",
@@ -321,7 +335,7 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
+  				replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
 		},  
 		error: function (data) {
 			alert(data.status);
@@ -329,6 +343,27 @@ function editReply(id, replyVar) {
     });
 }
 
+function editTopic(id, topicVar) {
+	var post = topicVar.find('#post').val();
+	var title = topicVar.find('#title').val();
+	
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/editTopic/process/'+id, 
+    	data: {
+    		'post': post,
+    		'title': title
+    	},      
+      	dataType: 'json',                   
+      	success: function(data){
+  			replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
+  			replyVar.find('#title').replaceWith("<h2 class='topic-title'>"+data.title+"</h2>");
+		},  
+		error: function (data) {
+			alert(data.status);
+		}                                 
+    });
+}
 
 
 
