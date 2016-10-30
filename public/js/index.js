@@ -302,12 +302,12 @@ function editClicked() {
 	if (type == 'topic') {
 		topic_title = $(this).parent().find('h2');
 		topic_title_val = topic_title.text();
-		topic_title.replaceWith('<input id="title" value="'+topic_title_val+'">');
+		topic_title.replaceWith('<input class="topic-title" value="'+topic_title_val+'">');
 	}
 	
 	var post = $(this).parent().find('p');
 	var val = post.text();
-	post.replaceWith("<textarea id='post'>"+val+"</textarea>");
+	post.replaceWith('<textarea class="topic-post">'+val+'</textarea>');
 	
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
