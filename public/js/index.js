@@ -365,6 +365,7 @@ function editTopic(id, topicVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
+      		alert(data);
   			replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
   			replyVar.find('#title').replaceWith("<h2 class='topic-title'>"+data.title+"</h2>");
 		},  
