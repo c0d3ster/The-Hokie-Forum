@@ -11,7 +11,7 @@
 		<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
 			<div class="topic">
 				<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
-				<div class="topic-user"> Posted By: <?= User::loadByID($top->get('user_id'))->get('username')?> </div>
+				<div class="topic-user"> By: <?= User::loadByID($top->get('user_id'))->get('username')?> </div>
 				<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?>... </p>
 				<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 
 			</div> 
