@@ -13,6 +13,7 @@
 		<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
 			<div class="topic">
 				<h2 class="topic-title"> <?= $top->get('title') ?> </h2>
+				<p class="categories"> Categories <?= top->get('categories') ?>
 				<div class="topic-user"> By: <?= $topicUsername?> </div>		
 		</a>
 		<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
