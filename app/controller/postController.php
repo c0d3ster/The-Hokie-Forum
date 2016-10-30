@@ -145,7 +145,10 @@ class PostController {
 		$editReply->set('post',$_POST['post']);
 		
 		$edited = $this->processInsert($editReply, 'reply');
-		echo json_encode((array)$edited);
+
+		$return = array('post' => $edited->get('post'));
+
+		echo json_encode($return);
 		exit();
 	}
 	
