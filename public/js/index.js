@@ -327,7 +327,7 @@ function submitEditClicked(type) {
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 	
 	var links = $(this).parent().find('a');
-	links.off('click');
+	links.unbind('click');
 	
 	id.siblings('.edit-item').click(editClicked);
 	id.siblings('.delete-item').click(deleteClicked);
