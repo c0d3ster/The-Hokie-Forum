@@ -316,7 +316,7 @@ function editClicked() {
 }
 
 function submitEditClicked(type) {
-	var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+	var id = $(this).parent().find('input').filter('.hidden-id').eq(0);
 	if (type.data.param1 == 'reply') {
 		editReply(id.val(), $(this).parent());
 	}
@@ -364,14 +364,14 @@ function editTopic(id, topicVar) {
     		'post': post,
     		'title': title
     	},      
-      	dataType: 'json',                   
-      	success: function(data){
+      dataType: 'json',                   
+      success: function(data){
   			topicVar.find('#post').replaceWith("<p class='topic-post'>"+data.post+"</p>");
   			topicVar.find('#title').replaceWith("<h2 class='topic-title'>"+data.title+"</h2>");
-		},  
-		error: function (data) {
-			alert(data.status);
-		}                                 
+			},  
+			error: function (data) {
+				alert(data.status);
+			}                                 
     });
 }
 
