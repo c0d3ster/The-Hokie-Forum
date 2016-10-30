@@ -277,6 +277,7 @@ function submitReply() {
   				$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
   				$('#response').val('');
   				$('.background-fade-map').fadeOut(1000);
+  				$('#no-replies').fadeOut(500);
 
   				$('.edit-item').click(editClicked);
   				$('.delete-item').click(deleteClicked);

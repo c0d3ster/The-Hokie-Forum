@@ -15,6 +15,7 @@
 		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 <?php endif;?>		
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
+	<p class="topic-time"> <?= $top->get('date_created') ?> </p>
 	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
 
@@ -31,19 +32,21 @@
 				$user = User::loadById($reply->get('user_id'));
 				$uname = $user->get('username');?>
 				<?=$uname?>
-			</h5>
+			</h5>			
+			<p class="topic-time"> <?= $reply->get('date_created') ?> </p>
 		<?php if($this->currUser and $uname == $this->currUser->get('username')):?> 
 				<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 		<?php endif;?>	
 		<?php if(($this->currUser and $uname == $this->currUser->get('username')) or $this->admin):?> 
 				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 		<?php endif;?>	
+
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
 <?php }
 } else { ?>
-	<h2> Looks like no one has replied to this topic yet... :( </h2>
+	<h2 id='no-replies'> Looks like no one has replied to this topic yet... :( </h2>
 <?php } ?>
 	</div>
 
