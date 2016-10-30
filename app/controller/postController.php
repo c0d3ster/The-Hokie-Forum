@@ -172,7 +172,7 @@ class PostController {
 		$editTopic->set('title',$_POST['title']);
 		$editTopic->set('post',$_POST['post']);
 		
-		$edited = $this->processInsert($editTopic);
+		$edited = $this->processInsert($editTopic, 'topic');
 
 		$return = array('title' => $edited->get('title'),
 						'post' => $edited->get('post')
