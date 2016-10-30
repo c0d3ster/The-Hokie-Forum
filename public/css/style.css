@@ -90,7 +90,7 @@ body {
 	width: 60%;
 }
 
-.favorite-item, .edit-item, .delete-item{
+.favorite-item, .edit-item, .delete-item, .submit-edit, .cancel-edit{
 	float: right;
 	margin: 2px 5px;
 	width: 4%;
