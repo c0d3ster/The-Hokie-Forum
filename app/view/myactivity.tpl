@@ -26,7 +26,7 @@
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
 					<p class="topic-post"> <?= substr($top->get('post'), 0, 160) ?>... </p>
 				</a>
-			<p class="topic-time"> <?= $top->get('date_created') ?> </p>
+			<label class="topic-time"> <?= $top->get('date_created') ?> </label>
 		</div> 
 
 	<?php } 

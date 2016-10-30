@@ -295,12 +295,12 @@ function editClicked() {
 	var topic_title_val = null;
 	
 	if (type == 'topic') {
-		topic_title = $(this).siblings('h2').eq(0);
+		topic_title = $(this).parent().find('h2');
 		topic_title_val = topic_title.text();
 		topic_title.replaceWith("<input id='title'>"+topic_title_val+"</input>");
 	}
 	
-	var post = $(this).siblings('p').eq(0);
+	var post = $(this).parent().find('p');
 	var val = post.text();
 	post.replaceWith("<textarea id='post'>"+val+"</textarea>");
 	
