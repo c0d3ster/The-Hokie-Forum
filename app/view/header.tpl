@@ -10,7 +10,7 @@ function isSelected($pn, $link) {
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="MyFit - Personalized Workouts and Equipment">
+	<meta name="description" content="The Hokie Forum - Where the Real Hokies Go">
 
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/fonts.css">
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/style.css">		

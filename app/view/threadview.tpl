@@ -18,14 +18,14 @@
 	foreach($thread->get('replies') as $reply) { ?>
 		<div class='reply'>
 			<p class='editable'><?=$reply->get('post') ?></p>
-			<h5><?php 
+			<h5 class="reply-name"><?php 
 				$user = User::loadById($reply->get('user_id'));
 				$uname = $user->get('username');?>
 				<?=$uname?>
 			</h5>
-			<?php if($this->currUser and $uname == $this->currUser->get('username')): ?>
-				<img src='<?=IMAGES?>/edititem.png' class='edititem'>
-				<img src='<?=IMAGES?>/deleteitem.png' class='deleteitem'>
+			<?php if($this->currUser and $uname == $this->currUser->get('username')): //this needs to include admin check for delete options?> 
+				<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
+				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 			<?php endif;?>
 			<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
@@ -41,7 +41,7 @@
 		<img src='<?=IMAGES?>/blacksburg.png' id='map-image'> 
 	</div>
 
-	<textarea id='response'> </textarea>
+	<textarea id='response' placeholder='reply to this thread here...'></textarea>
 	<div id='response-options'>
 		<div id='add-location'>
 			<h3 id='add-location-text'> Add Location </h3>

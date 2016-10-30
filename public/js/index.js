@@ -6,20 +6,7 @@ $(function() {
   $('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
 	$('#logout').click(logoutClicked);
-	$('#submit-response').click(submitReply);
-	$('.edititem').click(function() {
-		var text = $(this).siblings('p').filter('editable');
-		var val = text.innerHTML;
-		text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
-		$(this).replaceWith("<button class='submitedit'>Save</button>");
-		
-	});
-	$('.submitedit').click(function() {
-		if ($(this).parent().attr('class') == 'reply') {
-			editReply($(this).siblings('input').filter('.hidden-id').val(), $(this).parent());
-		}
-		$(this).replaceWith("<img src='<?=IMAGES?>/edititem.png' class='edititem'>");
-	});
+
 
 	//event listeners to add topic manipulation
 	$('#start-thread').click(startThreadClicked);
@@ -28,10 +15,11 @@ $(function() {
 
 	//event listeners for add reply manipulation
 	$('#add-location').click(addLocationClicked);
-
+	$('#submit-response').click(submitReply);
 
 	//event listeners for editing and removing content
-	$('#letitlive').click(returned);
+	$('#letitlive').click(returned);	
+	$('.edit-item').click(editClicked);
 
 	//subheader menu control
 
@@ -262,14 +250,37 @@ function submitReply() {
     	},      
       	dataType: 'html',                   
       	success: function(data){
-  			if(data.status == 1){
-  				$('#replies').prepend(data);
-  			}
-		},  
+  				$(data).appendTo('#replies').hide().fadeIn(2000);
+  				$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
+  				$('#response').val('');
+  				$('.background-fade-map').fadeOut(1000);
+			},  
 		error: function () {
-			alert(data.status);
-		}                                 
+			alert(data);
+			}                                 
     });
+}
+
+function editClicked() {
+		var text = $(this).siblings('p').eq(0);
+		var val = text.text();
+		text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
+		$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
+		$(this).replaceWith("<button class='submit-edit'>Save</button>");
+
+		text.siblings('.submit-edit').eq(0).click(submitEditClicked);
+}
+
+function submitEditClicked() {
+			if ($(this).parent().attr('class') === 'reply') {
+				alert($(this).parent().val());
+				var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+				editReply(id.val(), $(this).parent());
+			}
+			$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
+			$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
+		
+			id.siblings('edit-item').click(editClicked);
 }
 
 function editReply(id, replyVar) {
@@ -284,9 +295,7 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  			if(data.status == 1){
   				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
-  			}
 		},  
 		error: function () {
 			alert(data.status);

@@ -115,35 +115,35 @@ class PostController {
 	
 		$newReply = new Reply(array(
 			'post' => $_POST['post'],
-			'u_id' => $this->currUser->get('id'),
-			't_id' => $_POST['topic_id']
+			'user_id' => $this->currUser->get('id'),
+			'topic_id' => $_POST['topic_id']
 		));
 		
 		$added = $this->processInsert($newReply, 'reply');
 		$html = null;
 		if ($added) {
+			$user = User::loadById($added->get('user_id'));
+			$uname = $user->get('username');
 			$html = "<div class='reply'>
-				<p><?=$added->get('post') ?></p>
-				<h5><?php 
-					$user = User::loadById($added->get('user_id'));
-					$uname = $user->get('username');?>
-					<?=$uname?>
-				</h5>
-				<input class='hidden-id' type='hidden' value='<?=$added->get('id') ?>'> 
+				<p class='editable'>".$added->get('post')."</p>
+				<h5 class='reply-name'>".$uname."</h5>
+				<img src='".IMAGES."/edititem.png' class='edit-item'>
+				<img src='".IMAGES."/deleteitem.png' class='delete-item'>
+				<input class='hidden-id' type='hidden' value='".$added->get('id')."'> 
 			</div>";
 		}
 		echo $html;
 		exit();
 		
 	}
-	
+
 	/**For AJAX, does not reload page, use exit()! **/
 	/* No editing locations yet */
 	public function processEditReply($editReply) {
 		$editReply->set('post',$_POST['post']);
 		
 		$edited = $this->processInsert($editReply, 'reply');
-		echo json_encode(get_object_var($edited));
+		echo json_encode(get_object_vars($edited));
 		exit();
 	}
 	
@@ -184,7 +184,7 @@ class PostController {
 					'title' => $_POST['loctitle'],
 					'description' => $_POST['locdescription'],
 					'location' => $obj->get('location')
-				));
+				)); 
 				if ($type == 'topic')
 					$newLoc->set('topic_id',$obj->get('id'));
 				else if ($type == 'reply')
@@ -192,6 +192,7 @@ class PostController {
 				$newLoc->save();
 			}
 		}
+
 		$error = $obj->save();
 		if ($error) {
 			$_SESSION['err'] = $error;

@@ -75,7 +75,7 @@ class Topic extends DbObject {
 
     public static function getAllTopics() {
         
-		$query = sprintf("SELECT id FROM %s ORDER BY date_created",
+		$query = sprintf("SELECT id FROM %s ORDER BY date_created DESC",
             self::TOP_TABLE
             );
         $db = Db::instance();
@@ -93,7 +93,7 @@ class Topic extends DbObject {
     }
     
     public static function getTopicsById($u_id) {
-    	$query = sprintf("SELECT id FROM %s WHERE user_id = %s ORDER BY date_created",
+    	$query = sprintf("SELECT id FROM %s WHERE user_id = %s ORDER BY date_created DESC",
             self::TOP_TABLE,
             $u_id
             );

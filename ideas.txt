@@ -18,3 +18,5 @@
 6) Implement a Poll of the Week feature that uses external poll apis
 
 7) Highlight reply box a different color when a pin is touched that is linked to it
+
+8) Random short funny messages populated on top right when logged in

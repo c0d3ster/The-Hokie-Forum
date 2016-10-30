@@ -88,17 +88,17 @@ body {
 	width: 60%;
 }
 
-.favorite-item {
+.favorite-item, .edit-item, .delete-item{
 	float: right;
-	padding-left: 10px;
-	width: 10%;
-	height: 10%;
-	transition: width 2s;
+	margin: 0 5px;
+	width: 7%;
+	height: 7%;
+	transition: width 1s;
 }
 
-.favorite-item:hover {
-	width: 12.5%;
-	height: 12.5%;
+.favorite-item:hover, .edit-item:hover, .delete-item:hover {
+	width: 8%;
+	height: 8%;
 }
 
 #recent-text {
@@ -272,6 +272,25 @@ input:hover, button:hover {
 	float:left;
 	margin: 10px 0px 20px 0px;
 }
+
+.reply-name {
+	display: inline;
+}
+
+.editing {
+	display: block;
+	width: 95%;
+	min-height: 50px;
+	padding: 5px 0px 0px 5px;
+	margin-bottom: 15px;
+}
+
+.submit-edit, .cancel-edit{
+		float: right;
+		padding: 1% 6%;
+		margin: 0px 6%;
+}
+
 
 /*///////////////////////*/
 
