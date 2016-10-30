@@ -298,7 +298,7 @@ input:hover, button:hover {
 .submit-edit, .cancel-edit{
 	float: right;
 	margin: 9px 5px;
-	width: 8%;
+	min-width: 8%;
 }
 
 
