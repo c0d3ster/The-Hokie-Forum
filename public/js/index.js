@@ -316,11 +316,11 @@ function editClicked() {
 
 function submitEditClicked(type) {
 	var id = $(this).siblings('input').filter('.hidden-id').eq(0);
-	if (type == 'reply') {
+	if (type.data.param1 == 'reply') {
 		editReply(id.val(), $(this).parent());
 	}
-	else if (type == 'topic') {
-		editTopic(id.text(), $(this).parent());
+	else if (type.data.param1 == 'topic') {
+		editTopic(id.val(), $(this).parent());
 	}
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
