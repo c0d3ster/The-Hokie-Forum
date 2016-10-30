@@ -302,7 +302,7 @@ function editClicked() {
 	if (type == 'topic') {
 		topic_title = $(this).parent().find('h2');
 		topic_title_val = topic_title.text();
-		topic_title.replaceWith("<input id='title' value='"+topic_title_val+"'>");
+		topic_title.replaceWith('<input id="title" value="'+topic_title_val+'">');
 	}
 	
 	var post = $(this).parent().find('p');
