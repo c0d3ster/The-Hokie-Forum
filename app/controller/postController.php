@@ -10,17 +10,18 @@ $action = $_GET['action'];
 $pc = new PostController();
 $pc->route($action);
 
-public static function console_log( $data ){
-  echo '<script>';
-  echo 'console.log('. json_encode( $data ) .')';
-  echo '</script>';
-}
+
 
 class PostController {
 
 	public $currUser = 0;
 	public $admin = 0;
 
+	public static function console_log( $data ){
+	  echo '<script>';
+	  echo 'console.log('. json_encode( $data ) .')';
+	  echo '</script>';
+	}
 	// route us to the appropriate class method for this action
 	public function route($action) {
 		session_start();
@@ -78,7 +79,7 @@ class PostController {
 			case 'processEditReply':
 				$replyID = $_GET['rid'];
 				$r = Reply::loadById($replyID);
-				console_log($r);
+				$this->console_log($r);
 				if($this->currUser->get('id') == $r->get('user_id')) {
 					$this->processEditReply($r);
 				}
