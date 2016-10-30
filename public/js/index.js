@@ -344,7 +344,6 @@ function editReply(id, replyVar) {
     });
 }
 
-<<<<<<< HEAD
 function editTopic(id, topicVar) {
 	var post = topicVar.find('#post').val();
 	var title = topicVar.find('#title').val();
@@ -366,7 +365,7 @@ function editTopic(id, topicVar) {
 		}                                 
     });
 }
-=======
+
 function cancelEditClicked(info) {
 	var prevPost = info.data.param1;
 	var editBox = $(this).siblings('.editing').eq(0);
@@ -379,7 +378,6 @@ function cancelEditClicked(info) {
 
 }
 
->>>>>>> 4b0d592177aa95b99b47069ec53adaf8aa2beed9
 
 
 
