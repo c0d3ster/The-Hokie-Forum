@@ -334,7 +334,7 @@ function submitEditClicked(type) {
 
 function editReply(id, replyVar) {
 	
-	var post = replyVar.find('#post').val();
+	var post = replyVar.find('.topic-post').val();
 	
 	$.ajax({    
 		type: "POST",
@@ -353,8 +353,8 @@ function editReply(id, replyVar) {
 }
 
 function editTopic(id, topicVar) {
-	var post = topicVar.find('#post').val();
-	var title = topicVar.find('#title').val();
+	var post = topicVar.find('.topic-post').val();
+	var title = topicVar.find('.topic-title').val();
 	
 	$.ajax({    
 		type: "POST",
