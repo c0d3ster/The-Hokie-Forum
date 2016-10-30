@@ -312,6 +312,7 @@ function editClicked() {
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
 	$('.submit-edit').click({param1: type}, submitEditClicked);
+	$('.cancel-edit').click({param1: val, param2: topic_title_val}, cancelEditClicked); 
 }
 
 function submitEditClicked(type) {
@@ -344,7 +345,7 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  			replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
+  			replyVar.find('#post').replaceWith("<p class='topic-post'>"+data.post+"</p>");
 		},  
 		error: function (data) {
 			alert(data.status);
@@ -376,8 +377,15 @@ function editTopic(id, topicVar) {
 
 function cancelEditClicked(info) {
 	var prevPost = info.data.param1;
-	var editBox = $(this).siblings('.editing').eq(0);
-	editBox.replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
+	var prevTitle = null;
+	
+	$('#post').replaceWith("<p class='topic-post'>"+prevPost+"</p>").hide().fadeIn(1000);
+	
+	if(info.data.param2) {
+		prevTitle = info.data.param2;
+		$('#title').replaceWith("<h2 class='topic-title'>"+prevTitle+"</h2>");
+	}
+	
 	$(this).prev().replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 
