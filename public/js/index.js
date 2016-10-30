@@ -296,17 +296,22 @@ function editClicked() {
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
 	$('.submit-edit').click(submitEditClicked);
+	$('.cancel-edit').click({param1: val}, cancelEditClicked);
 }
 
 function submitEditClicked() {
+
+	var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+	var val = $(this).siblings('textarea').filter('.editing').eq(0).text();
+
 	if ($(this).parent().attr('class') == 'reply') {
-		var id = $(this).siblings('input').filter('.hidden-id').eq(0);
 		editReply(id.val(), $(this).parent());
 	}
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
 
 	id.siblings('.edit-item').click(editClicked);
+	id.siblings('.delete-item').click(deleteClicked);
 }
 
 function editReply(id, replyVar) {
@@ -327,6 +332,18 @@ function editReply(id, replyVar) {
 			alert(data.status);
 		}                                 
     });
+}
+
+function cancelEditClicked(info) {
+	var prevPost = info.data.param1;
+	var editBox = $(this).siblings('.editing').eq(0);
+	editBox.replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
+	$(this).prev().replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
+	$(this).replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
+
+	$('.edit-item').click(editClicked);
+	$('.delete-item').click(deleteClicked);
+
 }
 
 
