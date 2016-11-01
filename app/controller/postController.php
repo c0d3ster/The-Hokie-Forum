@@ -119,6 +119,7 @@ class PostController {
 	public function populateExplore() {
 		
 		$locs = Location::getAllLocations();
+		//$arrayLoc = array('location'=>$locs[0]->get('title'));
 		echo json_encode($locs);
 		exit();	
 		

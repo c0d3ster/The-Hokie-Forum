@@ -16,9 +16,9 @@ function isSelected($pn, $link) {
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/style.css">		
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/header.css">
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/footer.css">
-	
-  	  <script src="https://maps.googleapis.com/maps/api/js" type="text/javascript"></script>
 	<script src = "<?= SCRIPTS?>/gmaps.js" type="text/javascript"></script>
+	<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDwXV4PWwhZ2_RsIjFUPqmjV-MlZVfDOns&callback=mapInit" type="text/javascript"></script>
+
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 	<script src="<?= SCRIPTS ?>/index.js" type="text/javascript"> </script>
 	<script type="text/javascript">

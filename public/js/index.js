@@ -1,55 +1,7 @@
 //Document.Ready equivilant
 $(function() {
 
-//////////////////////////////////////////////////////////////////
-	//stuff happens
-	var mapMarker;
-	
-	if (pageName == 'Explore'){
-		var mapObj = new GMaps({
-			el: '.gmaps',
-			lat: 37.229592,
-			lng: -80.413960
-		});
-		//ajax call
-		$.ajax({    
-		type: "POST",
-	    url: baseURL+'/exploreMap/',      
-      	dataType: 'json',                   
-      	success: function(data){
-				console.log(data);
-				for (var i = 0; i < data.length; i++){
-					var locs = data[i];
-					console.data(log[i]);
-				}
-			},  
-		error: function (data) {
-				console.log(data);
-				alert(data.status);
-			}                                 
-		});
-	}
-	else if (pageName == 'Thread View') {
-		var mapObj = new GMaps({
-			el: '.gmaps',
-			lat: 37.229592,
-			lng: -80.413960,
-			click: function(e) {
-				mapObj.removeMarker(mapMarker);
-				var LAT = e.latLng.lat();
-				var LNG = e.latLng.lng();
-				mapMarker = mapObj.addMarker({
-					lat: LAT,
-					lng: LNG,
-					title: 'Temporary Marker'
-				});
-				document.getElementById('lat-in').value = LAT;
-				document.getElementById('long-in').value = LNG; 
-			}
-		});
-	}
-	
-	//*/
+	//mapInit();
 ////////////////////////////////////////////////////////////////////////
   //event listeners for user manipulation
   $('#login').click(loginClicked);
@@ -74,6 +26,54 @@ $(function() {
 	//subheader menu control
 
 });
+
+function mapInit() {
+	var mapMarker;
+	
+	if (pageName == 'Explore'){
+		var mapObj = new GMaps({
+			el: '#map-large',
+			lat: 37.229592,
+			lng: -80.413960
+		});
+		//ajax call
+		$.ajax({    
+			type: "POST",
+		  url: baseURL+'/exploreMap/',      
+	    dataType: 'json',                   
+	    success: function(data){
+	      		//var obj = $.parseJSON(data);
+				console.log(data);
+				for (var i = 0; i < data.length; i++){
+							//var locs = data[i];
+				}
+			},  
+			error: function (data) {
+					console.log(data);
+					alert(data.status);
+			}                                 
+		});
+	}
+	else if (pageName == 'Thread View') {
+		var mapObj = new GMaps({
+			el: '#map',
+			lat: 37.229592,
+			lng: -80.413960,
+			click: function(e) {
+				mapObj.removeMarker(mapMarker);
+				var LAT = e.latLng.lat();
+				var LNG = e.latLng.lng();
+				mapMarker = mapObj.addMarker({
+					lat: LAT,
+					lng: LNG,
+					title: 'Temporary Marker'
+				});
+				document.getElementById('lat-in').value = LAT;
+				document.getElementById('long-in').value = LNG; 
+			}
+		});
+	}
+}
 
 /* 
  * @function
@@ -325,7 +325,7 @@ function editClicked() {
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
 	alert(text.siblings('.submit-edit').eq(0));
-		$('.submit-edit').click(submitEdditClicked);
+		$('.submit-edit').click(submitEditClicked);
 }
 
 function submitEditClicked() {

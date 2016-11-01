@@ -71,19 +71,19 @@ class Location extends DbObject {
 	  
 
     public static function getAllLocations() {
-    	$query = sprintf("SELECT * FROM locations;");
+    	$query = sprintf("SELECT X(location) as Xcoord, Y(location) as Ycoord, topic_id, title FROM locations;");
         
         $db = Db::instance();
         
         $result = $db->lookup($query);
     	if(!mysql_num_rows($result))
-            return null;
-            
-        $locs = array();
+            return null; 
+        $locs = array ();
         while($row = mysql_fetch_assoc($result)) {
-        	$obj = self::loadById($row['id']);
-        	array_push($locs, $obj);
+
+            array_push($locs,$row);
         }
+
         return $locs;
     }
     
