@@ -321,6 +321,7 @@ input:hover, button:hover {
 #map {
 	float: right;
 	width: 38%;
+	height: 300px;
 	margin: 2% 0;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 	z-index: 3;	
