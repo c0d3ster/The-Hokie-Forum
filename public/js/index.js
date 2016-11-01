@@ -347,7 +347,7 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  			replyVar.find('#post').replaceWith("<p class='topic-post'>"+data.post+"</p>");
+  			replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
 		},  
 		error: function (data) {
 			alert(data.status);
@@ -380,11 +380,13 @@ function editTopic(id, topicVar) {
 function cancelEditClicked(info) {
 	var prevPost = info.data.param1;
 	var prevTitle = null;
-	
-	$('#post').replaceWith("<p class='topic-post'>"+prevPost+"</p>").hide().fadeIn(1000);
+	if(info.data.param1 == 'reply') {
+		$('#post').replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
+	}
 	
 	if(info.data.param2) {
 		prevTitle = info.data.param2;
+		$('#post').replaceWith("<p class='topic-post'>"+prevPost+"</p>").hide().fadeIn(1000);
 		$('#title').replaceWith("<h2 class='topic-title'>"+prevTitle+"</h2>");
 	}
 	
