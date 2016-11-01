@@ -53,4 +53,4 @@ RewriteRule ^deleteReply/process/(\d+)/?$ app/controller/postController.php?acti
 
 RewriteRule ^exploreMap/?$ app/controller/postController.php?action=populateExplore [QSA,L]
 
-RewriteRule ^populateMap/(\d+)/?$ app/controller/postController.php?action=populateThread&tid=$1 [QSA,L]
+RewriteRule ^populateMap/(\d+)/?$ app/controller/postController.php?action=populateMap&tid=$1 [QSA,L]

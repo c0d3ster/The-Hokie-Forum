@@ -89,8 +89,7 @@ class Location extends DbObject {
     
     public static function getLocationsByTopic($t_id) {
     	
-    	$query = sprintf("SELECT id FROM %s WHERE topic_id = %s;",
-            self::LOC_TABLE,
+    	$query = sprintf("SELECT X(location) as Xcoord, Y(location) as Ycoord, topic_id, title FROM locations WHERE topic_id = %s;",
             $t_id
             );
         $db = Db::instance();
@@ -102,7 +101,7 @@ class Location extends DbObject {
             while($row = mysql_fetch_assoc($result)) {
             	array_push($locs, $row);
             }
-            return ($locs);
+            return $locs;
         }
     }
         

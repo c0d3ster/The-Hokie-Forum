@@ -3,7 +3,7 @@
 
 ?>
 <script type='text/javascript'>
-	var topic_id = "<?=$top->get('id')?>";
+	topic_id = <?=$top->get('id')?>;
 </script>
 
 <a href="<?=BASE_URL?>/recentTopics/">&#60 Go Back</a>

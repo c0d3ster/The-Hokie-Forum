@@ -119,7 +119,11 @@ class Db {
 		foreach ($data as $field=>$value) {
 			if($value !== null) { // skip unset fields
 				$fields .= "`".$field . "`, ";
-				$values .= $this->quoteString($value) . ", ";
+				if ($field != 'location') {
+					$values .= $this->quoteString($value) . ", ";
+				} else {
+					$values .= $value . ", ";
+				}
 			}
 		}
 

@@ -3,6 +3,7 @@ $(function() {
 	//mapInit();
 	unsavedMarker = null;
 	clickable = false;
+	topic_id = $('.topic .hidden-id').val();
 	$('#map-hidden').slideToggle('fast'); //quick hide the map!
 	$('#login').click(loginClicked);
 	$('#signup').click(signupClicked); 
@@ -32,6 +33,7 @@ function mapInit() {
 //////////////////////////////////////////////////////////////////
 	//stuff happens
 	if (pageName == 'Explore'){
+		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map-large',
 			lat: 37.229592,
@@ -61,6 +63,7 @@ function mapInit() {
 		});
 	}
 	else if (pageName == 'Add Topic') {
+		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map-hidden',
 			lat: 37.229592,
@@ -80,6 +83,7 @@ function mapInit() {
 		});
 	}
 	else if (pageName == 'Thread View') {
+		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map',
 			lat: 37.229592,
@@ -101,7 +105,7 @@ function mapInit() {
 		});
 		$.ajax({    
 			type: "POST",
-			url: baseURL+'/populateMap/'+topic_id,      
+			url: baseURL+'/populateMap/'+topic_id+'/',      
 		  	dataType: 'json',
 		  	success: function(data){
 				for (var i = 0; i < data.length; i++){
@@ -366,6 +370,8 @@ function submitReply() {
 	var lat = $('#lat-in').val();
 	var long = $('#long-in').val();
 	var title = $('#location-title').val();
+	var loc_str = "GEOMFROMTEXT('POINT("+lat.toString()+" "+long.toString()+")',0)"; 
+	console.log(loc_str);
 	
 	$.ajax({    
 		type: "POST",
@@ -373,22 +379,22 @@ function submitReply() {
     	data: {
     		'post': post,
     		'topic_id': topic_id,
-    		'loc': 'GeoFromText("POINT('+lat+' '+long+'),0")',
+    		'loc': loc_str,
     		'loctitle': title
     	},      
       	dataType: 'html',                   
       	success: function(data){
-  				$(data).appendTo('#replies').hide().fadeIn(2000);
-  				$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
-  				$('#response').val('');
-  				$('.background-fade-map').fadeOut(1000);
-  				$('#no-replies').fadeOut(500);
+			$(data).appendTo('#replies').hide().fadeIn(2000);
+			$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
+			$('#response').val('');
+			$('.background-fade-map').fadeOut(1000);
+			$('#no-replies').fadeOut(500);
 
-  				$('.edit-item').click(editClicked);
-  				$('.delete-item').click(deleteClicked);
-  				$('#lat-in').val('');
-  				$('#long-in').val('');
-			},  
+			$('.edit-item').click(editClicked);
+			$('.delete-item').click(deleteClicked);
+			$('#lat-in').val('');
+			$('#long-in').val('');
+		},  
 		error: function () {
 			alert(data);
 		}                                 

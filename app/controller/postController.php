@@ -94,7 +94,7 @@ class PostController {
 			case 'populateMap':
 				$topic_id = $_GET['tid'];
 				$this->populateMap($topic_id);
-
+				break;
       // redirect to home page if all else fails
       default:
         header('Location: '.BASE_URL);
@@ -129,7 +129,7 @@ class PostController {
 	}
 	
 	public function populateMap($t_id) {
-		$locs = Location::getLocationsById($t_id);
+		$locs = Location::getLocationsByTopic($t_id);
 		echo json_encode($locs);
 		exit();
 	}
@@ -145,19 +145,23 @@ class PostController {
 		));
 		
 		$added = $this->processInsert($newReply, 'Reply');
-		$html = null;
-		if ($added) {
-			$user = User::loadById($added->get('user_id'));
-			$uname = $user->get('username');
-			$html = "<div class='reply'>
-				<p class='editable'>".$added->get('post')."</p>
-				<h5 class='reply-name'>".$uname."</h5>
-				<label class='topic-time'>".$added->get('date_created')."</label>
-				<img src='".IMAGES."/edititem.png' class='edit-item'>
-				<img src='".IMAGES."/deleteitem.png' class='delete-item'>
-				<input class='hidden-id' type='hidden' value='".$added->get('id')."'> 
-			</div>";
+		if(!$added) {
+			echo json_encode(array('err'=>'Error'));
+			exit();
 		}
+		$html = null;
+
+		$user = User::loadById($added->get('user_id'));
+		$uname = $user->get('username');
+		$html = "<div class='reply'>
+			<p class='editable'>".$added->get('post')."</p>
+			<h5 class='reply-name'>".$uname."</h5>
+			<label class='topic-time'>".$added->get('date_created')."</label>
+			<img src='".IMAGES."/edititem.png' class='edit-item'>
+			<img src='".IMAGES."/deleteitem.png' class='delete-item'>
+			<input class='hidden-id' type='hidden' value='".$added->get('id')."'> 
+		</div>";
+
 		echo $html;
 		exit();
 		
@@ -167,12 +171,12 @@ class PostController {
 	/* No editing locations yet */
 	public function processEditReply($editReply) {
 		$editReply->set('post',$_POST['post']);
-		//if ($_POST['lat']) {
-			/*do stuff*/
-		//}
-		
+				
 		$edited = $this->processInsert($editReply, 'Reply');
-
+		if(!$edited) {
+			echo json_encode(array('err'=>'Error'));
+			exit();
+		}
 		$return = array('post' => $edited->get('post'));
 
 		echo json_encode($return);
@@ -190,6 +194,10 @@ class PostController {
 		));
 		
 		$added = $this->processInsert($newTopic, 'Topic');
+		if(!$added) {
+			echo json_encode(array('err'=>'Error'));
+			exit();
+		}
 		header('Location: '.BASE_URL.'/view/'.$added->get('id'));
 		exit();
 	}
@@ -200,7 +208,10 @@ class PostController {
 		$editTopic->set('post',$_POST['post']);
 		
 		$edited = $this->processInsert($editTopic, 'Topic');
-
+		if(!$edited) {
+			echo json_encode(array('err'=>'Error'));
+			exit();
+		}
 		$return = array('title' => $edited->get('title'),
 						'post' => $edited->get('post')
 						);
@@ -228,11 +239,16 @@ class PostController {
 				$newLoc->save();
 			}
 		}
-		$error = $obj->save();		
-		$objFull = $type::loadById($obj->get('id'));
+		$error = $obj->save();
+		if ($type == 'Topic') {
+			$objFull = Topic::loadById($obj->get('id'));
+		}
+		else if ($type == 'Reply') {
+			$objFull = Reply::loadById($obj->get('id'));
+		}
 		if ($error) {
 			$_SESSION['err'] = $error;
-			return $error;
+			return null;
 		}
 		return $objFull;
 	}
