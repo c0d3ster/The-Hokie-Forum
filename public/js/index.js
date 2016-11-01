@@ -1,28 +1,53 @@
 //Document.Ready equivilant
 $(function() {
 
-  //event listeners for user manipulation
-	$('#login').click(loginClicked);
-	$('#signup').click(signupClicked); 
-	$('.exit').click(exitClicked);
-	$('#logout').click(logoutClicked);
-
-
-	//event listeners to add topic manipulation
-	$('#start-thread').click(startThreadClicked);
-	$('#add-location-new').click(newLocationClicked);
-	$('#cancel').click(resetForm);
-
-	//event listeners for add reply manipulation
-	$('#add-location').click(addLocationClicked);
-	$('#submit-response').click(submitReply);
-
-	//event listeners for editing and removing content	
-	$('.edit-item').click(editClicked);
-	$('.delete-item').click(deleteClicked);
-	//subheader menu control
-
-});
+//////////////////////////////////////////////////////////////////
+	//stuff happens
+	var mapMarker;
+	
+	if (pageName == 'Explore'){
+		var mapObj = new GMaps({
+			el: '.gmaps',
+			lat: 37.229592,
+			lng: -80.413960
+		});
+		//ajax call
+		$.ajax({    
+		type: "POST",
+	    url: baseURL+'/exploreMap/',      
+      	dataType: 'json',
+      	success: function(data){
+				console.log(data.locations[0].location);
+				for (var i = 0; i < data.locations.length; i++){
+					var locs = data.locations[i];
+					console.log(data.locations[i]);
+				}
+			},  
+		error: function (data) {
+				console.log(data);
+				alert(data.status);
+			}                                 
+		});
+	}
+	else if (pageName == 'Thread View') {
+		var mapObj = new GMaps({
+			el: '.gmaps',
+			lat: 37.229592,
+			lng: -80.413960,
+			click: function(e) {
+				mapObj.removeMarker(mapMarker);
+				var LAT = e.latLng.lat();
+				var LNG = e.latLng.lng();
+				mapMarker = mapObj.addMarker({
+					lat: LAT,
+					lng: LNG,
+					title: 'Temporary Marker'
+				});
+				document.getElementById('lat-in').value = LAT;
+				document.getElementById('long-in').value = LNG; 
+			}
+		});
+	}
 
 /* 
  * @function
