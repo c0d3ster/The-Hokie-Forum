@@ -37,7 +37,7 @@ function mapInit() {
 			div: '#map-large',
 			lat: 37.229592,
 			lng: -80.413960,
-			zoom: 14
+			zoom: 11
 		});
 		//ajax call
 		$.ajax({    
@@ -98,6 +98,7 @@ function mapInit() {
 		  		if(data.length == null){
 		  			return;
 		  		}
+		  		mapObj.removeMarker(unsavedMarker);
 				for (var i = 0; i < data.length; i++){
 					var x = data[i]['Xcoord'];
 					var y = data[i]['Ycoord'];
