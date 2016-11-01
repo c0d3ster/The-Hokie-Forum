@@ -105,7 +105,10 @@ function mapInit() {
 					mapMarker = mapObj.addMarker({
 						lat: x,
 						lng: y,
-						title: data[i]['title']
+						title: data[i]['title'],
+						infoWindow: {
+							content: content_str
+						}
 					});
 				}
 			},  
