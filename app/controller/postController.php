@@ -86,6 +86,10 @@ class PostController {
 					$this->processDeleteReply($r);
 				}
 				break;
+			
+			case 'populateExplore':
+				$this->populateExplore();				
+				break;
 
       // redirect to home page if all else fails
       default:
@@ -112,13 +116,22 @@ class PostController {
 		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 	
+	public function populateExplore() {
+		
+		$locs = Location::getAllLocations();
+		echo json_encode($locs);
+		exit();	
+		
+	}
+	
 	/**For AJAX, does not reload page, use exit()! **/
 	public function processAddReply() {
 	
 		$newReply = new Reply(array(
 			'post' => $_POST['post'],
 			'user_id' => $this->currUser->get('id'),
-			'topic_id' => $_POST['topic_id']
+			'topic_id' => $_POST['topic_id'],
+			'location' =>
 		));
 		
 		$added = $this->processInsert($newReply, 'reply');
@@ -143,6 +156,9 @@ class PostController {
 	/* No editing locations yet */
 	public function processEditReply($editReply) {
 		$editReply->set('post',$_POST['post']);
+		if ($_POST['lat']) {
+			/*do stuff*/
+		}
 		
 		$edited = $this->processInsert($editReply, 'reply');
 

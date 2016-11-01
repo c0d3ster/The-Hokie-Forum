@@ -5,8 +5,7 @@ class Location extends DbObject {
     const LOC_TABLE = 'locations';
 
     // database fields
-    protected $id;
-		
+  protected $id;
 	protected $topic_id;
 	protected $title;
   protected $location;
@@ -72,8 +71,7 @@ class Location extends DbObject {
 	  
 
     public static function getAllLocations() {
-    	$query = sprintf("SELECT * FROM locations;",
-        	$id);
+    	$query = sprintf("SELECT * FROM locations;");
         
         $db = Db::instance();
         
