@@ -187,9 +187,9 @@ class PostController {
 	/**Assuming AJAX now, probably will be PHP though**/
 	public function processAddTopic() {
 	
-		$loclat = $_POST['lat'];
-		$loclong = $_POST['long'];
-		$locstr = "GEOMFROMTEXT('POST('".loclat." ".loclong."')',0)";
+		$loclat = $_POST['loclat'];
+		$loclong = $_POST['loclong'];
+		$locstr = "GEOMFROMTEXT('POST('".$loclat." ".$loclong."')',0)";
 		$newTopic = new Topic(array(
 			'title' => $_POST['title'],
 			'post' => $_POST['post'],
@@ -199,7 +199,7 @@ class PostController {
 		
 		$added = $this->processInsert($newTopic, 'Topic');
 		if(!$added) {
-			echo json_encode(array('err'=>'Error'));
+			echo json_encode(array('err'=>$_SESSION['err']));
 			exit();
 		}
 		header('Location: '.BASE_URL.'/view/'.$added->get('id'));
