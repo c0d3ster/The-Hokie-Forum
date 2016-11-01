@@ -149,8 +149,6 @@ class PostController {
 			echo json_encode(array('err'=>'Error'));
 			exit();
 		}
-		$html = null;
-
 		$user = User::loadById($added->get('user_id'));
 		$uname = $user->get('username');
 		$html = "<div class='reply'>
@@ -190,7 +188,8 @@ class PostController {
 
 		$loclat = $_POST['loclat'];
 		$loclong = $_POST['loclong'];
-		$locstr = "GEOMFROMTEXT('POST('".$loclat." ".$loclong."')',0)";
+		$point = $loclat." ".$loclong;
+		$locstr = "GeomFromText('POINT(".$loclat." ".$loclong.")',0)";
 		$newTopic = new Topic(array(
 			'title' => $_POST['title'],
 			'post' => $_POST['post'],
@@ -200,10 +199,11 @@ class PostController {
 		
 		$added = $this->processInsert($newTopic, 'Topic');
 		if(!$added) {
-			echo json_encode(array('err'=>$_SESSION['err']));
-			exit();
+			header('Location: '.BASE_URL.'/addTopic');
 		}
-		header('Location: '.BASE_URL.'/view/'.$added->get('id'));
+		else {
+			header('Location: '.BASE_URL.'/view/'.$added->get('id'));
+		}
 		exit();
 	}
 	
@@ -230,26 +230,30 @@ class PostController {
 		table **/
 	public function processInsert($obj, $type) {
 		
-		if (!$obj->get('id')) {
-			//if has no id, new insert, allow locations
-			if ($obj->get('location')) {
-				$newLoc = new Location(array(
-					'title' => $_POST['loctitle'],
-					'location' => $obj->get('location')
-				)); 
-				if ($type == 'Topic')
-					$newLoc->set('topic_id',$obj->get('id'));
-				else if ($type == 'Reply')
-					$newLoc->set('topic_id',$obj->get('topic_id'));
-				$newLoc->save();
-			}
-		}
+		$isNew = !$obj->get('id');
+		$hasLoc = $obj->get('location');	//location before insertion (GEOMFROMTEXT())
 		$error = $obj->save();
 		if ($type == 'Topic') {
 			$objFull = Topic::loadById($obj->get('id'));
 		}
 		else if ($type == 'Reply') {
 			$objFull = Reply::loadById($obj->get('id'));
+		}
+		if ($isNew) {
+			//if has no id, new insert, allow locations
+			if ($hasLoc) {
+				$newLoc = new Location(array(
+					'title' => $_POST['loctitle'],
+					'location' => $hasLoc
+				)); 
+				if ($type == 'Topic') {
+					$newLoc->set('topic_id',$objFull->get('id'));
+				}
+				else if ($type == 'Reply') {
+					$newLoc->set('topic_id',$objFull->get('topic_id'));
+				}
+				$newLoc->save();
+			}
 		}
 		if ($error) {
 			$_SESSION['err'] = $error;

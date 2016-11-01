@@ -95,6 +95,9 @@ function mapInit() {
 			url: baseURL+'/populateMap/'+topic_id+'/',      
 		  	dataType: 'json',
 		  	success: function(data){
+		  		if(data.length == null){
+		  			return;
+		  		}
 				for (var i = 0; i < data.length; i++){
 					var x = data[i]['Xcoord'];
 					var y = data[i]['Ycoord'];
@@ -102,10 +105,7 @@ function mapInit() {
 					mapMarker = mapObj.addMarker({
 						lat: x,
 						lng: y,
-						title: data[i]['title'],
-						infoWindow: {
-							content: content_str
-						}
+						title: data[i]['title']
 					});
 				}
 			},  

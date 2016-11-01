@@ -97,7 +97,7 @@ class Db {
 	}
 
 	//Execute operations like UPDATE or INSERT
-	public function execute($query) {		
+	public function execute($query) {	
 		$ex = mysql_query($query);
 		if(!$ex) {
 			return mysql_error();}
@@ -136,7 +136,6 @@ class Db {
 				$fields,
 				$values
 			     );
-
 		return ($query);
 	}
 
