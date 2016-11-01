@@ -1,7 +1,7 @@
 //Document.Ready equivilant
 $(function() {
 	//mapInit();
-
+	$('#map-hidden').slideToggle('fast'); //quick hide the map!
 	$('#login').click(loginClicked);
 	$('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
@@ -55,7 +55,26 @@ function mapInit() {
 	}
 	else if (pageName == 'Thread View') {
 		var mapObj = new GMaps({
-			el: '#map',
+			div: '#map',
+			lat: 37.229592,
+			lng: -80.413960,
+			click: function(e) {
+				mapObj.removeMarker(mapMarker);
+				var LAT = e.latLng.lat();
+				var LNG = e.latLng.lng();
+				mapMarker = mapObj.addMarker({
+					lat: LAT,
+					lng: LNG,
+					title: 'Temporary Marker'
+				});
+				document.getElementById('lat-in').value = LAT;
+				document.getElementById('long-in').value = LNG; 
+			}
+		});
+	}
+	else if (pageName == 'Add Topic') {
+		var mapObj = new GMaps({
+			div: '#map-hidden',
 			lat: 37.229592,
 			lng: -80.413960,
 			click: function(e) {

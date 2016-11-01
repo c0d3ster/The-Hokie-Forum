@@ -209,7 +209,7 @@ input:hover, button:hover {
 	box-shadow: 7px 7px 8px rgba(0,0,0,.75);
 }
 
-.topic-title, #title {	
+.topic-title {	
 	display: inline;
 	float: left;
 	width: 65% !important;
@@ -218,7 +218,7 @@ input:hover, button:hover {
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 }
 
-.topic-post, #post {
+.topic-post {
 	clear: both;
 	float: left;
 	width: 80%;
@@ -321,6 +321,7 @@ input:hover, button:hover {
 #map {
 	float: right;
 	width: 38%;
+	height: 300px;
 	margin: 2% 0;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 	z-index: 3;	
@@ -328,8 +329,8 @@ input:hover, button:hover {
 }
 
 #map-hidden {
-	display: none;
 	width: 90%;
+	height: 400px;
 	margin: 2% auto;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 }
