@@ -29,7 +29,7 @@ MyFit Project 2 Stylesheet for explore page main content
 	height: 100vh;
 	opacity: .75;
 	background-color: azure;
-	z-index: 2;
+	z-index: 3;
 	display: none;
 }
 
@@ -45,7 +45,7 @@ MyFit Project 2 Stylesheet for explore page main content
 	background: linear-gradient( rgba(236,130,5,1), rgba(224,70,40,1));
 	border: ridge 5px grey;
 	overflow: hidden;
-	z-index: 2;
+	z-index: 3;
 	display: none;
 }
 
@@ -148,6 +148,7 @@ body {
 	padding: 5px;
 	margin: 10px auto;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
+	display: block;
 }
 
 .col {
@@ -161,7 +162,7 @@ body {
 	min-width: 90%;
 	max-width: 90%;
 	padding: 10px;
-	height: 20px;
+	height: 25px;
 	margin: 10px 0px 30px 25px;
 }
 
@@ -321,10 +322,10 @@ input:hover, button:hover {
 #map {
 	float: right;
 	width: 38%;
-	height: 300px;
+	height: 400px;
 	margin: 2% 0;
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
-	z-index: 3;	
+	z-index: 2;	
 	opacity: .99;
 }
 
@@ -403,6 +404,25 @@ input:hover, button:hover {
 	margin: 5px 0;
 	width: 80%;
 	display: block;
+}
+
+
+#location-adder-new {
+	width: 100%;
+	display: none;
+	float: left;
+	margin-left: 25px;
+}
+
+#location-adder-new label {
+	clear: both;
+	margin: 5px 0;
+	width: 40%;
+	display: block;
+}
+#location-adder-new input {
+	margin: 5px auto;
+	width: 70%;
 }
 
 .prev-page {

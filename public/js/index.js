@@ -30,14 +30,14 @@ $(function() {
 });
 
 function mapInit() {
-//////////////////////////////////////////////////////////////////
 	//stuff happens
 	if (pageName == 'Explore'){
 		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map-large',
 			lat: 37.229592,
-			lng: -80.413960
+			lng: -80.413960,
+			zoom: 14
 		});
 		//ajax call
 		$.ajax({    
@@ -49,10 +49,14 @@ function mapInit() {
 			for (var i = 0; i < data.length; i++){
 				var x = data[i]['Xcoord'];
 				var y = data[i]['Ycoord'];
+				var content_str = "<a href='"+baseURL+"/view/"+data[i]['topic_id']+"'>"+data[i]['title']+"</a>";
 				mapMarker = mapObj.addMarker({
 					lat: x,
 					lng: y,
-					title: data[i]['title']
+					title: data[i]['title'],
+					infoWindow: {
+						content: content_str
+					}
 				});
 			}
 		},  
@@ -62,6 +66,56 @@ function mapInit() {
 			}                                 
 		});
 	}
+	
+	else if (pageName == 'Thread View') {
+		mapObj = null;
+		mapObj = new GMaps({
+			div: '#map',
+			lat: 37.229592,
+			lng: -80.413960,
+			zoom: 13,
+			click: function(e) {
+				if(clickable) {
+					mapObj.removeMarker(unsavedMarker);
+					var LAT = e.latLng.lat();
+					var LNG = e.latLng.lng();
+					unsavedMarker = mapObj.addMarker({
+						lat: LAT,
+						lng: LNG,
+						title: 'Temporary Marker'
+					});
+					document.getElementById('lat-in').value = LAT;
+					document.getElementById('long-in').value = LNG; 
+				}
+			}
+		});
+		$.ajax({    
+			type: "POST",
+
+			url: baseURL+'/populateMap/'+topic_id+'/',      
+		  	dataType: 'json',
+		  	success: function(data){
+				for (var i = 0; i < data.length; i++){
+					var x = data[i]['Xcoord'];
+					var y = data[i]['Ycoord'];
+					var content_str = "<label>"+data[i]['title']+"</label>";
+					mapMarker = mapObj.addMarker({
+						lat: x,
+						lng: y,
+						title: data[i]['title'],
+						infoWindow: {
+							content: content_str
+						}
+					});
+				}
+			},  
+			error: function (data) {
+				console.log(data);
+				alert(data.status);
+			}                                 
+		});
+	}
+	
 	else if (pageName == 'Add Topic') {
 		mapObj = null;
 		mapObj = new GMaps({
@@ -80,48 +134,6 @@ function mapInit() {
 				document.getElementById('lat-in').value = LAT;
 				document.getElementById('long-in').value = LNG; 
 			}
-		});
-	}
-	else if (pageName == 'Thread View') {
-		mapObj = null;
-		mapObj = new GMaps({
-			div: '#map',
-			lat: 37.229592,
-			lng: -80.413960,
-			click: function(e) {
-				if(clickable) {
-					mapObj.removeMarker(unsavedMarker);
-					var LAT = e.latLng.lat();
-					var LNG = e.latLng.lng();
-					unsavedMarker = mapObj.addMarker({
-						lat: LAT,
-						lng: LNG,
-						title: 'Temporary Marker'
-					});
-					document.getElementById('lat-in').value = LAT;
-					document.getElementById('long-in').value = LNG; 
-				}
-			}
-		});
-		$.ajax({    
-			type: "POST",
-			url: baseURL+'/populateMap/'+topic_id+'/',      
-		  	dataType: 'json',
-		  	success: function(data){
-				for (var i = 0; i < data.length; i++){
-					var x = data[i]['Xcoord'];
-					var y = data[i]['Ycoord'];
-					mapMarker = mapObj.addMarker({
-						lat: x,
-						lng: y,
-						title: data[i]['title']
-					});
-				}
-			},  
-			error: function (data) {
-				console.log(data);
-				alert(data.status);
-			}                                 
 		});
 	}
 }
@@ -296,6 +308,7 @@ function startThreadClicked() {
  */
 function newLocationClicked() {
 	$('#map-hidden').slideToggle('slow');
+	$('#location-adder-new').show();
 }
 
 /* 
@@ -405,6 +418,7 @@ function submitReply() {
 function cancelReply() {
 	$('#lat-in').val('');
 	$('#long-in').val('');
+	$('#location-title').val('');
 	$('#response').val('');
     $('#location-adder').hide();
     clickable = false;
@@ -504,9 +518,7 @@ function editTopic(id, topicVar) {
 function cancelEditClicked(info) {
 	var prevPost = info.data.param1;
 	var prevTitle = null;
-	if(info.data.param1 == 'reply') {
-		$('#post').replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
-	}
+	$('#post').replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
 	
 	if(info.data.param2) {
 		prevTitle = info.data.param2;

@@ -5,7 +5,16 @@
 			<textarea id='title' type='text' name='title' placeholder='Place your topic title here.'></textarea>
 
 			<h2> Topic Description </h2>
+
 			<textarea id='post' type='text' name='post' placeholder='Place your full description here'></textarea>
+			<div id='location-adder-new'>
+			<label>Location Title: </label>
+			<input id='location-title' placeholder="e.g. 'Great taco joint'">
+			<label>Latitude</label>
+			<input id='lat-in'>
+			<label>Longitude</label>
+			<input id='long-in'>
+		</div>		
 		</div>
 		<div class='col'>
 			<h2> Category(s) </h2>
@@ -16,9 +25,10 @@
 			<h3 id='add-location-text'> Add Location </h3>
 			<img id='add-location-image' src='<?= IMAGES ?>/additem.png' width='50' height='50'>
 		</div>
-			<div id="map-hidden"> 
-			</div>
-
+		
+		<div id="map-hidden"> 
+		</div>
+		
 
 		</div>			
 		<input id="submit" type="submit" name="submit" value="Share it with the world">
