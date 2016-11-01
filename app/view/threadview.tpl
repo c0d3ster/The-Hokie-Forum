@@ -2,6 +2,9 @@
 			$topicUsername = User::loadByID($top->get('user_id'))->get('username');
 
 ?>
+<script type='text/javascript'>
+	var topic_id = "<?=$top->get('id')?>";
+</script>
 
 <a href="<?=BASE_URL?>/recentTopics/">&#60 Go Back</a>
 
@@ -61,7 +64,36 @@
 			<img id='add-location-image' src='<?= IMAGES ?>/additem.png' width='50' height='50'>
 		</div>
 		<button id='submit-response' name="submit">Submit Response! </button>
+		<button id='cancel-response'>Cancel</button>
 	</div>
+	
+	<div id='location-adder'>
+		<label>Location Title: </label>
+		<input id='location-title' placeholder="e.g. 'Great taco joint'">
+		<label>Latitude</label>
+		<input id='lat-in'>
+		<label>Longitude</label>
+		<input id='long-in'>
+	</div>
+	
+</div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 
 	

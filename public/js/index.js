@@ -2,6 +2,8 @@
 $(function() {
 	//mapInit();
 
+	unsavedMarker = null;
+	clickable = false;
 	$('#login').click(loginClicked);
 	$('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
@@ -16,6 +18,7 @@ $(function() {
 	//event listeners for add reply manipulation
 	$('#add-location').click(addLocationClicked);
 	$('#submit-response').click(submitReply);
+	$('#cancel-response').click(cancelReply);
 
 	//event listeners for editing and removing content	
 	$('.edit-item').click(editClicked);
@@ -28,9 +31,8 @@ $(function() {
 function mapInit() {
 //////////////////////////////////////////////////////////////////
 	//stuff happens
-	var mapMarker;
 	if (pageName == 'Explore'){
-		var mapObj = new GMaps({
+		mapObj = new GMaps({
 			div: '#map-large',
 			lat: 37.229592,
 			lng: -80.413960
@@ -41,17 +43,17 @@ function mapInit() {
 	    url: baseURL+'/exploreMap/',      
       	dataType: 'json',
       	success: function(data){
-				console.log(data);
-				for (var i = 0; i < data.length; i++){
-					var x = data[i][Xcoord];
-					var y = data[i][Ycoord];
-					mapMarker = mapObj.addMarker({
-						lat: x,
-						lng: y,
-						title: data[i][title]
-					});
-				}
-			},  
+			console.log(data);
+			for (var i = 0; i < data.length; i++){
+				var x = data[i]['Xcoord'];
+				var y = data[i]['Ycoord'];
+				mapMarker = mapObj.addMarker({
+					lat: x,
+					lng: y,
+					title: data[i]['title']
+				});
+			}
+		},  
 		error: function (data) {
 				console.log(data);
 				alert(data.status);
@@ -59,22 +61,44 @@ function mapInit() {
 		});
 	}
 	else if (pageName == 'Thread View') {
-		var mapObj = new GMaps({
+		mapObj = new GMaps({
 			el: '#map',
 			lat: 37.229592,
 			lng: -80.413960,
 			click: function(e) {
-				mapObj.removeMarker(mapMarker);
-				var LAT = e.latLng.lat();
-				var LNG = e.latLng.lng();
-				mapMarker = mapObj.addMarker({
-					lat: LAT,
-					lng: LNG,
-					title: 'Temporary Marker'
-				});
-				document.getElementById('lat-in').value = LAT;
-				document.getElementById('long-in').value = LNG; 
+				if(clickable) {
+					mapObj.removeMarker(unsavedMarker);
+					var LAT = e.latLng.lat();
+					var LNG = e.latLng.lng();
+					unsavedMarker = mapObj.addMarker({
+						lat: LAT,
+						lng: LNG,
+						title: 'Temporary Marker'
+					});
+					document.getElementById('lat-in').value = LAT;
+					document.getElementById('long-in').value = LNG; 
+				}
 			}
+		});
+		$.ajax({    
+			type: "POST",
+			url: baseURL+'/populateMap/'+topic_id,      
+		  	dataType: 'json',
+		  	success: function(data){
+				for (var i = 0; i < data.length; i++){
+					var x = data[i]['Xcoord'];
+					var y = data[i]['Ycoord'];
+					mapMarker = mapObj.addMarker({
+						lat: x,
+						lng: y,
+						title: data[i]['title']
+					});
+				}
+			},  
+			error: function (data) {
+				console.log(data);
+				alert(data.status);
+			}                                 
 		});
 	}
 }
@@ -133,14 +157,14 @@ function verifyCredentials(username, password) {
 	  			}
 	  			else{
 	  				$('#password').val('');
-	  				$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>')
-						$('.popup > p').delay(2000).fadeOut();
-						return false;
+	  				$('.popup').append('<p> Incorrect Username or Password. Please try again! (1-10 chars)</p>');
+					$('.popup > p').delay(2000).fadeOut();
+					return false;
 	  			}	
         },  
-        error: function (e) {
-            alert(e.responseText);
-        }                                 
+		    error: function (e) {
+		        alert(e.responseText);
+		    }                                 
 	    }) 	
 	}
 	else {
@@ -266,7 +290,9 @@ function resetForm() {
  * puts the map into focus and blocks everything else
  */
 function addLocationClicked() {
-	$('.background-fade-map').fadeIn(1000);
+	$('.background-fade-map').fadeIn(500);
+	$('#location-adder').show();
+	clickable = true;
 }
 
 
@@ -318,12 +344,18 @@ function submitReply() {
 
 	var post = $('#response').val();
 	var topic_id = $('.topic .hidden-id').val();
+	var lat = $('#lat-in').val();
+	var long = $('#long-in').val();
+	var title = $('#location-title').val();
+	
 	$.ajax({    
 		type: "POST",
 	    url: baseURL+'/addReply/process/', 
     	data: {
     		'post': post,
-    		'topic_id': topic_id
+    		'topic_id': topic_id,
+    		'loc': 'GeoFromText("POINT('+lat+' '+long+'),0")',
+    		'loctitle': title
     	},      
       	dataType: 'html',                   
       	success: function(data){
@@ -335,11 +367,25 @@ function submitReply() {
 
   				$('.edit-item').click(editClicked);
   				$('.delete-item').click(deleteClicked);
+  				$('#lat-in').val('');
+  				$('#long-in').val('');
 			},  
 		error: function () {
 			alert(data);
-			}                                 
+		}                                 
     });
+    $('#location-adder').hide();
+}
+
+function cancelReply() {
+	$('#lat-in').val('');
+	$('#long-in').val('');
+	$('#response').val('');
+    $('#location-adder').hide();
+    clickable = false;
+    mapObj.removeMarker(unsavedMarker);
+	$('.background-fade-map').fadeOut(500);
+	
 }
 
 function editClicked() {
@@ -383,7 +429,6 @@ function submitEditClicked(type) {
 	
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
-	
 	
 	id.siblings('.edit-item').click(editClicked);
 	id.siblings('.delete-item').click(deleteClicked);

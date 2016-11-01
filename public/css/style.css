@@ -383,11 +383,27 @@ input:hover, button:hover {
 	width: 20%;
 }
 
-#submit-response {
-	height: 50px;
+#submit-response, #cancel-response {
+	height: 30px;
 	overflow: hidden;
+	margin: 0;
+	width: 100%;
 }
 
+#location-adder {
+	float: right;
+	width: 35%;
+	display: none;
+}
+
+#location-adder label {
+	margin: 5px 0;
+}
+#location-adder input {
+	margin: 5px 0;
+	width: 80%;
+	display: block;
+}
 
 .prev-page {
 	display: inline;

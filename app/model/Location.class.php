@@ -31,20 +31,20 @@ class Location extends DbObject {
 
     // save changes to object
     public function save() {
-        $db = Db::instance();
-        // omit id and any timestamps
-        $db_properties = array(
-        	'id' => $this->id,
-        	'topic_id' => $this->topic_id,
-            'title' => $this->title,
-            'location' => $this->location,
-            'description' => $this->description
-            );
-		$error = $db->store($this, self::LOC_TABLE, $db_properties);
-        if($error) {
+      $db = Db::instance();
+      // omit id and any timestamps
+      $db_properties = array(
+      	'id' => $this->id,
+      	'topic_id' => $this->topic_id,
+				'title' => $this->title,
+        'location' => $this->location,
+        'description' => $this->description
+        );
+			$error = $db->store($this, self::LOC_TABLE, $db_properties);
+      if($error) {
 			return $error;
-		}
-		return null;
+			}
+			return null;
     }
 
 	public function remove() {
@@ -100,8 +100,7 @@ class Location extends DbObject {
         else {
             $locs = array();
             while($row = mysql_fetch_assoc($result)) {
-            	$obj = self::loadById($row['id']);
-            	array_push($locs, $obj);
+            	array_push($locs, $row);
             }
             return ($locs);
         }

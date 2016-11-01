@@ -90,6 +90,10 @@ class PostController {
 			case 'populateExplore':
 				$this->populateExplore();				
 				break;
+				
+			case 'populateMap':
+				$topic_id = $_GET['tid'];
+				$this->populateMap($topic_id);
 
       // redirect to home page if all else fails
       default:
@@ -119,10 +123,15 @@ class PostController {
 	public function populateExplore() {
 		
 		$locs = Location::getAllLocations();
-		//$arrayLoc = array('location'=>$locs[0]->get('title'));
 		echo json_encode($locs);
 		exit();	
 		
+	}
+	
+	public function populateMap($t_id) {
+		$locs = Location::getLocationsById($t_id);
+		echo json_encode($locs);
+		exit();
 	}
 	
 	/**For AJAX, does not reload page, use exit()! **/
@@ -131,7 +140,8 @@ class PostController {
 		$newReply = new Reply(array(
 			'post' => $_POST['post'],
 			'user_id' => $this->currUser->get('id'),
-			'topic_id' => $_POST['topic_id']
+			'topic_id' => $_POST['topic_id'],
+			'location' => $_POST['loc']
 		));
 		
 		$added = $this->processInsert($newReply, 'Reply');
@@ -209,7 +219,6 @@ class PostController {
 			if ($obj->get('location')) {
 				$newLoc = new Location(array(
 					'title' => $_POST['loctitle'],
-					'description' => $_POST['locdescription'],
 					'location' => $obj->get('location')
 				)); 
 				if ($type == 'Topic')
