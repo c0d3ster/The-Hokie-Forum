@@ -187,8 +187,9 @@ class PostController {
 	/**Assuming AJAX now, probably will be PHP though**/
 	public function processAddTopic() {
 	
-		$loclat = $_POST['lat'];
-		$loclong = $_POST['long'];
+
+		$loclat = $_POST['loclat'];
+		$loclong = $_POST['loclong'];
 		$locstr = "GEOMFROMTEXT('POST('".$loclat." ".$loclong."')',0)";
 		$newTopic = new Topic(array(
 			'title' => $_POST['title'],
