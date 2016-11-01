@@ -9,11 +9,11 @@
 			<textarea id='post' type='text' name='post' placeholder='Place your full description here'></textarea>
 			<div id='location-adder-new'>
 			<label>Location Title: </label>
-			<input id='location-title' placeholder="e.g. 'Great taco joint'">
+			<input id='location-title' name='loc-title' placeholder="e.g. 'Great taco joint'">
 			<label>Latitude</label>
-			<input id='lat-in'>
+			<input id='lat-in' name='loc-lat'>
 			<label>Longitude</label>
-			<input id='long-in'>
+			<input id='long-in' name='loc-long'>
 		</div>		
 		</div>
 		<div class='col'>
