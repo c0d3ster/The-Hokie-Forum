@@ -17,7 +17,6 @@
 			<img id='add-location-image' src='<?= IMAGES ?>/additem.png' width='50' height='50'>
 		</div>
 			<div id="map-hidden"> 
-				<img src='<?=IMAGES?>/blacksburg.png' id='map-image'> 
 			</div>
 
 
