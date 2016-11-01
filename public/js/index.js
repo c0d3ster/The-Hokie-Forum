@@ -17,10 +17,10 @@ $(function() {
 	    url: baseURL+'/exploreMap/',      
       	dataType: 'json',                   
       	success: function(data){
-				console.log(data.locations[0].location);
-				for (var i = 0; i < data.locations.length; i++){
-					var locs = data.locations[i];
-					console.log(data.locations[i]);
+				console.log(data[0].location);
+				for (var i = 0; i < data.length; i++){
+					var locs = data[i];
+					console.log(data[i]);
 				}
 			},  
 		error: function (data) {
