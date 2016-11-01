@@ -49,7 +49,7 @@ function mapInit() {
 						lat: x,
 						lng: y,
 						title: data[i][title];
-					}
+					});
 				}
 			},  
 		error: function (data) {
