@@ -1,13 +1,37 @@
 //Document.Ready equivilant
 $(function() {
+	//mapInit();
 
+	$('#login').click(loginClicked);
+	$('#signup').click(signupClicked); 
+	$('.exit').click(exitClicked);
+	$('#logout').click(logoutClicked);
+
+
+	//event listeners to add topic manipulation
+	$('#start-thread').click(startThreadClicked);
+	$('#add-location-new').click(newLocationClicked);
+	$('#cancel').click(resetForm);
+
+	//event listeners for add reply manipulation
+	$('#add-location').click(addLocationClicked);
+	$('#submit-response').click(submitReply);
+
+	//event listeners for editing and removing content	
+	$('.edit-item').click(editClicked);
+	$('.delete-item').click(deleteClicked);
+	//subheader menu control
+
+
+});
+
+function mapInit() {
 //////////////////////////////////////////////////////////////////
 	//stuff happens
 	var mapMarker;
-	
 	if (pageName == 'Explore'){
 		var mapObj = new GMaps({
-			el: '.gmaps',
+			div: '#map-large',
 			lat: 37.229592,
 			lng: -80.413960
 		});
@@ -17,11 +41,11 @@ $(function() {
 	    url: baseURL+'/exploreMap/',      
       	dataType: 'json',
       	success: function(data){
-				console.log(data.locations[0].location);
-				for (var i = 0; i < data.locations.length; i++){
+				console.log(data);/*
+				for (var i = 0; i < data.length; i++){
 					var locs = data.locations[i];
-					console.log(data.locations[i]);
-				}
+					console.log(data);
+				}*/
 			},  
 		error: function (data) {
 				console.log(data);
@@ -31,7 +55,7 @@ $(function() {
 	}
 	else if (pageName == 'Thread View') {
 		var mapObj = new GMaps({
-			el: '.gmaps',
+			el: '#map',
 			lat: 37.229592,
 			lng: -80.413960,
 			click: function(e) {
@@ -48,7 +72,7 @@ $(function() {
 			}
 		});
 	}
-
+}
 /* 
  * @function
  * @name loginClicked
