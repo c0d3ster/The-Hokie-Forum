@@ -130,8 +130,7 @@ class PostController {
 		$newReply = new Reply(array(
 			'post' => $_POST['post'],
 			'user_id' => $this->currUser->get('id'),
-			'topic_id' => $_POST['topic_id'],
-			'location' =>
+			'topic_id' => $_POST['topic_id']
 		));
 		
 		$added = $this->processInsert($newReply, 'reply');
