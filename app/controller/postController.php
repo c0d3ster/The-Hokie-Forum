@@ -119,6 +119,7 @@ class PostController {
 	public function populateExplore() {
 		
 		$locs = Location::getAllLocations();
+		//$arrayLoc = array('location'=>$locs[0]->get('title'));
 		echo json_encode($locs);
 		exit();	
 		
@@ -133,7 +134,7 @@ class PostController {
 			'topic_id' => $_POST['topic_id']
 		));
 		
-		$added = $this->processInsert($newReply, 'reply');
+		$added = $this->processInsert($newReply, 'Reply');
 		$html = null;
 		if ($added) {
 			$user = User::loadById($added->get('user_id'));
@@ -141,6 +142,7 @@ class PostController {
 			$html = "<div class='reply'>
 				<p class='editable'>".$added->get('post')."</p>
 				<h5 class='reply-name'>".$uname."</h5>
+				<label class='topic-time'>".$added->get('date_created')."</label>
 				<img src='".IMAGES."/edititem.png' class='edit-item'>
 				<img src='".IMAGES."/deleteitem.png' class='delete-item'>
 				<input class='hidden-id' type='hidden' value='".$added->get('id')."'> 
@@ -155,11 +157,11 @@ class PostController {
 	/* No editing locations yet */
 	public function processEditReply($editReply) {
 		$editReply->set('post',$_POST['post']);
-		if ($_POST['lat']) {
+		//if ($_POST['lat']) {
 			/*do stuff*/
-		}
+		//}
 		
-		$edited = $this->processInsert($editReply, 'reply');
+		$edited = $this->processInsert($editReply, 'Reply');
 
 		$return = array('post' => $edited->get('post'));
 
@@ -177,7 +179,7 @@ class PostController {
 			'user_id' => $this->currUser->get('id')
 		));
 		
-		$added = $this->processInsert($newTopic, 'topic');
+		$added = $this->processInsert($newTopic, 'Topic');
 		header('Location: '.BASE_URL.'/view/'.$added->get('id'));
 		exit();
 	}
@@ -187,7 +189,7 @@ class PostController {
 		$editTopic->set('title',$_POST['title']);
 		$editTopic->set('post',$_POST['post']);
 		
-		$edited = $this->processInsert($editTopic, 'topic');
+		$edited = $this->processInsert($editTopic, 'Topic');
 
 		$return = array('title' => $edited->get('title'),
 						'post' => $edited->get('post')
@@ -210,20 +212,20 @@ class PostController {
 					'description' => $_POST['locdescription'],
 					'location' => $obj->get('location')
 				)); 
-				if ($type == 'topic')
+				if ($type == 'Topic')
 					$newLoc->set('topic_id',$obj->get('id'));
-				else if ($type == 'reply')
+				else if ($type == 'Reply')
 					$newLoc->set('topic_id',$obj->get('topic_id'));
 				$newLoc->save();
 			}
 		}
-
-		$error = $obj->save();
+		$error = $obj->save();		
+		$objFull = $type::loadById($obj->get('id'));
 		if ($error) {
 			$_SESSION['err'] = $error;
 			return $error;
 		}
-		return $obj;
+		return $objFull;
 	}
 
 

@@ -6,5 +6,5 @@
 </div>
 <?php } ?>
 
-<div class="gmaps"> 
+<div id="map-large"> 
 </div>

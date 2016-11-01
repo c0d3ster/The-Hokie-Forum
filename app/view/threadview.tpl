@@ -52,7 +52,6 @@
 
 	<div class='background-fade-map'></div>
 	<div id="map"> 
-		<img src='<?=IMAGES?>/blacksburg.png' id='map-image'> 
 	</div>
 
 	<textarea id='response' placeholder='reply to this thread here...'></textarea>
@@ -63,7 +62,6 @@
 		</div>
 		<button id='submit-response' name="submit">Submit Response! </button>
 	</div>
-	
 
 
 	

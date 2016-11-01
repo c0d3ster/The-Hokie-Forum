@@ -282,7 +282,9 @@ input:hover, button:hover {
 }
 
 .reply-name {
-	display: inline;
+	clear: both;
+	float: left;
+	margin: 0;
 }
 
 .editing {
@@ -310,7 +312,8 @@ input:hover, button:hover {
 #map-large {
 	clear: both;
 	float: right;
-	width: 65%;
+	width: 95%;
+	height: 600px;
 	margin: 2.5%;
 	box-shadow: 0 0 10px rgba(0,0,0,1);
 }

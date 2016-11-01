@@ -1,13 +1,37 @@
 //Document.Ready equivilant
 $(function() {
+	//mapInit();
 
+	$('#login').click(loginClicked);
+	$('#signup').click(signupClicked); 
+	$('.exit').click(exitClicked);
+	$('#logout').click(logoutClicked);
+
+
+	//event listeners to add topic manipulation
+	$('#start-thread').click(startThreadClicked);
+	$('#add-location-new').click(newLocationClicked);
+	$('#cancel').click(resetForm);
+
+	//event listeners for add reply manipulation
+	$('#add-location').click(addLocationClicked);
+	$('#submit-response').click(submitReply);
+
+	//event listeners for editing and removing content	
+	$('.edit-item').click(editClicked);
+	$('.delete-item').click(deleteClicked);
+	//subheader menu control
+
+
+});
+
+function mapInit() {
 //////////////////////////////////////////////////////////////////
 	//stuff happens
 	var mapMarker;
-	
 	if (pageName == 'Explore'){
 		var mapObj = new GMaps({
-			el: '.gmaps',
+			div: '#map-large',
 			lat: 37.229592,
 			lng: -80.413960
 		});
@@ -15,13 +39,13 @@ $(function() {
 		$.ajax({    
 		type: "POST",
 	    url: baseURL+'/exploreMap/',      
-      	dataType: 'json',                   
+      	dataType: 'json',
       	success: function(data){
-				console.log(data);
+				console.log(data);/*
 				for (var i = 0; i < data.length; i++){
-					var locs = data[i];
-					console.data(log[i]);
-				}
+					var locs = data.locations[i];
+					console.log(data);
+				}*/
 			},  
 		error: function (data) {
 				console.log(data);
@@ -31,7 +55,7 @@ $(function() {
 	}
 	else if (pageName == 'Thread View') {
 		var mapObj = new GMaps({
-			el: '.gmaps',
+			el: '#map',
 			lat: 37.229592,
 			lng: -80.413960,
 			click: function(e) {
@@ -48,33 +72,7 @@ $(function() {
 			}
 		});
 	}
-	
-	//*/
-////////////////////////////////////////////////////////////////////////
-  //event listeners for user manipulation
-  $('#login').click(loginClicked);
-  $('#signup').click(signupClicked); 
-	$('.exit').click(exitClicked);
-	$('#logout').click(logoutClicked);
-
-
-	//event listeners to add topic manipulation
-	$('#start-thread').click(startThreadClicked);
-	$('#add-location-new').click(newLocationClicked);
-	$('#cancel').click(resetForm);
-
-	//event listeners for add reply manipulation
-	$('#add-location').click(addLocationClicked);
-	$('#submit-response').click(submitReply);
-
-	//event listeners for editing and removing content
-	$('#letitlive').click(returned);	
-	$('.edit-item').click(editClicked);
-
-	//subheader menu control
-
-});
-
+}
 /* 
  * @function
  * @name loginClicked
@@ -159,9 +157,9 @@ function verifyCredentials(username, password) {
  */
 function verifySignup(user, pass, mail) {
   for (var i = 0, j = arguments.length; i < j; i++){ //more parameters so I just looped through to check for invalid values instead
-      if(!checkString(arguments[i]) || /\s/.test(arguments[i]) || arguments[0].length > 10) {
+      if(!checkString(arguments[i]) || /\s/.test(arguments[i]) || arguments[0].length > 16) {
     		$('#pass').val('');
-				$('.popsignup').append('<p> Please fill out all information (username 1-10 chars)</p>');
+				$('.popsignup').append('<p> Please fill out all information (username 1-16 chars)</p>');
 				$('.popsignup > p').delay(2000).fadeOut();
       	return false;
       }
@@ -245,7 +243,7 @@ function startThreadClicked() {
  * Fades the hidden map into view
  */
 function newLocationClicked() {
-	$('#map-hidden').fadeIn(1000);
+	$('#map-hidden').slideToggle('slow');
 }
 
 /* 
@@ -266,44 +264,61 @@ function addLocationClicked() {
 	$('.background-fade-map').fadeIn(1000);
 }
 
+
 /* 
  * @function
- * @name returned
- * fades out the popup to delete that post or reply
+ * @name deleteClicked
+ * this will create a pop up for the confirm delete box
  */
-function returned() {
-	$('.background-fade-red').fadeOut(1000);
-	$('.popup-red').fadeOut(1000);
+function deleteClicked() {
+	//use this->syntax for parameter when each listener is created
+	var type = 'Topic';
+	var idString = '<input id="rid" type="hidden" name="rid" value="id">';
+	if ($(this).parent().attr('class') == 'reply') {
+		type = 'Reply';
+		idString = '<input id="rid" type="hidden" name="tid" value="id">';
+		}
+	var id = $(this).siblings('input').filter('.hidden-id').eq(0).val();
+	$('body').append(
+	'<div class="background-fade-red"></div>'+
+		'<form class="popup-red" action="'+baseURL+'/delete'+type+'/process/'+id+'" method="POST">'+
+		'<h2 id="confirm"> Are you sure you would like to get rid of this amazing '+type+' forever??? </h2>'+
+				idString+
+				'<input id="submit" type="submit" name="submit" value="Destroy it NOW!">'+
+				'<input id="letitlive" type="button" value="WAIT... let it live">'+
+		'</form>');
+	$('.background-fade-red').fadeIn(1000);
+	$('.popup-red').fadeIn(1000);
+
+	$('#letitlive').click(cancelDelete);
 }
 
-function deleteClicked(id) {
-	//use this->syntax for parameter when each listener is created
-	/*		<div class="background-fade-red"></div>
-		<form class="popup-red" action="baseURL/deleteProduct/process/" method="POST">
-			<h2 id="confirm"> Are you sure you would like to get rid of this beautiful discussion forever??? </h2>
-				<input id="tid" type="text" name="pid" value="id" readonly>
-				<input id="submit" type="submit" name="submit" value="DESTROY IT NOW!">
-				<input id="letitlive" type="button" value="WAIT... let it live">
-		</form>*/
+/* 
+ * @function
+ * @name cancelDelete
+ * fade out the popups then remove them
+ */
+function cancelDelete() {
+	var reply = $($(this).parent());
+	reply.fadeOut(1000);
+	reply.prev().fadeOut(1000);
+	setTimeout(function() {
+		reply.empty();
+		reply.prev().remove();
+		reply.remove();
+	}, 1000);
 }
 
 function submitReply() {
 
 	var post = $('#response').val();
 	var topic_id = $('.topic .hidden-id').val();
-	var locate = {
-		'lat': $('#lat-in').val(),
-		'long': $('#long-in').val(),
-		't_id': topic_id,
-		'title': $('#title-in').val()
-	}
 	$.ajax({    
 		type: "POST",
 	    url: baseURL+'/addReply/process/', 
     	data: {
     		'post': post,
-    		'topic_id': topic_id,
-			'location': locate
+    		'topic_id': topic_id
     	},      
       	dataType: 'html',                   
       	success: function(data){
@@ -311,6 +326,10 @@ function submitReply() {
   				$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
   				$('#response').val('');
   				$('.background-fade-map').fadeOut(1000);
+  				$('#no-replies').fadeOut(500);
+
+  				$('.edit-item').click(editClicked);
+  				$('.delete-item').click(deleteClicked);
 			},  
 		error: function () {
 			alert(data);
@@ -319,30 +338,55 @@ function submitReply() {
 }
 
 function editClicked() {
-	var text = $(this).siblings('p').eq(0);
-	var val = text.text();
-	text.replaceWith("<textarea class='editing'>"+val+"</textarea>");
+	//we need to check for topic vs reply here 
+	var type = $(this).parent().attr('class');
+	var topic_title = null;
+	var topic_title_val = null;
+	
+	var links = $(this).parent().find('a');
+	links.click(function(e) {
+		e.preventDefault();
+	});
+	
+	if (type == 'topic') {
+		topic_title = $(this).parent().find('h2');
+		topic_title_val = topic_title.text();
+		topic_title.replaceWith('<input id="title" value="'+topic_title_val+'">');
+	}
+	
+	var post = $(this).parent().find('p');
+	var val = post.text();
+	post.replaceWith('<textarea id="post">'+val+'</textarea>');
+	
 	$(this).next().replaceWith("<button class='cancel-edit'>Cancel</button>");
 	$(this).replaceWith("<button class='submit-edit'>Save</button>");
-	alert(text.siblings('.submit-edit').eq(0));
-		$('.submit-edit').click(submitEdditClicked);
+	$('.submit-edit').click({param1: type}, submitEditClicked);
+	$('.cancel-edit').click({param1: val, param2: topic_title_val}, cancelEditClicked); 
 }
 
-function submitEditClicked() {
-	if ($(this).parent().attr('class') === 'reply') {
-		alert($(this).parent().val());
-		var id = $(this).siblings('input').filter('.hidden-id').eq(0);
+function submitEditClicked(type) {
+	var id = $(this).parent().find('.hidden-id');
+	if (type.data.param1 == 'reply') {
 		editReply(id.val(), $(this).parent());
 	}
+	else if (type.data.param1 == 'topic') {
+		editTopic(id.val(), $(this).parent());
+	}
+	
+	var links = $(this).parent().find('a');
+	links.unbind('click');
+	
 	$(this).next().replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 	$(this).replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
-
+	
+	
 	id.siblings('.edit-item').click(editClicked);
+	id.siblings('.delete-item').click(deleteClicked);
 }
 
 function editReply(id, replyVar) {
 	
-	var post = replyVar.find('.editing').val();
+	var post = replyVar.find('#post').val();
 	
 	$.ajax({    
 		type: "POST",
@@ -352,31 +396,53 @@ function editReply(id, replyVar) {
     	},      
       	dataType: 'json',                   
       	success: function(data){
-  				replyVar.find('.editing').replaceWith("<p class='editable'>"+data.post+"</p>");
+  			replyVar.find('#post').replaceWith("<p class='editable'>"+data.post+"</p>");
 		},  
-		error: function () {
+		error: function (data) {
 			alert(data.status);
 		}                                 
     });
 }
 
+function editTopic(id, topicVar) {
+	var post = topicVar.find('#post').val();
+	var title = topicVar.find('#title').val();
+	
+	$.ajax({    
+		type: "POST",
+	    url: baseURL+'/editTopic/process/'+id, 
+    	data: {
+    		'post': post,
+    		'title': title
+    	},      
+      dataType: 'json',                   
+      success: function(data){
+  			topicVar.find('#post').replaceWith("<p class='topic-post'>"+data.post+"</p>");
+  			topicVar.find('#title').replaceWith("<h2 class='topic-title'>"+data.title+"</h2>");
+			},  
+			error: function (data) {
+				alert(data.status);
+			}                                 
+    });
+}
 
+function cancelEditClicked(info) {
+	var prevPost = info.data.param1;
+	var prevTitle = null;
+	if(info.data.param1 == 'reply') {
+		$('#post').replaceWith("<p class='editable'>"+prevPost+"</p>").hide().fadeIn(1000);
+	}
+	
+	if(info.data.param2) {
+		prevTitle = info.data.param2;
+		$('#post').replaceWith("<p class='topic-post'>"+prevPost+"</p>").hide().fadeIn(1000);
+		$('#title').replaceWith("<h2 class='topic-title'>"+prevTitle+"</h2>");
+	}
+	
+	$(this).prev().replaceWith("<img src='"+baseURL+"/public/img/edititem.png' class='edit-item'>");
+	$(this).replaceWith("<img src='"+baseURL+"/public/img/deleteitem.png' class='delete-item'>");
 
+	$('.edit-item').click(editClicked);
+	$('.delete-item').click(deleteClicked);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}
