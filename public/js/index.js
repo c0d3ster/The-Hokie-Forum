@@ -41,11 +41,16 @@ function mapInit() {
 	    url: baseURL+'/exploreMap/',      
       	dataType: 'json',
       	success: function(data){
-				console.log(data);/*
+				console.log(data);
 				for (var i = 0; i < data.length; i++){
-					var locs = data.locations[i];
-					console.log(data);
-				}*/
+					var x = data[i][Xcoord];
+					var y = data[i][Ycoord];
+					mapMarker = mapObj.addMarker({
+						lat: x,
+						lng: y,
+						title: data[i][title];
+					}
+				}
 			},  
 		error: function (data) {
 				console.log(data);
