@@ -13,7 +13,7 @@ MyFit Project 2 Stylesheet for header and login pages
 	opacity: .75;
 	background-color: azure;
 	display: none;
-	z-index: 2;
+	z-index: 3;
 }
 
 .popup, .popsignup{
@@ -30,7 +30,7 @@ MyFit Project 2 Stylesheet for header and login pages
 	background-color: rgba(0,0,0,.4);
 	display: none;
 	overflow: overlay;
-	z-index: 2;
+	z-index: 3;
 }
 
 #verify-login, #hype, #username, #password, #user, #pass, #mail{

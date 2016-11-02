@@ -168,6 +168,8 @@ body {
 
 #post {
 	height: 100px;
+	width: 95%;
+	display: block;
 }
 
 .col h2 {
@@ -387,7 +389,7 @@ input:hover, button:hover {
 #submit-response, #cancel-response {
 	height: 30px;
 	overflow: hidden;
-	margin: 0;
+	margin: 10px 0 0 0;
 	width: 100%;
 }
 

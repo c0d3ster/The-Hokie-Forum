@@ -63,15 +63,12 @@ class Topic extends DbObject {
 	}
 
 	/*=======================Static functions========================*/
+    
     public static function loadById($id) {
         $db = Db::instance();
         $obj = $db->fetchById($id, __CLASS__, self::TOP_TABLE);
         return $obj;
     }
-
-	/*+===============================================+
-	  |	loadByLocation() when maps API is figured out |
-	  +===============================================+*/
 	  
 
     public static function getAllTopics() {

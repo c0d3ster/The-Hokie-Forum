@@ -1,10 +1,10 @@
 //Document.Ready equivilant
 $(function() {
-	//mapInit();
-	unsavedMarker = null;
-	clickable = false;
-	topic_id = $('.topic .hidden-id').val();
+
+	topic_id = $('.topic .hidden-id').val(); //grab the hidden topic id
 	$('#map-hidden').slideToggle('fast'); //quick hide the map!
+
+	//event listeners for user role manipulation
 	$('#login').click(loginClicked);
 	$('#signup').click(signupClicked); 
 	$('.exit').click(exitClicked);
@@ -24,14 +24,20 @@ $(function() {
 	//event listeners for editing and removing content	
 	$('.edit-item').click(editClicked);
 	$('.delete-item').click(deleteClicked);
-	//subheader menu control
 
-
+	//subheader menu control (to be implemented)
 });
 
+/* 
+ * @function
+ * @name mapInit
+ * creates the maps if necessary and retrieves marker data from database
+ */
 function mapInit() {
-	//stuff happens
-	if (pageName == 'Explore'){
+	unsavedMarker = null;
+	clickable = false;
+
+	if (pageName == 'Explore'){ //only display maps on three pages
 		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map-large',
@@ -44,7 +50,7 @@ function mapInit() {
 		type: "POST",
 	    url: baseURL+'/exploreMap/',      
       	dataType: 'json',
-      	success: function(data){
+      	success: function(data){ //get coordinate data
 			console.log(data);
 			for (var i = 0; i < data.length; i++){
 				var x = data[i]['Xcoord'];
@@ -67,14 +73,14 @@ function mapInit() {
 		});
 	}
 	
-	else if (pageName == 'Thread View') {
+	else if (pageName == 'Thread View') { //grabs locations for this thread
 		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map',
 			lat: 37.229592,
 			lng: -80.413960,
 			zoom: 13,
-			click: function(e) {
+			click: function(e) { //on click listener for adding markers
 				if(clickable) {
 					mapObj.removeMarker(unsavedMarker);
 					var LAT = e.latLng.lat();
@@ -89,7 +95,7 @@ function mapInit() {
 				}
 			}
 		});
-		$.ajax({    
+		$.ajax({	//ajax call to populate thread specific maps
 			type: "POST",
 
 			url: baseURL+'/populateMap/'+topic_id+'/',      
@@ -120,7 +126,7 @@ function mapInit() {
 		});
 	}
 	
-	else if (pageName == 'Add Topic') {
+	else if (pageName == 'Add Topic') { //add location tied to a topic
 		mapObj = null;
 		mapObj = new GMaps({
 			div: '#map-hidden',
@@ -141,6 +147,7 @@ function mapInit() {
 		});
 	}
 }
+
 /* 
  * @function
  * @name loginClicked
@@ -155,7 +162,6 @@ function signupClicked() {
 	 	return false;
 	});
 }
-
 
 /* 
  * @function
@@ -214,21 +220,22 @@ function verifyCredentials(username, password) {
 	}
 }
 
-
 /* 
  * @functiond
- * @name verifyCredentials
- * This function will verify user credentials before submitting a database query
+ * @name verifySignup
+ * This function will verify username availability before submitting a database query
  * @param {string} username the user to find.
  * @param {string} password the password that was entered.
+ * @param {string} mail the email that was entered
  * @returns {boolean} true if user is a available and created
  */
 function verifySignup(user, pass, mail) {
-  for (var i = 0, j = arguments.length; i < j; i++){ //more parameters so I just looped through to check for invalid values instead
+  for (var i = 0, j = arguments.length; i < j; i++){ //loop through params
       if(!checkString(arguments[i]) || /\s/.test(arguments[i]) || arguments[0].length > 16) {
+      	//checking for spaces, empty fields, and length > 16 on username
     		$('#pass').val('');
 				$('.popsignup').append('<p> Please fill out all information (username 1-16 chars)</p>');
-				$('.popsignup > p').delay(2000).fadeOut();
+				$('.popsignup > p').delay(2000).fadeOut(); //delayed error message fade away
       	return false;
       }
   }
@@ -238,7 +245,7 @@ function verifySignup(user, pass, mail) {
       url: baseURL+'/signup/process/', 
       data: datastr,      
       dataType: 'json',                   
-      success: function(data){
+      success: function(data){ //add the new user to the database
   			if(data.status == 1){
   				verifyCredentials(user, pass);
 					return true; 
@@ -246,7 +253,7 @@ function verifySignup(user, pass, mail) {
   			else{
   				alert(data.status);
   				$('#pass').val('');
-  				var suggestion = Math.floor((Math.random() * 10) + 1);
+  				var suggestion = Math.floor((Math.random() * 10) + 1); //suggest a different username
   				$('.popsignup').append('<p> Sorry that username is taken, how about '+user+suggestion+'???</p>');
 					$('.popsignup > p').delay(2000).fadeOut();
 					return false;
@@ -261,26 +268,22 @@ function verifySignup(user, pass, mail) {
 /* 
  * @function
  * @name logoutClicked
- * This function is the event listener function for the logout button and will display both rest the view to logged out mode
+ * The event listener function for the logout button and will display both rest the view to logged out mode
  */
 function logoutClicked() {
-	//currUser = null;
-	//$('#intro').show();
-	//$('h2').first().text("Popular Products");
 	window.location.replace(baseURL + "/logout");
-	//changeLoginMenu("guest");
 }
 
 /* 
  * @function
  * @name exitclicked
- * This function is the event listener function for the exit button and will hide the login or sign up popups
+ * The event listener function for the exit button and will hide the login or sign up popups
  */
 function exitClicked() {
 	$('.background-fade').fadeOut(1000);
 	$('.popup').fadeOut(1000);
 	$('.popsignup').fadeOut(1000);
-	$('form').off();
+	$('form').off(); //turn form off so user cant click enter on accident
 }
 
 /*
@@ -327,7 +330,7 @@ function resetForm() {
 /* 
  * @function
  * @name addLocationClicked
- * puts the map into focus and blocks everything else
+ * Puts the map into focus and blocks everything but the user inputs and the map
  */
 function addLocationClicked() {
 	$('.background-fade-map').fadeIn(500);
@@ -342,15 +345,14 @@ function addLocationClicked() {
  * this will create a pop up for the confirm delete box
  */
 function deleteClicked() {
-	//use this->syntax for parameter when each listener is created
 	var type = 'Topic';
 	var idString = '<input id="rid" type="hidden" name="rid" value="id">';
-	if ($(this).parent().attr('class') == 'reply') {
+	if ($(this).parent().attr('class') == 'reply') { //distinguish between reply and topic
 		type = 'Reply';
 		idString = '<input id="rid" type="hidden" name="tid" value="id">';
 		}
 	var id = $(this).siblings('input').filter('.hidden-id').eq(0).val();
-	$('body').append(
+	$('body').append( //populate the delete item confirmation box
 	'<div class="background-fade-red"></div>'+
 		'<form class="popup-red" action="'+baseURL+'/delete'+type+'/process/'+id+'" method="POST">'+
 		'<h2 id="confirm"> Are you sure you would like to get rid of this amazing '+type+' forever??? </h2>'+
@@ -388,7 +390,6 @@ function submitReply() {
 	var long = $('#long-in').val();
 	var title = $('#location-title').val();
 	var loc_str = "GEOMFROMTEXT('POINT("+lat.toString()+" "+long.toString()+")',0)"; 
-	console.log(loc_str);
 	
 	$.ajax({    
 		type: "POST",
@@ -400,13 +401,14 @@ function submitReply() {
     		'loctitle': title
     	},      
       	dataType: 'html',                   
-      	success: function(data){
-			$(data).appendTo('#replies').hide().fadeIn(2000);
+      	success: function(data){ //fade in new response and scroll the div to max to view it
+			$(data).appendTo('#replies').hide().fadeIn(2000); 
 			$("#replies").animate({ scrollTop: $('#replies').prop("scrollHeight")}, 1000);
 			$('#response').val('');
 			$('.background-fade-map').fadeOut(1000);
 			$('#no-replies').fadeOut(500);
 
+			//set up event listeners again and clear user input fields
 			$('.edit-item').click(editClicked);
 			$('.delete-item').click(deleteClicked);
 			$('#lat-in').val('');
