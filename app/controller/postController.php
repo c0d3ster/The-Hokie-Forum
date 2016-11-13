@@ -95,6 +95,12 @@ class PostController {
 				$topic_id = $_GET['tid'];
 				$this->populateMap($topic_id);
 				break;
+
+			case 'switchFavorite':
+				$user_id = $_POST['u_id'];
+				$topic_id = $_POST['t_id'];
+				$this->switchFavorite($user_id, $topic_id);
+				break;
       // redirect to home page if all else fails
       default:
         header('Location: '.BASE_URL);
@@ -273,5 +279,24 @@ class PostController {
 		header('Location: '.BASE_URL.'/myActivity/');
 	}
 
-
+	public function switchFavorite($user_id, $topic_id) {
+		$added = array('added' => 0); //create data array to send back, initialized added to 0
+		$fav = new Favorite(array( //create Favorite object to check against favorite table
+			'user_id' => $user_id,
+			'topic_id' => $topic_id
+			));
+		
+		$found = false;
+		//search for favorite with $user_id and $topic_id
+		if($found) { //if found set data.added to 0, and remove favorite from table
+			$fav->remove();
+		}
+		else { //if not found set data.added to 1, and add favorite to table
+			$added['added'] = 1;
+			$fav->save();
+		}
+		
+		echo json_encode($added); //return the $data
+		exit();
+	}
 }

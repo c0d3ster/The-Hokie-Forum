@@ -32,6 +32,8 @@ RewriteRule ^logout/?$ app/controller/siteController.php?action=logout [QSA,L]
 
 RewriteRule ^view/(\d+)/?$ app/controller/postController.php?action=threadView&tid=$1 [QSA,L]
 
+RewriteRule ^switchFavorite/?$ app/controller/postController.php?action=switchFavorite [QSA,L]
+
 RewriteRule ^addTopic/?$ app/controller/postController.php?action=addTopic [QSA,L]
 
 RewriteRule ^addTopic/process/?$ app/controller/postController.php?action=processAdd [QSA,L]
@@ -42,7 +44,6 @@ RewriteRule ^deleteTopic/process/(\d+)/?$ app/controller/postController.php?acti
 
 # Replies
 
-# May need to include the topic id in this form to link to the foreign key
 RewriteRule ^addReply/process/?$ app/controller/postController.php?action=processAddReply [QSA,L]
 
 RewriteRule ^editReply/process/(\d+)/?$ app/controller/postController.php?action=processEditReply&rid=$1 [QSA,L]
