@@ -57,6 +57,12 @@ class SiteController {
 				$this->processSignup($user, $pass, $mail);
 				break;
 
+			case 'profile':
+				if($this->currUser) {
+					$this->profile();
+				}
+				break;
+
 			case 'logout':
 				session_unset();
 				session_destroy(); // destroy session 			
@@ -143,5 +149,13 @@ class SiteController {
 			echo json_encode($status);
 			exit();
 		}
+	}
+
+	public function profile() {
+		$pageName = 'Profile';
+
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/profile.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
 	}
 }
