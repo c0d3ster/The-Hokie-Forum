@@ -97,8 +97,8 @@ class PostController {
 				break;
 
 			case 'switchFavorite':
-				$user_id = $_POST['u_id'];
-				$topic_id = $_POST['t_id'];
+				$user_id = $this->currUser->get('id');
+				$topic_id = $_POST['tid'];
 				$this->switchFavorite($user_id, $topic_id);
 				break;
       // redirect to home page if all else fails
@@ -286,7 +286,7 @@ class PostController {
 			'topic_id' => $topic_id
 			));
 		
-		$found = false;
+		$found = Favorite::isFavorite($fav);
 		//search for favorite with $user_id and $topic_id
 		if($found) { //if found set data.added to 0, and remove favorite from table
 			$fav->remove();

@@ -342,7 +342,8 @@ function addLocationClicked() {
 
 
 function switchFavorite() {
-	var id = $(this).parent().find('.hidden-id').val();
+	var id = currUser->get('id');
+	var topic_id = $(this).parent().find('.hidden-id').val();
 	$.ajax({    
 		type: "POST",
     url: baseURL+'/switchFavorite/', 

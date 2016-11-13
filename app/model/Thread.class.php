@@ -74,9 +74,6 @@ class Thread extends DbObject {
         }
         return $cats;
     }
-    
-    
-    
 
 	/*=======================Static functions========================*/
     public static function loadById($id, $db_table) {
@@ -126,12 +123,4 @@ class Thread extends DbObject {
         }
 		return $topics;
 	}  
-
-    public static function toggleFavorite($u_id, $t_id, $toggle) {
-
-        $db = Db::instance();
-        //can only store objects
-        $error = $db->store($this, self::REP_TABLE, $db_properties);
-    }
-    
 }
