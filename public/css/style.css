@@ -90,18 +90,58 @@ body {
 	width: 60%;
 }
 
-.favorite-item, .edit-item, .delete-item {
+.edit-item, .delete-item {
 	float: right;
 	margin: 2px 5px;
 	width: 4%;
 	height: 4%;
-	transition: width .5s;
+	transition: width .5s ease-in-out;
+	-moz-transition: width .5s ease-in-out;
+	-webkit-transition: width .5s ease-in-out;
 	z-index: 2;
 }
 
-.favorite-item:hover, .edit-item:hover, .delete-item:hover {
+.edit-item:hover, .delete-item:hover {
 	width: 5%;
 	height: 5%;
+}
+
+.favorite-item {
+	float: right;
+	margin: 2px 5px;
+	width: 4%;
+	height: 4%;
+	opacity: .5;
+	transition: opacity .5s ease-in-out;
+	-moz-transition: opacity .5s ease-in-out;
+	-webkit-transition: opacity .5s ease-in-out;
+	z-index: 1;
+}
+
+.favorite-item:hover {
+	opacity: 1;
+}
+
+.unfavorite-item{ 
+	float: right;
+	margin: 2px 5px;
+	width: 4%;
+	height: 4%;
+	opacity: 1;
+	transition: opacity .5s ease-in-out;
+	-moz-transition: opacity .5s ease-in-out;
+	-webkit-transition: opacity .5s ease-in-out;
+	z-index: 1;
+}
+
+.unfavorite-item:hover {
+	opacity: .5;
+}
+
+.fav-count {
+	float: right;
+	margin: 10px 0px 0px -10px;
+	z-index: 2;
 }
 
 #recent-text {
@@ -188,8 +228,8 @@ input[type=submit], #cancel {
 	border: 3px ridge grey;
 }
 
-input:hover, button:hover {
-	box-shadow: 0 0 5px rgba(0,0,0,.75);
+input:hover, button:hover, #add-location:hover {
+	box-shadow: 0 0 8px rgba(0,0,0,.8);
 }
 
 /*///////////////////////*/
@@ -371,7 +411,7 @@ input:hover, button:hover {
 	overflow: auto;
 	padding: 5px;
 	margin: 0 0 25px 0;
-	box-shadow: 0 0 10px rgba(0,0,0,.75);
+	box-shadow: 0 0 5px rgba(0,0,0,.5);
 }
 
 #add-location-text{

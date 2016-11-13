@@ -145,6 +145,9 @@ button, input, textarea, select {
 #primary-nav li {
 	display:inline;
 	padding: 10px 7%;
+	transition: background .25s ease-in-out;
+  -moz-transition: background .25s ease-in-out;
+  -webkit-transition: background .25s ease-in-out;
 }
 
 #primary-nav li:hover {

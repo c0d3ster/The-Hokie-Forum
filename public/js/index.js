@@ -21,9 +21,11 @@ $(function() {
 	$('#submit-response').click(submitReply);
 	$('#cancel-response').click(cancelReply);
 
-	//event listeners for editing and removing content	
+	//event listeners for favoriting, editing, and removing content	
 	$('.edit-item').click(editClicked);
 	$('.delete-item').click(deleteClicked);
+	$('.favorite-item').click(favoriteSwitch);
+	$('.unfavorite-item').click(favoriteSwitch);
 
 	//subheader menu control (to be implemented)
 });
@@ -338,6 +340,24 @@ function addLocationClicked() {
 	clickable = true;
 }
 
+
+function favoriteSwitch() {
+	if ($(this).attr('class') == 'favorite-item') 
+	{ //if empty star is clicked send request to add this thread to favorites
+		//.ajax
+		var newCount = $(this).prev().text();
+		$(this).prev().text(++newCount);
+		$(this).toggleClass('favorite-item unfavorite-item');
+	}
+	else
+	{ //otherwise remove this entry from the favorites table
+		//.ajax
+		var newCount = $(this).prev().text();
+		$(this).prev().text(--newCount);
+		$(this).toggleClass('favorite-item unfavorite-item');
+	}
+
+}
 
 /* 
  * @function
