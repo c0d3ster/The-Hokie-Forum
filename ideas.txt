@@ -14,6 +14,10 @@
 
 8) Random short funny messages populated on top right when logged in
 
+9) favorite hover border and fade in opacity, delete hover rotate 90 degreees
+
+10) Map customization: move title long and lat boxes inside the map using negative margins, set radius to match farthest out pin on current map, style the info box to match our input box style, change pins to hokiebirds instead?
+
 
 To Do List:
 -Categories

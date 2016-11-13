@@ -56,11 +56,7 @@ class Thread extends DbObject {
         $this->locations = $args['locations'];
         $this->categories = $args['categories'];
     }
-    
-    public function deleteThread() {
-    	/*TO DO*/
-    }
-    
+
     /*=====================Private helper functions=================*/
    
 	

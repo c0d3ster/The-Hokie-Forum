@@ -48,7 +48,7 @@ a {
 	text-decoration: none;
 }
 
-input, textarea{
+input, textarea, #wrapper button{
 	color: white;
 	opacity: .8;
 	letter-spacing: 2px !important;

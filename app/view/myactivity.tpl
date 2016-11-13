@@ -5,11 +5,15 @@
 		<img id='start-thread-image' src='<?= IMAGES ?>/additem.png?>' width='50' height='50'>
 	</div>
 
-
-
-
 	<?php	foreach($activities as $top) {
 		$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+		$favorites = Thread::getFavoritesByTopicId($top->get('topic_id')); //should return array of "arrays with 3 fields"
+		$isFavorite = false;
+		foreach($favorites as $fav) {
+			if($fav['user_id'] == $this->currUser->get('user_id')) {
+				$isFavorite = true;
+			}
+		}
 	?>
 
 	<a href="<?= BASE_URL ?>/view/<?=$top->get('id')?>"> 
@@ -17,6 +21,14 @@
 			<h2 class="topic-title"><?=$top->get('title')?></h2>
 			<div class="topic-user">By: <?=$topicUsername?></div>	
 	</a>
+
+	<p class='fav-count'> <?=count($favorites)?> </p>
+	<?php if($this->currUser and $isFavorite):?> 
+			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
+	<?php else:?> 
+			<img src='<?=IMAGES?>/favoriteitem.png' class='favorite-item'>
+	<?php endif;?>
+		
 <?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
 		<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 <?php endif;?>	
@@ -24,7 +36,7 @@
 		<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 <?php endif;?>		
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
-					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?></p>
+					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?>...</p>
 				</a>
 			<label class="topic-time"><?=$top->get('date_created') ?></label>
 			<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 

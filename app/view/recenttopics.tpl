@@ -8,6 +8,13 @@
 
 <?php foreach($topics as $top) { 
 	$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+	$favorites = Thread::getFavoritesByTopicId($top->get('topic_id')); //should return array of favorite objects
+	$isFavorite = false;
+	foreach($favorites as $fav) {
+		if($fav->get('user_id') == $this->currUser->get('user_id')) {
+			$isFavorite = true;
+		}
+	}
 	?>
 
 		<div class="topic">
@@ -15,12 +22,19 @@
 				<h2 class="topic-title"><?=$top->get('title')?></h2>
 				<div class="topic-user">By: <?=$topicUsername?></div>		
 			</a>
-		<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
-				<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
-		<?php endif;?>	
-		<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
-				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
-		<?php endif;?>
+
+			<p class='fav-count'> <?=count($favorites)?> </p>
+	<?php if($this->currUser and $isFavorite):?> 
+			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
+	<?php else:?> 
+			<img src='<?=IMAGES?>/favoriteitem.png' class='favorite-item'>
+	<?php endif;?>
+	<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
+			<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
+	<?php endif;?>	
+	<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
+			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
+	<?php endif;?>
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
 					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?></p>	
 				</a>			

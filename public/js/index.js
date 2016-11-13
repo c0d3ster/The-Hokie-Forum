@@ -21,9 +21,11 @@ $(function() {
 	$('#submit-response').click(submitReply);
 	$('#cancel-response').click(cancelReply);
 
-	//event listeners for editing and removing content	
+	//event listeners for favoriting, editing, and removing content	
 	$('.edit-item').click(editClicked);
 	$('.delete-item').click(deleteClicked);
+	$('.favorite-item').click(favoriteSwitch);
+	$('.unfavorite-item').click(favoriteSwitch);
 
 	//subheader menu control (to be implemented)
 });
@@ -338,6 +340,20 @@ function addLocationClicked() {
 	clickable = true;
 }
 
+
+function favoriteSwitch() {
+	if ($(this).attr('class') == 'favorite-item') 
+	{ //if empty star is clicked send request to add this thread to favorites
+		$(this).next.text() = $(this).next.text();
+		$(this).toggleClass('unfavorite-item');
+	}
+	else
+	{ //otherwise remove this entry from the favorites table
+
+		$(this).toggleClass('favorite-item');
+	}
+
+}
 
 /* 
  * @function
