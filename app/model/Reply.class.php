@@ -69,11 +69,6 @@ class Reply extends DbObject {
         return $obj;
     }
 
-	/*+===============================================+
-	  |	loadByLocation() when maps API is figured out |
-	  +===============================================+*/
-	  
-
     public static function getAllReplies($t_id) {
         
 		$query = sprintf("SELECT id FROM %s WHERE topic_id = %s ORDER BY date_created",

@@ -24,8 +24,8 @@ $(function() {
 	//event listeners for favoriting, editing, and removing content	
 	$('.edit-item').click(editClicked);
 	$('.delete-item').click(deleteClicked);
-	$('.favorite-item').click(favoriteSwitch);
-	$('.unfavorite-item').click(favoriteSwitch);
+	$('.favorite-item').click(switchFavorite);
+	$('.unfavorite-item').click(switchFavorite);
 
 	//subheader menu control (to be implemented)
 });
@@ -341,21 +341,35 @@ function addLocationClicked() {
 }
 
 
-function favoriteSwitch() {
-	if ($(this).attr('class') == 'favorite-item') 
-	{ //if empty star is clicked send request to add this thread to favorites
-		//.ajax
-		var newCount = $(this).prev().text();
-		$(this).prev().text(++newCount);
-		$(this).toggleClass('favorite-item unfavorite-item');
-	}
-	else
-	{ //otherwise remove this entry from the favorites table
-		//.ajax
-		var newCount = $(this).prev().text();
-		$(this).prev().text(--newCount);
-		$(this).toggleClass('favorite-item unfavorite-item');
-	}
+function switchFavorite() {
+	var id = $(this).parent().find('.hidden-id').val();
+	$.ajax({    
+		type: "POST",
+    url: baseURL+'/switchFavorite/', 
+   	data: {
+   		'u_id': id,
+   		't_id': topic_id
+   	},
+   	dataType: 'json',                        
+    success: function(data){ //added is set to 1 if request added a favorite, 0 if it was removed
+			if (data.added)
+			{ //if empty star is clicked send request to add this thread to favorites
+				var newCount = $(this).prev().text();
+				$(this).prev().text(++newCount);
+				$(this).toggleClass('favorite-item unfavorite-item');
+			}
+			else
+			{ //otherwise remove this entry from the favorites table
+				var newCount = $(this).prev().text();
+				$(this).prev().text(--newCount);
+				$(this).toggleClass('favorite-item unfavorite-item');
+			}
+		},  
+		error: function () {
+			alert("that didn't work");
+		}                                 
+  });
+
 
 }
 
