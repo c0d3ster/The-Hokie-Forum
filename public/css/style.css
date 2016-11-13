@@ -111,11 +111,11 @@ body {
 	margin: 2px 5px;
 	width: 4%;
 	height: 4%;
-	opacity: .4;
+	opacity: .5;
 	transition: opacity .5s ease-in-out;
 	-moz-transition: opacity .5s ease-in-out;
 	-webkit-transition: opacity .5s ease-in-out;
-	z-index: 2;
+	z-index: 1;
 }
 
 .favorite-item:hover {
@@ -131,16 +131,17 @@ body {
 	transition: opacity .5s ease-in-out;
 	-moz-transition: opacity .5s ease-in-out;
 	-webkit-transition: opacity .5s ease-in-out;
-	z-index: 2;
+	z-index: 1;
 }
 
 .unfavorite-item:hover {
-	opacity: .4;
+	opacity: .5;
 }
 
 .fav-count {
 	float: right;
-	margin-left: -10px;
+	margin: 10px 0px 0px -10px;
+	z-index: 2;
 }
 
 #recent-text {

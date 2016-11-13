@@ -344,13 +344,17 @@ function addLocationClicked() {
 function favoriteSwitch() {
 	if ($(this).attr('class') == 'favorite-item') 
 	{ //if empty star is clicked send request to add this thread to favorites
-		$(this).next.text() = $(this).next.text();
-		$(this).toggleClass('unfavorite-item');
+		//.ajax
+		var newCount = $(this).prev().text();
+		$(this).prev().text(++newCount);
+		$(this).toggleClass('favorite-item unfavorite-item');
 	}
 	else
 	{ //otherwise remove this entry from the favorites table
-
-		$(this).toggleClass('favorite-item');
+		//.ajax
+		var newCount = $(this).prev().text();
+		$(this).prev().text(--newCount);
+		$(this).toggleClass('favorite-item unfavorite-item');
 	}
 
 }

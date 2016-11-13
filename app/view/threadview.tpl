@@ -1,6 +1,7 @@
 <?php $top = $thread->get('topic'); 
 			$topicUsername = User::loadByID($top->get('user_id'))->get('username');
-
+			$isFavorite = false;
+			$favorites = 0;
 ?>
 <script type='text/javascript'>
 	topic_id = <?=$top->get('id')?>;
@@ -11,6 +12,14 @@
 <div class="topic">
 	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>	
 	<div class="topic-user"> By: <?= $topicUsername  ?> </div>
+
+			<p class='fav-count'> <?=count($favorites)?> </p>
+			<?php if($this->currUser and $isFavorite):?> 
+			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
+	<?php else:?> 
+			<img src='<?=IMAGES?>/favoriteitem.png' class='favorite-item'>
+	<?php endif;?>
+
 <?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
 		<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 <?php endif;?>	
