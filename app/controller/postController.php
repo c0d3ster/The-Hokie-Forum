@@ -283,12 +283,15 @@ class PostController {
 	}
 
 	public function switchFavorite($user_id, $topic_id) {
+		$arr = array('test'=>'test');
 		
 		$added = array('added' => 0); //create data array to send back, initialized added to 0
 		$fav = new Favorite(array( //create Favorite object to check against favorite table
 			'user_id' => $user_id,
 			'topic_id' => $topic_id
 			));
+		echo json_encode($arr);
+		exit();
 		$found = Favorite::isFavorite($fav);
 		//search for favorite with $user_id and $topic_id
 		if($found) { //if found set data.added to 0, and remove favorite from table
