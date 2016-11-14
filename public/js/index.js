@@ -358,9 +358,9 @@ function switchFavorite() {
 			var newCount = thisItem.prev().text();
 			thisItem.prev().text(++newCount);
 			thisItem.toggleClass('favorite-item unfavorite-item');
+			alert(data.test);
 		}
 		else if (data.added == 2) {
-			//user not signed in
 			alert("Not signed in!");
 		}
 		else
