@@ -293,10 +293,16 @@ class PostController {
 		//search for favorite with $user_id and $topic_id
 		if($found) { //if found set data.added to 0, and remove favorite from table
 			$found->remove();
+			$topic = Topic::loadById($topic_id);
+			$topic->favoriteCount(-1);
+			$topic->save();
 		}
 		else { //if not found set data.added to 1, and add favorite to table
 			$added['added'] = 1;
 			$fav->save();
+			$topic = Topic::loadById($topic_id);
+			$topic->favoriteCount(1);
+			$topic->save();
 		}
 		
 		echo json_encode($added); //return the data

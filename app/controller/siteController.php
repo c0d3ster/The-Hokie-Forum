@@ -35,7 +35,7 @@ class SiteController {
 				break;
 
 			case 'hotTopics':
-				$this->recentTopics();
+				$this->hotTopics();
 				break;
 
 			case 'myActivity':
@@ -91,17 +91,18 @@ class SiteController {
 		$topics = Topic::getAllTopics();
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/recenttopics.tpl';
+		include_once SYSTEM_PATH.'/view/topics.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
   }
-
-  /*public function hotTopics() {
-		$topics = Topic::getAllTopics();
-
+  
+  public function hotTopics() {
+		$pageName = 'Hot Topics';
+		$topics = Topic::getHotTopics();
+		
 		include_once SYSTEM_PATH.'/view/header.tpl';
-		include_once SYSTEM_PATH.'/view/recenttopics.tpl';
+		include_once SYSTEM_PATH.'/view/topics.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
-  }*/
+  }
 
   public function myActivity() {
 		$pageName = 'My Activity';
