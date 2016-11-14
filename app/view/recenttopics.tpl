@@ -12,7 +12,7 @@
 	$isFavorite = false;
 	if($favorites) {
 		foreach($favorites as $fav) {
-			if($fav->get('user_id') == $this->currUser->get('id')) {
+			if($fav['user_id'] == $this->currUser->get('id')) {
 				$isFavorite = true;
 			}
 		}
