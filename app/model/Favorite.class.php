@@ -41,14 +41,14 @@ class Favorite extends DbObject {
     }
 
 	public function remove() {
-		
+	
 		$db = Db::instance();
 		$error = $db->delete($this, self::FAV_TABLE);
 		if($error) {
 			return $error;
 		}
 		return null;
-		
+	
 	}
 
 	/*=======================Static functions========================*/
@@ -76,6 +76,33 @@ class Favorite extends DbObject {
             }
             return ($objects);
         }
+	}
+
+	public static function isFavorite($favorite) {
+		$fav = self::loadById($favorite->get('id'));
+		if($fav)
+			return true;
+		return false;
+	}
+	
+	public static function getFavoritesByTopicId($t_id) {
+		
+		$query = sprintf("SELECT id FROM %s WHERE topic_id = %s",
+            self::FAV_TABLE,
+            $t_id
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();		//don't need an array of objects here. only used for counting favorites
+            while($row = mysql_fetch_assoc($result)) {
+            	array_push($objects, $row);
+            }
+            return ($objects);
+        }
+		
 	}
         
     

@@ -1,5 +1,5 @@
 <?php $top = $thread->get('topic'); 
-			$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+			$topicUsername = User::loadById($top->get('user_id'))->get('username');
 	$favorites = Favorite::getFavoritesByTopicId($top->get('topic_id')); //should return array of favorite objects
 	$isFavorite = false;
 	foreach($favorites as $fav) {
