@@ -97,9 +97,10 @@ class PostController {
 				break;
 
 			case 'switchFavorite':
-				if (!$this->currUser)
+				if (!$this->currUser) {
 					echo json_encode(array('added'=>2));
 					break;
+				}
 				$user_id = $this->currUser->get('id');
 				$topic_id = $_POST['tid'];
 				echo json_encode(array('added'=>$topic_id, 'added2'=>$user_id));
