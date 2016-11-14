@@ -135,14 +135,14 @@ button, input, textarea, select {
 	margin: 4px 4px;
 }
 
-#primary-nav {
+#primary-nav, #sub-primary-nav {
 	clear: both;
 	text-align: center;
 	margin: 0px;
 	padding: 5px 2.5%;
 }
 
-#primary-nav li {
+#primary-nav li, #sub-primary-nav li {
 	display:inline;
 	padding: 10px 7%;
 	transition: background .25s ease-in-out;
@@ -157,11 +157,6 @@ button, input, textarea, select {
 
 #this-tab {
 	background: linear-gradient(transparent ,rgba(0,0,0,.5));
-}
-
-#this-tab:hover {
-	clear: both;
-	display: block;
 }
 
 #parent-tab {
