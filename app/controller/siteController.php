@@ -133,7 +133,7 @@ class SiteController {
   		$favorites = Favorite::getFavoritesByUserId($this->currUser->get('id'));
   		$activities = array();
   		foreach($favorites as $fav) {
-  			$act = Thread::getThreadByTopic($fav->get('topic_id'));
+  			$act = Topic::loadById($fav->get('topic_id'));
   			array_push($activities, $act);
   		}
   		
