@@ -349,7 +349,7 @@ function switchFavorite() {
 		type: "POST",
     url: baseURL+'/switchFavorite/', 
    	data: {
-   		't_id': topic_id
+   		'tid': topic_id
    	},
    	dataType: 'json',                        
     success: function(data){ //added is set to 1 if request added a favorite, 0 if it was removed
