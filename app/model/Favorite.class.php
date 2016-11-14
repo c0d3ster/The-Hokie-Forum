@@ -104,7 +104,6 @@ class Favorite extends DbObject {
             }
             return ($objects);
         }
-		
 	}
         
     
