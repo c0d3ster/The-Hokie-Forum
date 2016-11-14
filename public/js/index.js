@@ -342,7 +342,9 @@ function addLocationClicked() {
 
 
 function switchFavorite() {
-	var topic_id = $(this).parent().find('.hidden-id').val();
+	var thisItem = $(this);
+	var topic_id = thisItem.parent().find('.hidden-id').val();
+	
 	$.ajax({    
 		type: "POST",
     url: baseURL+'/switchFavorite/', 
@@ -353,9 +355,9 @@ function switchFavorite() {
     success: function(data){ //added is set to 1 if request added a favorite, 0 if it was removed
 		if (data.added == 1)
 		{ //if empty star is clicked send request to add this thread to favorites
-			var newCount = $(this).prev().text();
-			$(this).prev().text(++newCount);
-			$(this).toggleClass('favorite-item unfavorite-item');
+			var newCount = thisItem.prev().text();
+			thisItem.prev().text(++newCount);
+			thisItem.toggleClass('favorite-item unfavorite-item');
 		}
 		else if (data.added == 2) {
 			//user not signed in
@@ -363,9 +365,9 @@ function switchFavorite() {
 		}
 		else
 		{ //otherwise remove this entry from the favorites table
-			var newCount = $(this).prev().text();
-			$(this).prev().text(--newCount);
-			$(this).toggleClass('favorite-item unfavorite-item');
+			var newCount = thisItem.prev().text();
+			thisItem.prev().text(--newCount);
+			thisItem.toggleClass('favorite-item unfavorite-item');
 		}
 	},  
 	error: function (data) {
