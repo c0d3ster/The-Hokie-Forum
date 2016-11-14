@@ -54,7 +54,7 @@ class Favorite extends DbObject {
 	/*=======================Static functions========================*/
     public static function loadById($id) {
         $db = Db::instance();
-        $obj = $db->fetchById($id, __CLASS__, self::REP_TABLE);
+        $obj = $db->fetchById($id, __CLASS__, self::FAV_TABLE);
         return $obj;
     }
 
