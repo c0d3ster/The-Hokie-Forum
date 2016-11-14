@@ -351,11 +351,15 @@ function switchFavorite() {
    	},
    	dataType: 'json',                        
     success: function(data){ //added is set to 1 if request added a favorite, 0 if it was removed
-			if (data.added)
+			if (data.added == 1)
 			{ //if empty star is clicked send request to add this thread to favorites
 				var newCount = $(this).prev().text();
 				$(this).prev().text(++newCount);
 				$(this).toggleClass('favorite-item unfavorite-item');
+			}
+			else if (data.added == 2) {
+				//user not signed in
+				alert("Not signed in!");
 			}
 			else
 			{ //otherwise remove this entry from the favorites table
