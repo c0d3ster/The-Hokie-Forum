@@ -358,7 +358,6 @@ function switchFavorite() {
 			var newCount = thisItem.prev().text();
 			thisItem.prev().text(++newCount);
 			thisItem.toggleClass('favorite-item unfavorite-item');
-			alert(data.test2);
 		}
 		else if (data.added == 2) {
 			alert("Not signed in!");

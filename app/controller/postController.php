@@ -296,8 +296,7 @@ class PostController {
 		}
 		else { //if not found set data.added to 1, and add favorite to table
 			$added['added'] = 1;
-			$added['test'] = $fav->save();
-			$added['test2'] = $topic_id;
+			$fav->save();
 		}
 		
 		echo json_encode($added); //return the data
