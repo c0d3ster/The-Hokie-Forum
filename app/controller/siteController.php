@@ -46,7 +46,7 @@ class SiteController {
 			
 			case 'myFavorites':
 				if($this->currUser) {
-					$this->myFavorites():
+					$this->myFavorites();
 				}
 				break;
 
