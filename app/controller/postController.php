@@ -97,6 +97,8 @@ class PostController {
 				break;
 
 			case 'switchFavorite':
+				if (!$this->currUser)
+					break;
 				$user_id = $this->currUser->get('id');
 				$topic_id = $_POST['tid'];
 				$this->switchFavorite($user_id, $topic_id);
@@ -296,7 +298,7 @@ class PostController {
 			$fav->save();
 		}
 		
-		echo json_encode($added); //return the $data
+		echo json_encode($added); //return the data
 		exit();
 	}
 }
