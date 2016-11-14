@@ -66,7 +66,7 @@ else { ?>
 		</div>
 		<ul id="primary-nav">
 			<a href="<?= BASE_URL ?>/" > <li <?= isSelected($pageName, 'Explore') ?>>  Explore   </li></a>
-			<a href="<?= BASE_URL ?>/recentTopics/"> <li <?= isChildSelected($pageName) ?>> Topics </li></a> 
+			<a href="<?= BASE_URL ?>/recentTopics/"> <li <?= isChildSelected($pageName, 'topic') ?>> Topics </li></a> 
 		</ul>
 <?php } ?>
 
