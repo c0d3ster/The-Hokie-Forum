@@ -57,6 +57,7 @@ else { ?>
 		<ul id="primary-nav">
 			<a href="<?= BASE_URL ?>/" > <li <?= isSelected($pageName, 'Explore') ?>>  Explore   </li></a>
 			 <a href="<?= BASE_URL ?>/recentTopics/"> <li <?= isSelected($pageName, 'Recent Topics') ?>> Recent Topics </li></a> 
+			 <a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
 		</ul>
 <?php } ?>
 
