@@ -6,6 +6,7 @@
 		if($fav->get('user_id') == $this->currUser->get('user_id')) {
 			$isFavorite = true;
 		}
+	}
 ?>
 <script type='text/javascript'>
 	topic_id = <?=$top->get('id')?>;
@@ -90,23 +91,4 @@
 	</div>
 	
 </div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
-
-	
