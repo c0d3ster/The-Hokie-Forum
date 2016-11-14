@@ -40,7 +40,7 @@ if($this->currUser) { ?>
 		<div id="login-menu">
 			<p> What's up <?= $_SESSION['user'] ?>? </p>	 
 		  <button id="logout"> Log Out :( </button>  
-		  <button id="profile"> Profile & Preferences </button>  
+		  <a href="<?= BASE_URL ?>/profile/" ><button id="profile"> Profile & Preferences </button></a>
 		</div>
 		<ul id="primary-nav">
 	  	<a href="<?= BASE_URL ?>/" ><li <?= isSelected($pageName, 'Explore') ?>>  Explore </li> </a>

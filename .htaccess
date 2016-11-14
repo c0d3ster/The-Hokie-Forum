@@ -25,6 +25,7 @@ RewriteRule ^login/process/?$ app/controller/siteController.php?action=processLo
 
 RewriteRule ^logout/?$ app/controller/siteController.php?action=logout [QSA,L]
 
+RewriteRule ^profile/?$ app/controller/siteController.php?action=profile [QSA,L]
 
 # POST CONTROLLER
 
