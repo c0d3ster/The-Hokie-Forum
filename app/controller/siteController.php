@@ -130,7 +130,13 @@ class SiteController {
   public function myFavorites() {
   		$pageName = 'My Favorites';
   		
-  		$activities = Thread::getFavoritesByUserId($this->currUser->get('id'));
+  		$favorites = Favorite::getFavoritesByUserId($this->currUser->get('id'));
+  		$activities = array();
+  		foreach($favorites as $fav) {
+  			$act = Thread::getThreadByTopicId($fav->get('topic_id'));
+  			array_push($activities, $act);
+  		}
+  		
   		
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/myactivity.tpl';
