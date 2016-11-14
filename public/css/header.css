@@ -157,6 +157,7 @@ button, input, textarea, select {
 
 #sub-primary-nav {
 	margin-top: -25px;
+	margin-bottom: 25px;
 }
 
 #this-tab {
