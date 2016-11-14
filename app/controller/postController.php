@@ -290,6 +290,8 @@ class PostController {
 			));
 		$found = Favorite::isFavorite($fav);
 		$test = array('added'=>$found);
+		echo json_encode($test);
+		exit();
 		//search for favorite with $user_id and $topic_id
 		if($found) { //if found set data.added to 0, and remove favorite from table
 			$fav->remove();
