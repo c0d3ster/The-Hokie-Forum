@@ -103,8 +103,7 @@ class PostController {
 				}
 				$user_id = $this->currUser->get('id');
 				$topic_id = $_POST['tid'];
-				echo json_encode(array('added'=>$topic_id, 'added2'=>$user_id));
-				//$this->switchFavorite($user_id, $topic_id);		//////////////////////////////////////////////////////////
+				$this->switchFavorite($user_id, $topic_id);
 				break;
       // redirect to home page if all else fails
       default:
