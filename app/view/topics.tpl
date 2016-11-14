@@ -12,7 +12,7 @@
 		<?php } ?>
 
 <?php foreach($topics as $top) { 
-	$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+	$topicUsername = User::loadById($top->get('user_id'))->get('username');
 	$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite data
 	$isFavorite = false;
 	if($favorites) {
