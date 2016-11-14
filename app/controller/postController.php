@@ -283,8 +283,6 @@ class PostController {
 	}
 
 	public function switchFavorite($user_id, $topic_id) {
-		$arr = array('test'=>'test');
-		
 		$added = array('added' => 0); //create data array to send back, initialized added to 0
 		$fav = new Favorite(array( //create Favorite object to check against favorite table
 			'user_id' => $user_id,

@@ -369,7 +369,7 @@ function switchFavorite() {
 		}
 	},  
 	error: function (data) {
-		alert(data.status);
+		alert(data.added);
 	}                                 
   });
 
