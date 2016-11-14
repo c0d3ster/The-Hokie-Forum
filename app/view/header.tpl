@@ -59,7 +59,7 @@ if($this->currUser) { ?>
 	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>>  Recent Topics </li> </a> 
 			<a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
 		</ul>
-		<? endif; ?>
+		<?php endif; ?>
 <?php } 
 else { ?>
 		<div id="login-menu">
