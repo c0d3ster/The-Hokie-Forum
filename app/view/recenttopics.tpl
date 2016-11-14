@@ -8,10 +8,10 @@
 
 <?php foreach($topics as $top) { 
 	$topicUsername = User::loadByID($top->get('user_id'))->get('username');
-	$favorites = Favorite::getFavoritesByTopicId($top->get('topic_id')); //should return array of favorite objects
+	$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite objects
 	$isFavorite = false;
 	foreach($favorites as $fav) {
-		if($fav->get('user_id') == $this->currUser->get('user_id')) {
+		if($fav->get('user_id') == $this->currUser->get('id')) {
 			$isFavorite = true;
 		}
 	}

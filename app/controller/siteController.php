@@ -30,7 +30,7 @@ class SiteController {
 				$this->explore();
 				break;			
 
-  		case 'recentTopics':
+  			case 'recentTopics':
 				$this->recentTopics();
 				break;
 
@@ -87,7 +87,7 @@ class SiteController {
   }
 
   public function recentTopics() {
-    $pageName = 'Recent Topics';
+    	$pageName = 'Recent Topics';
 		$topics = Topic::getAllTopics();
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
