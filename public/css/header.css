@@ -155,8 +155,20 @@ button, input, textarea, select {
 	text-shadow: 2px 4px 6px rgba(0,0,0, .75);
 }
 
+#sub-primary-nav {
+	display: none;
+	transition: display .5s ease-in-out;
+	-mox-transition: display .5s ease-in-out;
+	-webkit-transition: display .5s ease-in-out;
+} 
+
 #this-tab {
 	background: linear-gradient(transparent ,rgba(0,0,0,.5));
+}
+
+#this-tab:hover {
+	clear: both;
+	display: block;
 }
 
 /*//////////////////////////////*/

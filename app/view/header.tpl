@@ -44,11 +44,14 @@ if($this->currUser) { ?>
 		</div>
 		<ul id="primary-nav">
 	  	<a href="<?= BASE_URL ?>/" ><li <?= isSelected($pageName, 'Explore') ?>>  Explore </li> </a>
-	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>>  Recent Topics </li> </a> 
+	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>> Topics </li> </a> 
 	  	<a href="<?= BASE_URL ?>/myActivity/"><li <?= isSelected($pageName, 'My Activity') ?>> My Activity </li></a> 
+			
+		</ul>
+		<ul id="sub-primary-nav">
+	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>>  Recent Topics </li> </a> 
 			<a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
 		</ul>
-
 <?php } 
 else { ?>
 		<div id="login-menu">

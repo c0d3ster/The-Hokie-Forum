@@ -65,12 +65,6 @@ class Topic extends DbObject {
 		return null;
 		
 	}
-	
-	public function favoriteCount($x) {
-		
-		$this->favorite_count += $x;
-		return $this;	
-	}
 
 	/*=======================Static functions========================*/
     
