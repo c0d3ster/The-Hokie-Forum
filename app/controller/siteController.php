@@ -43,6 +43,12 @@ class SiteController {
 					$this->myActivity();
 				}
 				break;
+			
+			case 'myFavorites':
+				if($this->currUser) {
+					$this->myFavorites():
+				}
+				break;
 
 			case 'processLogin':
 				$username = $_POST['un'];
@@ -116,6 +122,16 @@ class SiteController {
 		//this should return an array of topics which you have partipated in
 		$activities = Thread::getThreadsByUsername($_SESSION['user']);
 
+		include_once SYSTEM_PATH.'/view/header.tpl';
+		include_once SYSTEM_PATH.'/view/myactivity.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+  }
+  
+  public function myFavorites() {
+  		$pageName = 'My Favorites';
+  		
+  		$activities = Thread::getFavoritesByUserId($this->currUser->get('id'));
+  		
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/myactivity.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';

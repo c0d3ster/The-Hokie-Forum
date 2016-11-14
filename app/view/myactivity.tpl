@@ -1,3 +1,8 @@
+<ul id="sub-primary-nav">
+	<a href="<?= BASE_URL ?>/myActivity/"><li <?= isSelected($pageName, 'My Activity') ?>> My Activity </li> </a> 
+	<a href="<?= BASE_URL ?>/myFavorites/"> <li <?= isSelected($pageName, 'My Favorites') ?>> My Favorites </li></a> 
+</ul>
+
 <?php if($activities) {	?>
 	<h3 id='recent-text'> Heres a list of every discussion you're a part of: </h3>
 	<div id='start-thread'>

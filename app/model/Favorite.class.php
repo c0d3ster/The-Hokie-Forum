@@ -58,7 +58,7 @@ class Favorite extends DbObject {
         return $obj;
     }
 
-	public static function getFavoritesByUsername($u_id) {
+	public static function getFavoritesByUserId($u_id) {
 		//should we use username from $_SESSION instead?
 		$query = sprintf("SELECT * FROM %s WHERE user_id = %s",
             self::FAV_TABLE,

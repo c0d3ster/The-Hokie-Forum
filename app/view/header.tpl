@@ -6,9 +6,14 @@ function isSelected($pn, $link) {
 	}
 }
 
-function isChildSelected($pn) {
-	if($pn == 'Recent Topics' || $pn == 'Hot Topics') {
-		return ' id="parent-tab" ';
+function isChildSelected($pn, $type) {
+	if ($type == 'topic') {
+		if($pn == 'Recent Topics' || $pn == 'Hot Topics')
+			return ' id="parent-tab" ';
+	}
+	else if ($type == 'activity') {
+		if ($pn == 'My Favorites' || $pn == 'My Activity')
+			return ' id="parent-tab" ';
 	}
 }
 ?>
@@ -50,8 +55,8 @@ if($this->currUser) { ?>
 		</div>
 		<ul id="primary-nav">
 	  	<a href="<?= BASE_URL ?>/" ><li <?= isSelected($pageName, 'Explore') ?>>  Explore </li> </a>
-	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isChildSelected($pageName) ?>> Topics </li> </a> 
-	  	<a href="<?= BASE_URL ?>/myActivity/"><li <?= isSelected($pageName, 'My Activity') ?>> My Activity </li></a> 
+	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isChildSelected($pageName, 'topic') ?>> Topics </li> </a> 
+	  	<a href="<?= BASE_URL ?>/myActivity/"><li <?= isChildSelected($pageName, 'activity') ?>> My Stuff </li></a> 
 		</ul>
 <?php } 
 else { ?>

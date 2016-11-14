@@ -17,6 +17,8 @@ RewriteRule ^hotTopics/?$ app/controller/siteController.php?action=hotTopics [QS
 
 RewriteRule ^myActivity/?$ app/controller/siteController.php?action=myActivity [QSA,L]
 
+RewriteRule ^myFavorites/?$ app/controller/siteController.php?action=myFavorites [QSA,L]
+
 # Account Management
 
 RewriteRule ^signup/process/?$ app/controller/siteController.php?action=processSignup [QSA,L]
