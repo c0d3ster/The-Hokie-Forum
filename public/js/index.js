@@ -27,6 +27,27 @@ $(function() {
 	$('.favorite-item').click(switchFavorite);
 	$('.unfavorite-item').click(switchFavorite);
 
+	// event listeners for user to update password
+	$('#changePass').click(changePass);
+	$('#updatePass').click(updatePassword);
+	$('#chPass').hide();
+
+	// don't let user submit form if empty fields
+	$('form > input').keyup(function() {
+        var empty = false;
+        $('form > input').each(function() {
+            if ($(this).val() == '') {
+                empty = true;
+            }
+        });
+
+        if (empty) {
+            $('#updatePass').attr('disabled', 'disabled'); 
+        } else {
+            $('#updatePass').removeAttr('disabled'); 
+        }
+    });
+
 	//subheader menu control (to be implemented)
 });
 
@@ -576,4 +597,57 @@ function cancelEditClicked(info) {
 	$('.edit-item').click(editClicked);
 	$('.delete-item').click(deleteClicked);
 
+}
+
+/* show fields for user to update their password */
+function changePass() {
+	// toggle form show/hide on button click
+	if ($("#chPass").is(":visible")){
+        $("#chPass").hide();
+    } else {
+        $("#chPass").show();
+    }
+}
+
+/* validates form, updates the user's password in the database */
+function updatePassword() {
+	// user input
+	var currentPass = $('#currPass').val();
+	var newPass = $('#newPass').val();
+	var newPass2 = $('#newPass2').val();
+
+	// if all fields not filled in
+	if (currentPass == '' || newPass == '' || newPass2 == '') {
+		alert('Please enter text in all fields.');
+	}
+
+	// if new passwords don't match
+	else if (newPass != newPass2) {
+		alert("New passwords don't match.");
+	}
+
+	// if not any of these conditions, we're good
+	else {
+		$.ajax({    
+	        type: "POST",
+	        url: baseURL+'/profile/update/', 
+	        data: {
+	    		'newPass': newPass,
+	    		'oldPass': currentPass
+	    	},                      
+	      	success: function(data) { 
+	      		$("#chPass").hide();
+	      		alert('Password successfully updated!');
+	      		$('#currPass').val('');
+				$('#newPass').val('');
+				$('#newPass2').val('');
+			},  
+			error: function(data) {
+				alert(err);
+				$('#currPass').val('');
+				$('#newPass').val('');
+				$('#newPass2').val('');
+			}                  
+	    });
+	}
 }

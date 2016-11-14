@@ -59,8 +59,14 @@ class SiteController {
 
 			case 'profile':
 				if($this->currUser) {
-					$this->profile();
+					$user = $this->currUser;
+					$this->profile($user);
 				}
+				break;
+
+			case 'updatePassword':
+				$user = $this->currUser;
+				$this->updatePassword($user);
 				break;
 
 			case 'logout':
@@ -152,11 +158,27 @@ class SiteController {
 		}
 	}
 
-	public function profile() {
+	public function profile($user) {
 		$pageName = 'Profile';
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/profile.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
+	}
+
+	/* update the user's password in the database */
+	public function updatePassword($user) {
+		// user's current password
+		$currentPassword = $user->get('password');
+
+		// old password user entered in form
+		$oldPass = $_POST['oldPass'];
+
+		// if they match, update to new password
+		if ($oldPass == $currentPassword) {
+			$newPass = $_POST['newPass']; 
+			$user->set('password', $newPass);
+			$user->save();
+		}
 	}
 }
