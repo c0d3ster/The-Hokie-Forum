@@ -150,7 +150,7 @@ button, input, textarea, select {
   -webkit-transition: background .25s ease-in-out;
 }
 
-#primary-nav li:hover {
+#primary-nav li:hover, #sub-primary-nav li:hover {
 	background: linear-gradient(transparent, rgba(100,100,100,.75));
 	text-shadow: 2px 4px 6px rgba(0,0,0, .75);
 }
