@@ -82,7 +82,7 @@ class Favorite extends DbObject {
 		$fav = self::getFavoritesByTopicId($favorite->get('topic_id'));
 		foreach($fav as $f) {
 			if($f['user_id'] == $favorite->get('user_id'))
-				return $favorite;
+				return self::loadById($f['id']);
 		}
 		return null;
 	}
