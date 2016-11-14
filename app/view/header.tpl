@@ -5,6 +5,12 @@ function isSelected($pn, $link) {
 		return ' id="this-tab" ';
 	}
 }
+
+function isChildSelected($pn) {
+	if($pn == 'Recent Topics' || $pn == 'Hot Topics') {
+		return ' id="parent-tab" ';
+	}
+}
 ?>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -44,14 +50,16 @@ if($this->currUser) { ?>
 		</div>
 		<ul id="primary-nav">
 	  	<a href="<?= BASE_URL ?>/" ><li <?= isSelected($pageName, 'Explore') ?>>  Explore </li> </a>
-	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>> Topics </li> </a> 
+	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isChildSelected($pageName) ?>> Topics </li> </a> 
 	  	<a href="<?= BASE_URL ?>/myActivity/"><li <?= isSelected($pageName, 'My Activity') ?>> My Activity </li></a> 
 			
 		</ul>
+		<?php if(isChildSelected($pageName)): ?>
 		<ul id="sub-primary-nav">
 	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>>  Recent Topics </li> </a> 
 			<a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
 		</ul>
+		<? endif; ?>
 <?php } 
 else { ?>
 		<div id="login-menu">
@@ -62,6 +70,10 @@ else { ?>
 			<a href="<?= BASE_URL ?>/" > <li <?= isSelected($pageName, 'Explore') ?>>  Explore   </li></a>
 			 <a href="<?= BASE_URL ?>/recentTopics/"> <li <?= isSelected($pageName, 'Recent Topics') ?>> Recent Topics </li></a> 
 			 <a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
+		</ul>
+		<ul id="sub-primary-nav">
+	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isSelected($pageName, 'Recent Topics') ?>>  Recent Topics </li> </a> 
+			<a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
 		</ul>
 <?php } ?>
 
