@@ -13,7 +13,7 @@ RewriteRule ^$ app/controller/siteController.php?action=explore [QSA,L]
 
 RewriteRule ^recentTopics/?$ app/controller/siteController.php?action=recentTopics [QSA,L]
 
-#RewriteRule ^hotTopics/?$ app/controller/siteController.php?action=hotTopics [QSA,L]
+RewriteRule ^hotTopics/?$ app/controller/siteController.php?action=hotTopics [QSA,L]
 
 RewriteRule ^myActivity/?$ app/controller/siteController.php?action=myActivity [QSA,L]
 

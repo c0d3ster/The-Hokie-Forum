@@ -363,33 +363,36 @@ function addLocationClicked() {
 
 
 function switchFavorite() {
-	var id = currUser->get('id');
-	var topic_id = $(this).parent().find('.hidden-id').val();
+	var thisItem = $(this);
+	var topic_id = thisItem.parent().find('.hidden-id').val();
+	
 	$.ajax({    
 		type: "POST",
     url: baseURL+'/switchFavorite/', 
    	data: {
-   		'u_id': id,
-   		't_id': topic_id
+   		'tid': topic_id
    	},
    	dataType: 'json',                        
     success: function(data){ //added is set to 1 if request added a favorite, 0 if it was removed
-			if (data.added)
-			{ //if empty star is clicked send request to add this thread to favorites
-				var newCount = $(this).prev().text();
-				$(this).prev().text(++newCount);
-				$(this).toggleClass('favorite-item unfavorite-item');
-			}
-			else
-			{ //otherwise remove this entry from the favorites table
-				var newCount = $(this).prev().text();
-				$(this).prev().text(--newCount);
-				$(this).toggleClass('favorite-item unfavorite-item');
-			}
-		},  
-		error: function () {
-			alert("that didn't work");
-		}                                 
+		if (data.added == 1)
+		{ //if empty star is clicked send request to add this thread to favorites
+			var newCount = thisItem.prev().text();
+			thisItem.prev().text(++newCount);
+			thisItem.toggleClass('favorite-item unfavorite-item');
+		}
+		else if (data.added == 2) {
+			alert("Not signed in!");
+		}
+		else
+		{ //otherwise remove this entry from the favorites table
+			var newCount = thisItem.prev().text();
+			thisItem.prev().text(--newCount);
+			thisItem.toggleClass('favorite-item unfavorite-item');
+		}
+	},  
+	error: function (data) {
+		alert(data.added);
+	}                                 
   });
 
 

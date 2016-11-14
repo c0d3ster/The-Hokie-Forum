@@ -41,26 +41,26 @@ class Favorite extends DbObject {
     }
 
 	public function remove() {
-		
+	
 		$db = Db::instance();
 		$error = $db->delete($this, self::FAV_TABLE);
 		if($error) {
 			return $error;
 		}
 		return null;
-		
+	
 	}
 
 	/*=======================Static functions========================*/
     public static function loadById($id) {
         $db = Db::instance();
-        $obj = $db->fetchById($id, __CLASS__, self::REP_TABLE);
+        $obj = $db->fetchById($id, __CLASS__, self::FAV_TABLE);
         return $obj;
     }
 
 	public static function getFavoritesByUsername($u_id) {
 		//should we use username from $_SESSION instead?
-		$query = sprintf("SELECT id FROM %s WHERE user_id = %s",
+		$query = sprintf("SELECT * FROM %s WHERE user_id = %s",
             self::FAV_TABLE,
             $u_id
             );
@@ -73,6 +73,34 @@ class Favorite extends DbObject {
             while($row = mysql_fetch_assoc($result)) {
             	$obj = self::loadById($row['id']);
             	array_push($objects, $obj);
+            }
+            return ($objects);
+        }
+	}
+
+	public static function isFavorite($favorite) {
+		$fav = self::getFavoritesByTopicId($favorite->get('topic_id'));
+		foreach($fav as $f) {
+			if($f['user_id'] == $favorite->get('user_id'))
+				return self::loadById($f['id']);
+		}
+		return null;
+	}
+	
+	public static function getFavoritesByTopicId($t_id) {
+		
+		$query = sprintf("SELECT * FROM %s WHERE topic_id = %s",
+            self::FAV_TABLE,
+            $t_id
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();		//don't need an array of objects here. only used for counting favorites
+            while($row = mysql_fetch_assoc($result)) {
+            	array_push($objects, $row);
             }
             return ($objects);
         }

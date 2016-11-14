@@ -11,6 +11,7 @@ class Topic extends DbObject {
     protected $location;
     protected $date_created;
     protected $user_id;
+    protected $favorite_count;
 
     // constructor
     public function __construct($args = array()) {
@@ -20,7 +21,8 @@ class Topic extends DbObject {
             'post' => '',
             'location' => null,
             'user_id' => null,
-            'date_created' => null
+            'date_created' => null,
+            'favorite_count' => null
             );
 
         $args += $defaultArgs;
@@ -31,6 +33,7 @@ class Topic extends DbObject {
         $this->location = $args['location'];
         $this->user_id = $args['user_id'];
         $this->date_created = $args['date_created'];
+        $this->favorite_count = $args['favorite_count'];
     }   
 
     // save changes to object
@@ -41,7 +44,8 @@ class Topic extends DbObject {
             'title' => $this->title,
             'location' => $this->location,
             'post' => $this->post,
-            'user_id' => $this->user_id
+            'user_id' => $this->user_id,
+            'favorite_count' => $this->favorite_count
           	//leave out date_created, auto
             );
 		$error = $db->store($this, self::TOP_TABLE, $db_properties);
@@ -60,6 +64,12 @@ class Topic extends DbObject {
 		}
 		return null;
 		
+	}
+	
+	public function favoriteCount($x) {
+		
+		$this->favorite_count += $x;
+		return $this;	
 	}
 
 	/*=======================Static functions========================*/
@@ -108,6 +118,27 @@ class Topic extends DbObject {
             return ($objects);
         }
     }
+
+	public static function getHotTopics() {
+		
+		$query = sprintf("SELECT id FROM %s ORDER BY favorite_count DESC",
+            self::TOP_TABLE
+            );
+        $db = Db::instance();
+        $result = $db->lookup($query);
+        if(!mysql_num_rows($result))
+            return null;
+        else {
+            $objects = array();
+            while($row = mysql_fetch_assoc($result)) {
+            	$obj = self::loadById($row['id']);
+            	array_push($objects, $obj);
+            }
+            return ($objects);
+        }
+	}
         
+ 
+ 
     
 }

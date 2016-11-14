@@ -97,6 +97,10 @@ class PostController {
 				break;
 
 			case 'switchFavorite':
+				if (!$this->currUser) {
+					echo json_encode(array('added'=>2));
+					break;
+				}
 				$user_id = $this->currUser->get('id');
 				$topic_id = $_POST['tid'];
 				$this->switchFavorite($user_id, $topic_id);
@@ -285,18 +289,23 @@ class PostController {
 			'user_id' => $user_id,
 			'topic_id' => $topic_id
 			));
-		
 		$found = Favorite::isFavorite($fav);
 		//search for favorite with $user_id and $topic_id
 		if($found) { //if found set data.added to 0, and remove favorite from table
-			$fav->remove();
+			$found->remove();
+			$topic = Topic::loadById($topic_id);
+			$topic->set('favorite_count', ($topic->get('favorite_count') + -1));
+			$topic->save();
 		}
 		else { //if not found set data.added to 1, and add favorite to table
 			$added['added'] = 1;
 			$fav->save();
+			$topic = Topic::loadById($topic_id);
+			$topic->set('favorite_count', ($topic->get('favorite_count') + 1));
+			$topic->save();
 		}
 		
-		echo json_encode($added); //return the $data
+		echo json_encode($added); //return the data
 		exit();
 	}
 }
