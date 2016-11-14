@@ -301,7 +301,7 @@ class PostController {
 			$added['added'] = 1;
 			$fav->save();
 			$topic = Topic::loadById($topic_id);
-			$topic->set('favorite_count', ($topic->get('favorite_count') + -1));
+			$topic->set('favorite_count', ($topic->get('favorite_count') + 1));
 			$topic->save();
 		}
 		
