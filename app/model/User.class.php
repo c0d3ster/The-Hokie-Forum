@@ -91,4 +91,13 @@ class User extends DbObject {
             return ($obj);
         }
     }
+
+    // set changes before saving
+    public function set($field=null, $val=null) {
+        if($field == null)
+            return null;
+        
+        $this->$field = $val;
+        $this->modified = true;
+    }
 }

@@ -496,6 +496,21 @@ input:hover, button:hover, #add-location:hover {
 	min-width: 40%;
 }
 
+/* profile page */
+#leftcol, #rightcol {
+	display: inline-block;
+	margin: auto;
+	width: 50%;
+}
+
+#leftcol {
+	float: left;
+}
+
+.profiletitle {
+	text-align:center;
+}
+
 /*///////////////////////*/
 
 
