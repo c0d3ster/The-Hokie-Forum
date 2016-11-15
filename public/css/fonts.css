@@ -51,7 +51,6 @@ a {
 input, textarea, #wrapper button{
 	color: white;
 	opacity: .8;
-	letter-spacing: 2px !important;
 }
 
 .fine-print {
