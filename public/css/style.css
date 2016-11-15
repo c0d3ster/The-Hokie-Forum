@@ -523,6 +523,12 @@ input:hover, button:hover, #add-location:hover {
 
 .profileinfo {
 	display: inline;
+	width: 40%;
+}
+
+#leftcol p {
+	float: left;
+	width: 40%;
 }
 
 #chPass {
