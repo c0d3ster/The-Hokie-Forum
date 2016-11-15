@@ -33,9 +33,9 @@
 </div>
 
 <div id="rightcol">
-	<h2 class="profiletitle">Statistics</h2>
-	<h3>Your Impact: </h3>
-	<h3>Number of topics posted: </h3>
-	<h3>Number of replies: </h3>
-	<h3>Number of topics favorited: </h3>
+	<h3 class="profiletitle">Statistics</h3>
+	<p>The number of topics posted: <?=$topicCount?></p>
+	<p>The number of replies: <?=$replyCount?></p>
+	<p>The number of topics favorited: <?=$favCount?></p>
+	<p>Your Impact: <?=$yourImpact?></p>
 </div>

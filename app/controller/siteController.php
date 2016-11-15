@@ -65,8 +65,7 @@ class SiteController {
 
 			case 'profile':
 				if($this->currUser) {
-					$user = $this->currUser;
-					$this->profile($user);
+					$this->profile();
 				}
 				break;
 
@@ -182,7 +181,21 @@ class SiteController {
 
 	public function profile($user) {
 		$pageName = 'Profile';
-
+		
+		$userId = $this->currUser->get('id');
+		
+		$replyCount = count(Reply::getRepliesById($userId);
+		$topicArray = Topic::getTopicsById($userId);
+		$topicCount = count($topicArray);
+		$favCount = count(Favorite::getFavoritesByUserId($userId);
+		$yourImpact = $replyCount + $topicCount;
+		
+		foreach ($topicArray as $topic) {
+			$count = count(Reply::getAllReplies($topic->get('id')));
+			$yourImpact += $count;
+		}
+		
+		
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/profile.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
