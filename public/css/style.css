@@ -497,6 +497,12 @@ input:hover, button:hover, #add-location:hover {
 }
 
 /* profile page */
+
+#profilewelcome {
+	width: 80% !important;
+	text-align: center;
+}
+
 #leftcol, #rightcol {
 	display: inline-block;
 	margin: 0 1%;

@@ -1,4 +1,4 @@
-<h1 style="text-align:center;">Welcome to your profile <?=$this->currUser->get('username');?>!</h1>
+<h1 id="profilewelcome">Welcome to your profile <?=$this->currUser->get('username');?>!</h1>
 
 <div id="leftcol">
 	<h2 class="profiletitle">Information</h2>
@@ -27,7 +27,7 @@
 		<input type="radio" name="selection" value="daily"> Daily
 		<input type="radio" name="selection" value="weekly"> Weekly
 		<input type="radio" name="selection" value="monthly"> Monthly
-		<input type="radio" name="selection" value="never"> Neverrr
+		<input type="radio" name="selection" value="never"> Never
 		<button type="submit" name="submit" value="Update Preferences"> Update Preferences </button>
 	</form>
 </div>
