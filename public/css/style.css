@@ -499,7 +499,7 @@ input:hover, button:hover, #add-location:hover {
 /* profile page */
 #leftcol, #rightcol {
 	display: inline-block;
-	margin: auto 1%;
+	margin: 0 1%;
 	width: 45%;
 	padding: 1%;
 	background-color: rgba(0,0,0,.3);
@@ -518,7 +518,7 @@ input:hover, button:hover, #add-location:hover {
 #chPass {
 	width: 80%;
 	padding: 2%;	
-	margin: auto;
+	margin: 2%;
 	background-color: rgba(0,0,0,.2);
 	border: 2px ridge grey;
 	text-align: center;
@@ -528,6 +528,10 @@ input:hover, button:hover, #add-location:hover {
 #chPass label {
 	display: block;
 	margin: 10px 0px;
+}
+
+#currPass, #newPass, #newPass2 {
+	width: 40%;
 }
 
 /*///////////////////////*/

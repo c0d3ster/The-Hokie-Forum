@@ -31,7 +31,7 @@
 		<input type="radio" name="selection" value="weekly"> Weekly
 		<input type="radio" name="selection" value="monthly"> Monthly
 		<input type="radio" name="selection" value="never"> Neverrr
-		<button type="submit" name="submit" value="Update Preferences"></button>
+		<button type="submit" name="submit" value="Update Preferences"> Update Preferences </button>
 	</form>
 </div>
 
