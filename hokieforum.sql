@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Nov 02, 2016 at 03:36 AM
+-- Generation Time: Nov 15, 2016 at 03:54 AM
 -- Server version: 5.5.52
 -- PHP Version: 5.6.26
 
@@ -35,6 +35,30 @@ CREATE TABLE IF NOT EXISTS `categories` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `favorites`
+--
+
+CREATE TABLE IF NOT EXISTS `favorites` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `topic_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `topic_id` (`topic_id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+
+--
+-- Dumping data for table `favorites`
+--
+
+INSERT INTO `favorites` (`id`, `topic_id`, `user_id`) VALUES
+(7, 4, 7),
+(13, 4, 2),
+(16, 4, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locations`
 --
 
@@ -46,7 +70,7 @@ CREATE TABLE IF NOT EXISTS `locations` (
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `topic_id` (`topic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `locations`
@@ -59,7 +83,8 @@ INSERT INTO `locations` (`id`, `topic_id`, `location`, `title`, `description`) V
 (4, 4, '\0\0\0\0\0\0\0CÂK√ôB@\0¿êT¿', 'Cedar Run Creek', ''),
 (5, 1, '\0\0\0\0\0\0\0Va3¿ùB@8ûœÄzT¿', 'Sketchy Longboard Run', ''),
 (6, 2, '\0\0\0\0\0\0\0ú †±ÂùB@•ÉıT¿', 'Wicked good tacos', ''),
-(7, 2, '\0\0\0\0\0\0\0o”ü˝HùB@U[r\ZT¿', 'Cabo Fish Taco is legit', '');
+(7, 2, '\0\0\0\0\0\0\0o”ü˝HùB@U[r\ZT¿', 'Cabo Fish Taco is legit', ''),
+(8, 1, '\0\0\0\0\0\0\0‰iåa‚õB@\0\0»~∆\ZT¿', 'Chicken Hill parking lot', '');
 
 -- --------------------------------------------------------
 
@@ -78,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `replies` (
   KEY `user_id` (`user_id`),
   KEY `topic_id` (`topic_id`),
   KEY `topic_id_2` (`topic_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
 --
 -- Dumping data for table `replies`
@@ -91,7 +116,8 @@ INSERT INTO `replies` (`id`, `post`, `location`, `user_id`, `topic_id`, `date_cr
 (4, 'Not so sure about beefy tacos, but Cabo on Main street has some damn good fish tacos', '\0\0\0\0\0\0\0o”ü˝HùB@U[r\ZT¿', 2, 2, '2016-10-28 09:50:12'),
 (5, 'Yikes, longboarding down big hills is scary! I''m just visiting here, but my friend who goes here told me he goes longboarding around downtown a lot.', NULL, 4, 1, '2016-10-28 09:53:50'),
 (7, 'North Main Street with out a doubt, coming down from the 7/11. But you have to be careful, because it''s pretty illegal. SWIM did it at 3am once, and it was glorious.. So I''ve heard.', '\0\0\0\0\0\0\0L˙ÏwüB@\0∏ø≈ì\ZT¿', 7, 1, '2016-11-01 21:55:58'),
-(8, 'Maybe not so much ''hiking'' but there''s a pretty cool creek that sits in a valley just south of Blacksburg. It''s called Cedar Run, I tagged parking.', '\0\0\0\0\0\0\0CÂK√ôB@\0¿êT¿', 3, 4, '2016-11-01 22:05:38');
+(8, 'Maybe not so much ''hiking'' but there''s a pretty cool creek that sits in a valley just south of Blacksburg. It''s called Cedar Run, I tagged parking.', '\0\0\0\0\0\0\0CÂK√ôB@\0¿êT¿', 5, 4, '2016-11-01 22:05:38'),
+(9, 'Chicken Hill behind Lane stadium is a nice hill. It can be a busy road though. The parking lot next to it is good too, that is where they hold the longboarding competition every year.', '\0\0\0\0\0\0\0‰iåa‚õB@\0\0»~∆\ZT¿', 9, 1, '2016-11-03 16:44:13');
 
 -- --------------------------------------------------------
 
@@ -106,19 +132,20 @@ CREATE TABLE IF NOT EXISTS `topics` (
   `location` point DEFAULT NULL,
   `user_id` int(11) NOT NULL,
   `date_created` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `favorite_count` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
 -- Dumping data for table `topics`
 --
 
-INSERT INTO `topics` (`id`, `title`, `post`, `location`, `user_id`, `date_created`) VALUES
-(1, 'What''s the best hill in Blacksburg to bomb on a longboard???', 'Hey guys! I''ve been living here for 4 years and I still can''t find any hills that are intense enough for my live-on-the-edge lifestyle. Can someone help me out?', NULL, 2, '2016-10-27 15:02:25'),
-(2, 'Where can I get some good tacos around here?', 'Hi everyone! I''m not exactly sure if I''m supposed to be here considering I go to UVA, but I''m visiting for the week and I''m looking for somewhere to get good tacos.  There are tons of beefy cows around here, but I can''t seem to find any beefy tacos. Please help, I''m leaving in 2 days back to HooVille.', NULL, 4, '2016-10-28 09:43:01'),
-(3, 'Best Long Island Iced Tea', 'Found it!! Hey everyone, if you want the best Long Island in Blacksburg it is at Sharkeys Bar and grill.', '\0\0\0\0\0\0\0û»›1ÜùB@!Ç`Dë\ZT¿', 6, '2016-10-30 02:44:27'),
-(4, 'Post your favorite local spot to go hiking!', 'So this thread isn''t really a question but more of a central location to find all of the cool hikes around Blacksburg. So if you''ve got a favorite, post it here. I''ll be unique and choose Kelly''s Knob. I love this spot because parts of the hike are wide open on the AT and it is not very well known. The tagged location is the trailhead. You can park at the fork in the road right up the street. Go North on the Appalachian Trail to see the coolest tree on this earth, South for Kelly''s Knob.', '\0\0\0\0\0\0\0∑úKqU≠B@…Yÿ”T¿', 7, '2016-11-01 17:04:30');
+INSERT INTO `topics` (`id`, `title`, `post`, `location`, `user_id`, `date_created`, `favorite_count`) VALUES
+(1, 'What''s the best hill in Blacksburg to bomb on a longboard???', 'Hey guys! I''ve been living here for 4 years and I still can''t find any hills that are intense enough for my live-on-the-edge lifestyle. Can someone help me out?', NULL, 2, '2016-10-27 15:02:25', 0),
+(2, 'Where can I get some good tacos around here?', 'Hi everyone! I''m not exactly sure if I''m supposed to be here considering I go to UVA, but I''m visiting for the week and I''m looking for somewhere to get good tacos.  There are tons of beefy cows around here, but I can''t seem to find any beefy tacos. Please help, I''m leaving in 2 days back to HooVille.', NULL, 4, '2016-10-28 09:43:01', 0),
+(3, 'Best Long Island Iced Tea', 'Found it!! Hey everyone, if you want the best Long Island in Blacksburg it is at Sharkeys Bar and grill.', '\0\0\0\0\0\0\0û»›1ÜùB@!Ç`Dë\ZT¿', 6, '2016-10-30 02:44:27', 0),
+(4, 'Post your favorite local spot to go hiking!', 'So this thread isn''t really a question but more of a central location to find all of the cool hikes around Blacksburg. So if you''ve got a favorite, post it here. I''ll be unique and choose Kelly''s Knob. I love this spot because parts of the hike are wide open on the AT and it is not very well known. The tagged location is the trailhead. You can park at the fork in the road right up the street. Go North on the Appalachian Trail to see the coolest tree on this earth, South for Kelly''s Knob.', '\0\0\0\0\0\0\0∑úKqU≠B@…Yÿ”T¿', 7, '2016-11-01 17:04:30', 3);
 
 -- --------------------------------------------------------
 
@@ -134,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`,`email`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
 
 --
 -- Dumping data for table `users`
@@ -146,9 +173,13 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `admin`) VALUES
 (3, 'seymore', 'moresey@none.com', 'butts', 0),
 (4, 'hoosaidat', 'gouva@uva.edu', 'uva', 0),
 (5, 'c0d3ster', 'cody.douglass@vt.edu', 'therealadmin', 1),
-(6, 'Hakuna', 'alexart@vt.edu', 'password', 1),
+(6, 'HakunaTejada', 'alexart@vt.edu', 'password', 1),
 (7, 'nick', 'ognick@vt.edu', 'nick', 1),
-(8, 'morgan', 'sdkfjsl', 'hokie', 1);
+(8, 'morgan', 'sdkfjsl', 'hokie', 1),
+(9, 'bs757', 'basostak@vt.edu', 'password', 0),
+(10, 'fd', 'fd', 'fd', 0),
+(11, 'Luke_Bluntwalker', 'Keegan.weiler@yahoo.com', 'Change', 0),
+(12, 'Keegan', 'Keegan.weiler@yahoo.com', 'changr', 0);
 
 --
 -- Constraints for dumped tables
@@ -159,6 +190,13 @@ INSERT INTO `users` (`id`, `username`, `email`, `password`, `admin`) VALUES
 --
 ALTER TABLE `categories`
   ADD CONSTRAINT `categories_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `favorites`
+--
+ALTER TABLE `favorites`
+  ADD CONSTRAINT `favorites_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `favorites_ibfk_1` FOREIGN KEY (`topic_id`) REFERENCES `topics` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `locations`
