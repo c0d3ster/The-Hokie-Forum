@@ -2,8 +2,8 @@
 
 <div id="leftcol">
 	<h2 class="profiletitle">Information</h2>
-	<h3>Username:</h3> <p><?= $user->get('username') ?></p>
-	<h3>Email:</h3> <p><?= $user->get('email') ?></p>
+	<h3 class="profileinfo">Username:</h3> <p><?= $user->get('username') ?></p>
+	<h3 class="profileinfo">Email:</h3> <p><?= $user->get('email') ?></p>
  
 	<button id="changePass">Change password</button>
 

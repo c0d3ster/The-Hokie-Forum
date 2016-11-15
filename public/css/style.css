@@ -521,6 +521,10 @@ input:hover, button:hover, #add-location:hover {
 	text-align:center;
 }
 
+.profileinfo {
+	display: inline;
+}
+
 #chPass {
 	width: 80%;
 	padding: 2%;	
