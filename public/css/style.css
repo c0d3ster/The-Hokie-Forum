@@ -524,6 +524,7 @@ input:hover, button:hover, #add-location:hover {
 .profileinfo {
 	float: left;
 	width: 40%;
+	margin: 10px;
 }
 
 #leftcol p {
@@ -547,7 +548,7 @@ input:hover, button:hover, #add-location:hover {
 
 #chPass label {
 	display: block;
-	margin: 10px 0px;
+	margin: 15px 0px;
 }
 
 #currPass, #newPass, #newPass2 {
