@@ -113,7 +113,6 @@ class PostController {
 	}
 
 	public function threadView($topicID) {
-		//to be continued...
 		$pageName = 'Thread View';
 		$thread = Thread::getThreadByTopic($topicID);
 		
