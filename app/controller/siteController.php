@@ -179,7 +179,7 @@ class SiteController {
 		}
 	}
 
-	public function profile($user) {
+	public function profile() {
 		$pageName = 'Profile';
 		
 		$userId = $this->currUser->get('id');
