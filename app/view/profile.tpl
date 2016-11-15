@@ -1,9 +1,9 @@
-<h2 style="text-align:center;">Welcome to your profile!</h2>
+<h2 style="text-align:center;">Welcome to your profile <?=$this->currUser->get('username');?>!</h2>
 
 <div id="leftcol">
 	<h3 class="profiletitle">Information</h3>
 	<p>Username: <?= $user->get('username') ?></p>
-
+r
 	<p>Email: <?= $user->get('email') ?></p>
 
 	<button id="changePass">Change password</button>
@@ -17,25 +17,29 @@
 		<label>New password: 
 			<input type="text" id="newPass">
 		</label>
-		</br>
+		
 		<label>Reenter new password: 
 			<input type="text" id="newPass2">
 		</label>
-		</br>
+		
 		<input type="submit" value="Update Password" id="updatePass">
 	</div>
 	<br><br>
 
 	<label>Email preferences:</label>
 	<form action="">
-		<input type="radio" name="daily" value="daily"> Daily<br>
-		<input type="radio" name="weekly" value="weekly"> Weekly<br>
-		<input type="radio" name="monthly" value="monthly"> Monthly
+		<input type="radio" name="selection" value="daily"> Daily
+		<input type="radio" name="selection" value="weekly"> Weekly
+		<input type="radio" name="selection" value="monthly"> Monthly
+		<input type="radio" name="selection" value="never"> Neverrr
+		<button type="submit" name="submit" value="Update Preferences"
 	</form>
 </div>
 
 <div id="rightcol">
 	<h3 class="profiletitle">Statistics</h3>
+	<p>Your Impact: </p>
 	<p>Number of topics posted: </p>
-	<p>Number of comments: </p>
+	<p>Number of replies: </p>
+	<p>Number of topics favorited: </p>
 </div>

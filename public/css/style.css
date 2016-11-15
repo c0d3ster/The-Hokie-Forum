@@ -501,6 +501,7 @@ input:hover, button:hover, #add-location:hover {
 	display: inline-block;
 	margin: auto;
 	width: 50%;
+	box-shadow: 0 0 10px rgba(0,0,0,.75); 
 }
 
 #leftcol {
@@ -509,6 +510,14 @@ input:hover, button:hover, #add-location:hover {
 
 .profiletitle {
 	text-align:center;
+}
+
+#chpass {
+	box-shadow: 0 0 10px rgba(0,0,0,1);
+}
+
+#chpass label {
+	margin: 10px 0px;
 }
 
 /*///////////////////////*/

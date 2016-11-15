@@ -603,9 +603,9 @@ function cancelEditClicked(info) {
 function changePass() {
 	// toggle form show/hide on button click
 	if ($("#chPass").is(":visible")){
-        $("#chPass").hide();
+        $("#chPass").fadeOut(1000);
     } else {
-        $("#chPass").show();
+        $("#chPass").fadeIn(1000);
     }
 }
 
