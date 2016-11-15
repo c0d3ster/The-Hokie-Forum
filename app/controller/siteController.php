@@ -184,10 +184,10 @@ class SiteController {
 		
 		$userId = $this->currUser->get('id');
 		
-		$replyCount = count(Reply::getRepliesById($userId);
+		$replyCount = count(Reply::getRepliesById($userId));
 		$topicArray = Topic::getTopicsById($userId);
 		$topicCount = count($topicArray);
-		$favCount = count(Favorite::getFavoritesByUserId($userId);
+		$favCount = count(Favorite::getFavoritesByUserId($userId));
 		$yourImpact = $replyCount + $topicCount;
 		
 		foreach ($topicArray as $topic) {
