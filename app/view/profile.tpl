@@ -3,7 +3,6 @@
 <div id="leftcol">
 	<h3 class="profiletitle">Information</h3>
 	<p>Username: <?= $user->get('username') ?></p>
-r
 	<p>Email: <?= $user->get('email') ?></p>
 
 	<button id="changePass">Change password</button>

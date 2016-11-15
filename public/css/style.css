@@ -499,7 +499,7 @@ input:hover, button:hover, #add-location:hover {
 /* profile page */
 #leftcol, #rightcol {
 	display: inline-block;
-	margin: auto;
+	margin: auto 25px;
 	width: 50%;
 	box-shadow: 0 0 10px rgba(0,0,0,.75); 
 }
@@ -512,11 +512,14 @@ input:hover, button:hover, #add-location:hover {
 	text-align:center;
 }
 
-#chpass {
+#chPass {
+	width: 80%;
+	margin: auto;
+	text-align: center;
 	box-shadow: 0 0 10px rgba(0,0,0,1);
 }
 
-#chpass label {
+#chPass label {
 	margin: 10px 0px;
 }
 
