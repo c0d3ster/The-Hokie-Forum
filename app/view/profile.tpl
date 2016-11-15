@@ -2,8 +2,8 @@
 
 <div id="leftcol">
 	<h2 class="profiletitle">Information</h2>
-	<h3 class="profileinfo">Username:</h3> <p><?= $user->get('username') ?></p>
-	<h3 class="profileinfo">Email:</h3> <p><?= $user->get('email') ?></p>
+	<h2 class="profileinfo">Username:</h2> <p><?= $user->get('username') ?></p>
+	<h2 class="profileinfo">Email:</h2> <p><?= $user->get('email') ?></p>
  
 	<button id="changePass">Change password</button>
 
@@ -22,7 +22,7 @@
 	</div>
 	<br><br>
 
-	<h3>Email preferences:</h3>
+	<h2>Email preferences:</h2>
 	<form action="">
 		<input type="radio" name="selection" value="daily"> Daily
 		<input type="radio" name="selection" value="weekly"> Weekly

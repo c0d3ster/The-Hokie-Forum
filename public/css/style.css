@@ -522,13 +522,17 @@ input:hover, button:hover, #add-location:hover {
 }
 
 .profileinfo {
-	display: inline;
+	float: left;
 	width: 40%;
 }
 
 #leftcol p {
 	float: left;
 	width: 40%;
+}
+
+#changePass {
+	width: 65%;
 }
 
 #chPass {
