@@ -500,7 +500,7 @@ input:hover, button:hover, #add-location:hover {
 #leftcol, #rightcol {
 	display: inline-block;
 	margin: auto 25px;
-	width: 50%;
+	width: 45%;
 	box-shadow: 0 0 10px rgba(0,0,0,.75); 
 }
 
@@ -520,6 +520,7 @@ input:hover, button:hover, #add-location:hover {
 }
 
 #chPass label {
+	display: block;
 	margin: 10px 0px;
 }
 

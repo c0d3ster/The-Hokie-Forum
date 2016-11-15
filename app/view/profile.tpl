@@ -4,7 +4,7 @@
 	<h3 class="profiletitle">Information</h3>
 	<p>Username: <?= $user->get('username') ?></p>
 	<p>Email: <?= $user->get('email') ?></p>
-
+ 
 	<button id="changePass">Change password</button>
 
 	<div id="chPass" style="text-align:center;">
@@ -31,7 +31,7 @@
 		<input type="radio" name="selection" value="weekly"> Weekly
 		<input type="radio" name="selection" value="monthly"> Monthly
 		<input type="radio" name="selection" value="never"> Neverrr
-		<button type="submit" name="submit" value="Update Preferences"
+		<button type="submit" name="submit" value="Update Preferences"></button>
 	</form>
 </div>
 
