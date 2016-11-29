@@ -1,6 +1,6 @@
 /*
 Author: Cody Douglass
-MyFit Project 2 Stylesheet for explore page main content
+The Hokie Forum Stylesheet for all main body content
 */
 
 /*body*/
@@ -128,14 +128,7 @@ body {
 	width: 4%;
 	height: 4%;
 	opacity: 1;
-	transition: opacity .5s ease-in-out;
-	-moz-transition: opacity .5s ease-in-out;
-	-webkit-transition: opacity .5s ease-in-out;
 	z-index: 1;
-}
-
-.unfavorite-item:hover {
-	opacity: .5;
 }
 
 .fav-count {

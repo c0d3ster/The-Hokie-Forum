@@ -80,10 +80,12 @@ class Favorite extends DbObject {
 
 	public static function isFavorite($favorite) {
 		$fav = self::getFavoritesByTopicId($favorite->get('topic_id'));
-		foreach($fav as $f) {
-			if($f['user_id'] == $favorite->get('user_id'))
-				return self::loadById($f['id']);
-		}
+        if($fav){
+    		foreach($fav as $f) {
+    			if($f['user_id'] == $favorite->get('user_id'))
+    				return self::loadById($f['id']);
+    		}
+        }
 		return null;
 	}
 	

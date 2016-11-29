@@ -11,12 +11,14 @@
 	</div>
 
 	<?php	foreach($activities as $top) {
-		$topicUsername = User::loadById($top->get('user_id'))->get('username');
-		$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite objects
+		$topicUsername = User::loadByID($top->get('user_id'))->get('username');
+		$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite data
 		$isFavorite = false;
-		foreach($favorites as $fav) {
-			if($fav['user_id'] == $this->currUser->get('id')) {
-				$isFavorite = true;
+		if($favorites) {
+			foreach($favorites as $fav) {
+				if($fav['user_id'] == $this->currUser->get('id')) {
+					$isFavorite = true;
+				}
 			}
 		}
 	?>

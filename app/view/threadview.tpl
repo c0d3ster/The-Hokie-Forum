@@ -1,8 +1,8 @@
 <?php $top = $thread->get('topic'); 
 			$topicUsername = User::loadById($top->get('user_id'))->get('username');
-	$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite objects
+	$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite data
 	$isFavorite = false;
-	if ($this->currUser) {
+	if($favorites && $this->currUser) {
 		foreach($favorites as $fav) {
 			if($fav['user_id'] == $this->currUser->get('id')) {
 				$isFavorite = true;
