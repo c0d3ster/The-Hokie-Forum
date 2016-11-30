@@ -379,6 +379,8 @@ function switchFavorite() {
 			var newCount = thisItem.prev().text();
 			thisItem.prev().text(++newCount);
 			thisItem.toggleClass('favorite-item unfavorite-item');
+			thisItem.replaceWith('<img src="'+baseURL+'/public/img/favoriteitem.png" class="unfavorite-item">');
+			$('.unfavorite-item').click(switchFavorite);
 		}
 		else if (data.added == 2) {
 			alert("Not signed in!");
@@ -388,6 +390,8 @@ function switchFavorite() {
 			var newCount = thisItem.prev().text();
 			thisItem.prev().text(--newCount);
 			thisItem.toggleClass('favorite-item unfavorite-item');
+			thisItem.replaceWith('<img src="'+baseURL+'/public/img/unfavoriteitem.png" class="favorite-item">');
+			$('.favorite-item').click(switchFavorite);
 		}
 	},  
 	error: function (data) {

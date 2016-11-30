@@ -34,7 +34,7 @@
 	<?php if($this->currUser and $isFavorite):?> 
 			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
 	<?php else:?> 
-			<img src='<?=IMAGES?>/favoriteitem.png' class='favorite-item'>
+			<img src='<?=IMAGES?>/unfavoriteitem.png' class='favorite-item'>
 	<?php endif;?>
 	<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
 			<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
@@ -43,7 +43,7 @@
 			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 	<?php endif;?>
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
-					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?></p>	
+					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?>...</p>	
 				</a>			
 				<label class="topic-time"><?=$top->get('date_created')?></label>
 				<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 

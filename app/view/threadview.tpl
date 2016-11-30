@@ -24,7 +24,7 @@
 			<?php if($this->currUser and $isFavorite):?> 
 			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
 	<?php else:?> 
-			<img src='<?=IMAGES?>/favoriteitem.png' class='favorite-item'>
+			<img src='<?=IMAGES?>/unfavoriteitem.png' class='favorite-item'>
 	<?php endif;?>
 
 <?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
