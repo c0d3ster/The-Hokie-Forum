@@ -429,8 +429,8 @@ function switchFavorite() {
     success: function(data){ //added is set to 1 if request added a favorite, 0 if it was removed
 		if (data.added == 1)
 		{ //if empty star is clicked send request to add this thread to favorites
-			var newCount = thisItem.prev().text();
-			thisItem.prev().text(++newCount);
+			var newCount = thisItem.next().text();
+			thisItem.next().text(++newCount);
 			thisItem.toggleClass('favorite-item unfavorite-item');
 			thisItem.replaceWith('<img src="'+baseURL+'/public/img/favoriteitem.png" class="unfavorite-item">');
 			$('.unfavorite-item').click(switchFavorite);
@@ -440,8 +440,8 @@ function switchFavorite() {
 		}
 		else
 		{ //otherwise remove this entry from the favorites table
-			var newCount = thisItem.prev().text();
-			thisItem.prev().text(--newCount);
+			var newCount = thisItem.next().text();
+			thisItem.next().text(--newCount);
 			thisItem.toggleClass('favorite-item unfavorite-item');
 			thisItem.replaceWith('<img src="'+baseURL+'/public/img/unfavoriteitem.png" class="favorite-item">');
 			$('.favorite-item').click(switchFavorite);
