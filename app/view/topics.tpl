@@ -38,18 +38,20 @@
 				<div class="topic-user">By: <?=$topicUsername?></div>		
 			</a>
 
-			<p class='fav-count'> <?=count($favorites)?> </p>
+			<img class='inactive-marker' src='<?=IMAGES?>/marker.png'>
 	<?php if($this->currUser and $isFavorite):?> 
 			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
 	<?php else:?> 
 			<img src='<?=IMAGES?>/unfavoriteitem.png' class='favorite-item'>
 	<?php endif;?>
+	<p class='fav-count'> <?=count($favorites)?> </p>
 	<?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
 			<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 	<?php endif;?>	
 	<?php if(($this->currUser and $topicUsername == $this->currUser->get('username')) or $this->admin):?> 
 			<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 	<?php endif;?>
+
 				<a href="<?= BASE_URL ?>/view/<?=$top->get('id') ?>"> 
 					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?>...</p>	
 				</a>			
