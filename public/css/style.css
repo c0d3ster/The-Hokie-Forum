@@ -79,7 +79,7 @@ body {
 	display: inline;
 	padding: 1%;
 	margin: 2%;
-	background: radial-gradient(azure, rgba(0,0,0,.75));
+	background: radial-gradient(rgba(255,255,255,.4),rgba(255,255,255,.2), rgba(0,0,0,.1));
 	border: 3px ridge grey;
 	text-align: center;
 	width: 30%;
@@ -139,7 +139,7 @@ body {
 
 .fav-count {
 	float: right;
-	margin: 10px 0px 0px -5px;
+	margin: 2% 0px 0px -5px;
 	z-index: 2;
 }
 
@@ -505,7 +505,7 @@ input:hover, button:hover, #add-location:hover {
 	margin: 0 1%;
 	width: 45%;
 	padding: 1%;
-	background-color: rgba(0,0,0,.3);
+	background: radial-gradient(rgba(255,255,255, .3), rgba(255,255,255, .2), rgba(0,0,0,0.1));
 	border: 2px ridge grey;
 	box-shadow: 0 0 10px rgba(0,0,0,.75); 
 }
@@ -537,7 +537,7 @@ input:hover, button:hover, #add-location:hover {
 	width: 80%;
 	padding: 2%;	
 	margin: 2%;
-	background-color: rgba(0,0,0,.2);
+	background: radial-gradient(rgba(255,255,255, .5), rgba(255,255,255, .3), rgba(0,0,0,0.1));
 	border: 2px ridge grey;
 	text-align: center;
 	box-shadow: 0 0 10px rgba(0,0,0,1);

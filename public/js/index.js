@@ -604,11 +604,7 @@ function cancelEditClicked(info) {
 /* show fields for user to update their password */
 function changePass() {
 	// toggle form show/hide on button click
-	if ($("#chPass").is(":visible")){
-        $("#chPass").fadeOut(1000);
-    } else {
-        $("#chPass").fadeIn(1000);
-    }
+	$('#chPass').slideToggle('slow');
 }
 
 /* validates form, updates the user's password in the database */
