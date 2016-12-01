@@ -3,7 +3,14 @@
 		<a href="<?= BASE_URL ?>/hotTopics/"> <li <?= isSelected($pageName, 'Hot Topics') ?>> Hot Topics </li></a> 
 </ul>
 
-		<h3 id='recent-text'> Check out some of the most recent talk of the town: </h3>
+		<h3 id='recent-text'> Check out some of the 
+		<?php if ($pageName == 'Recent Topics') { ?> 
+			most recent
+		<?php } else { ?> 
+			hottest
+		<?php } ?>
+
+		talk of the town: </h3>
 		<?php if($this->currUser) { ?>
 		<div id='start-thread'>
 			<h3 id='start-thread-text'> Start a New Thread </h3>

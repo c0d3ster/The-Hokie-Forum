@@ -240,9 +240,8 @@ input:hover, button:hover, #add-location:hover {
 	width: 85%;
 	padding: 1%;
 	margin: 0% 0% 2% 0%;
-	border: 1px ridge grey;
-	background: radial-gradient(azure, rgba(0,0,0,.10));
-	box-shadow: 5px 5px 3px rgba(0,0,0, .5);
+	background: rgba(255,255,255, .33);
+	box-shadow: inset 0px 0px 10px rgba(0,0,0, .75);
 	overflow: overlay; /*overlay isnt supported by mozilla, but not sure if overflow-y supports all browsers so I kept both*/
 	overflow-y: hidden;
 }
@@ -257,7 +256,6 @@ input:hover, button:hover, #add-location:hover {
 	width: 65% !important;
 	padding: 1%;
 	margin: 0%;
-	box-shadow: 0 0 10px rgba(0,0,0,.75);
 }
 
 .topic-post {
@@ -308,7 +306,7 @@ input:hover, button:hover, #add-location:hover {
 
 .reply {
 	display: block;
-	background: radial-gradient(azure, rgba(0,0,0,.1));
+	background: radial-gradient(rgba(255,255,255, .5), rgba(255,255,255, .3), rgba(0,0,0,0.1));
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 	padding: 2%;
 	margin: 0% 2% 4% 2%;
