@@ -38,7 +38,7 @@
 				<div class="topic-user">By: <?=$topicUsername?></div>		
 			</a>
 
-			<img class='inactive-marker' src='<?=IMAGES?>/marker.png'>
+	<?php if($thread->get('locations')): ?><img class='inactive-marker' src='<?=IMAGES?>/marker.png'> <?php endif; ?>
 	<?php if($this->currUser and $isFavorite):?> 
 			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
 	<?php else:?> 

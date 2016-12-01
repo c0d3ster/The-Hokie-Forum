@@ -21,14 +21,16 @@
 <div class="topic">
 	<h2 class="topic-title"> <?= $top->get('title') ?> </h2>	
 	<div class="topic-user"> By: <?= $topicUsername  ?> </div>
-
-			<p class='fav-count'> <?=count($favorites)?> </p>
+<?php if($top->get('location')):?> 
+	<img src='<?=IMAGES?>/marker.png' id='l<?=$location_count?>' class='marker'>
+<?php $location_count++; 
+    endif;?>
 			<?php if($this->currUser and $isFavorite):?> 
 			<img src='<?=IMAGES?>/favoriteitem.png' class='unfavorite-item'>
 	<?php else:?> 
 			<img src='<?=IMAGES?>/unfavoriteitem.png' class='favorite-item'>
 	<?php endif;?>
-
+<p class='fav-count'> <?=count($favorites)?> </p>
 <?php if($this->currUser and $topicUsername == $this->currUser->get('username')):?> 
 		<img src='<?=IMAGES?>/edititem.png' class='edit-item'>
 <?php endif;?>	
@@ -37,10 +39,7 @@
 <?php endif;?>		
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
 	<label class="topic-time"> <?= $top->get('date_created') ?> </label>
-<?php if($top->get('location')):?> 
-	<img src='<?=IMAGES?>/marker.png' id='l<?=$location_count?>' class='marker'>
-<?php $location_count++; 
-    endif;?>
+
 	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
 
