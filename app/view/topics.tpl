@@ -54,7 +54,7 @@
 					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?>...</p>	
 				</a>			
 				<label class="topic-time"><?=$top->get('date_created')?></label>
-				<img class='inactive-marker' src='<?=IMAGES?>/marker.png'>
+				<?php if($thread->get('locations')): ?><img class='inactive-marker' src='<?=IMAGES?>/marker.png'><?php endif;?>
 				<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 
 		</div> 
 

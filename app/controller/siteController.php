@@ -114,7 +114,11 @@ class SiteController {
   public function hotTopics() {
 		$pageName = 'Hot Topics';
 		$topics = Topic::getHotTopics();
-		
+		$threads = array();
+        foreach($topics as $topic) {
+            $th = Thread::getThreadByTopic($topic->get('id'));
+            array_push($threads, $th);
+        }
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/topics.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
