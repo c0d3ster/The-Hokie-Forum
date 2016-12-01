@@ -70,11 +70,13 @@ button, input, textarea, select {
 	margin-top: 30px;
 	align-content: center;
 	opacity: .90;
+	display: none;
 }
 
 #search input {
 	padding: 5px 10px;
 	margin: 10px 0px;
+	display: none;
 }
 
 #login-menu {

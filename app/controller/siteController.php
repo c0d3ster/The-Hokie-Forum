@@ -195,9 +195,11 @@ class SiteController {
 		$favCount = count(Favorite::getFavoritesByUserId($userId));
 		$yourImpact = $replyCount + $topicCount;
 		
-		foreach ($topicArray as $topic) {
-			$count = count(Reply::getAllReplies($topic->get('id')));
-			$yourImpact += $count;
+		if($topicArray) {
+			foreach ($topicArray as $topic) {
+				$count = count(Reply::getAllReplies($topic->get('id')));
+				$yourImpact += $count;
+			}
 		}
 		
 		

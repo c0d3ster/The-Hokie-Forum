@@ -99,7 +99,6 @@ function mapInit() {
 	    url: baseURL+'/exploreMap/',      
       	dataType: 'json',
       	success: function(data){ //get coordinate data
-			console.log(data);
 			for (var i = 0; i < data.length; i++){
 				var x = data[i]['Xcoord'];
 				var y = data[i]['Ycoord'];
@@ -329,11 +328,10 @@ function verifySignup(user, pass, mail) {
 					return true; 
   			}
   			else{
-  				alert(data.status);
   				$('#pass').val('');
   				var suggestion = Math.floor((Math.random() * 10) + 1); //suggest a different username
   				$('.popsignup').append('<p> Sorry that username is taken, how about '+user+suggestion+'???</p>');
-					$('.popsignup > p').delay(2000).fadeOut();
+					$('.popsignup > p').delay(5000).fadeOut();
 					return false;
   			}	
       },  
@@ -661,11 +659,7 @@ function cancelEditClicked(info) {
 /* show fields for user to update their password */
 function changePass() {
 	// toggle form show/hide on button click
-	if ($("#chPass").is(":visible")){
-        $("#chPass").fadeOut(1000);
-    } else {
-        $("#chPass").fadeIn(1000);
-    }
+	$('#chPass').slideToggle('slow');
 }
 
 /* validates form, updates the user's password in the database */

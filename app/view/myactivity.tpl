@@ -51,10 +51,10 @@
 
 	<?php } 
 } else {?>
-	<h1 id = 'sad-message'> Looks like you haven't ever participated in any discussions... :( </h1>
+	<h1 id = 'sad-message'> Looks like you haven't ever participated in any discussions . . . :( </h1>
 	<div id='start-thread'>
 		<h3 id='start-thread-text'> Start a New Thread </h3>
 		<img id='start-thread-image' src='<?= IMAGES ?>/additem.png?>' width='50' height='50'>
 	</div>		
-	<h2 id = 'change'> You can change that by clicking this >>>  </h2>
+	<h2 id = 'change'> You can change that by clicking this > > ></h2>
 <?php } ?>

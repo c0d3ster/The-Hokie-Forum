@@ -79,7 +79,7 @@ body {
 	display: inline;
 	padding: 1%;
 	margin: 2%;
-	background: radial-gradient(azure, rgba(0,0,0,.75));
+	background: radial-gradient(rgba(255,255,255,.4),rgba(255,255,255,.2), rgba(0,0,0,.1));
 	border: 3px ridge grey;
 	text-align: center;
 	width: 30%;
@@ -139,7 +139,7 @@ body {
 
 .fav-count {
 	float: right;
-	margin: 10px 0px 0px -10px;
+	margin: 2% 0px 0px -5px;
 	z-index: 2;
 }
 
@@ -240,9 +240,8 @@ input:hover, button:hover, #add-location:hover {
 	width: 85%;
 	padding: 1%;
 	margin: 0% 0% 2% 0%;
-	border: 1px ridge grey;
-	background: radial-gradient(azure, rgba(0,0,0,.10));
-	box-shadow: 5px 5px 3px rgba(0,0,0, .5);
+	background: radial-gradient(rgba(255,255,255, .3), rgba(255,255,255, .2), rgba(0,0,0,.1));
+	box-shadow: inset 0px 0px 10px rgba(0,0,0, .5);
 	overflow: overlay; /*overlay isnt supported by mozilla, but not sure if overflow-y supports all browsers so I kept both*/
 	overflow-y: hidden;
 }
@@ -255,16 +254,15 @@ input:hover, button:hover, #add-location:hover {
 	display: inline;
 	float: left;
 	width: 65% !important;
-	padding: 1%;
+	padding: 0 1%;
 	margin: 0%;
-	box-shadow: 0 0 10px rgba(0,0,0,.75);
 }
 
 .topic-post {
 	clear: both;
 	float: left;
 	width: 80%;
-	margin: 2% 0 0 3%;
+	margin: 0 0 0 3%;
 }
 
 .topic-user {
@@ -308,7 +306,7 @@ input:hover, button:hover, #add-location:hover {
 
 .reply {
 	display: block;
-	background: radial-gradient(azure, rgba(0,0,0,.1));
+	background: radial-gradient(rgba(255,255,255, .5), rgba(255,255,255, .3), rgba(0,0,0,0.1));
 	box-shadow: 0 0 10px rgba(0,0,0,.75);
 	padding: 2%;
 	margin: 0% 2% 4% 2%;
@@ -528,7 +526,7 @@ input:hover, button:hover, #add-location:hover {
 	margin: 0 1%;
 	width: 45%;
 	padding: 1%;
-	background-color: rgba(0,0,0,.3);
+	background: radial-gradient(rgba(255,255,255, .3), rgba(255,255,255, .2), rgba(0,0,0,0.1));
 	border: 2px ridge grey;
 	box-shadow: 0 0 10px rgba(0,0,0,.75); 
 }
@@ -560,7 +558,7 @@ input:hover, button:hover, #add-location:hover {
 	width: 80%;
 	padding: 2%;	
 	margin: 2%;
-	background-color: rgba(0,0,0,.2);
+	background: radial-gradient(rgba(255,255,255, .5), rgba(255,255,255, .3), rgba(0,0,0,0.1));
 	border: 2px ridge grey;
 	text-align: center;
 	box-shadow: 0 0 10px rgba(0,0,0,1);
