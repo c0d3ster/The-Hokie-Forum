@@ -100,6 +100,11 @@ class SiteController {
   public function recentTopics() {
     	$pageName = 'Recent Topics';
 		$topics = Topic::getAllTopics();
+		$threads = array();
+        foreach($topics as $topic) {
+            $th = Thread::getThreadByTopic($topic->get('id'));
+            array_push($threads, $th);
+        }
 
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/topics.tpl';

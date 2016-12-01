@@ -288,13 +288,13 @@ input:hover, button:hover, #add-location:hover {
 	float: left;
 	width: 55%;
 	min-height: 150px;
-	max-height: 400px;
 	margin: 1% 2.5%;
 	opacity: .8;
+	padding: 1% 0;
+	/*max-height: 400px;
 	box-shadow: 5px 10px 5px rgba(0,0,0, .75);
 	border: 2px ridge grey;
-	overflow-y: auto;
-	padding: 1% 0;
+	overflow-y: auto;*/
 }
 
 ::-webkit-scrollbar{
@@ -345,7 +345,13 @@ input:hover, button:hover, #add-location:hover {
 	min-width: 8%;
 }
 
-
+.marker, .inactive-marker {
+	width: 3%;
+	margin-left: 10px;
+}
+.marker:hover {
+	transform: rotate(180deg);
+}
 /*///////////////////////*/
 
 
@@ -380,6 +386,21 @@ input:hover, button:hover, #add-location:hover {
 #map-image {
 	width: 100%;
 	height: 100%;
+}
+
+.fixedmap {
+    position: fixed !important;
+    top: 0px;
+    right: 5%;
+    width: 34% !important;
+}
+
+.mouseover_loc {
+	border: 2px solid grey;
+}
+
+.clicked_loc {
+	border: 3px solid blue !important;
 }
 
 

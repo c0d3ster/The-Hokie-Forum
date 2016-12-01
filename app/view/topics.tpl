@@ -11,7 +11,8 @@
 		</div>
 		<?php } ?>
 
-<?php foreach($topics as $top) { 
+<?php foreach($threads as $thread) { 
+	$top = $thread->get('topic');	
 	$topicUsername = User::loadById($top->get('user_id'))->get('username');
 	$favorites = Favorite::getFavoritesByTopicId($top->get('id')); //should return array of favorite data
 	$isFavorite = false;
@@ -46,6 +47,7 @@
 					<p class="topic-post"><?=substr($top->get('post'), 0, 160)?>...</p>	
 				</a>			
 				<label class="topic-time"><?=$top->get('date_created')?></label>
+				<img class='inactive-marker' src='<?=IMAGES?>/marker.png'>
 				<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 
 		</div> 
 

@@ -31,8 +31,10 @@ $(function() {
 	$('#changePass').click(changePass);
 	$('#updatePass').click(updatePassword);
 	$('#chPass').hide();
+    
+    //event listener for clicking markers on reply/topics
+	$('.marker').click(markerClicked);	// don't let user submit form if empty fields
 
-	// don't let user submit form if empty fields
 	$('form > input').keyup(function() {
         var empty = false;
         $('form > input').each(function() {
@@ -49,6 +51,29 @@ $(function() {
     });
 
 	//subheader menu control (to be implemented)
+	
+	//sticking map to top
+    var map_stuck = false;
+    var distance;
+    if ($('#map').attr('id')) distance = $('#map').offset().top;
+    $(window).scroll(function() {
+        switch (map_stuck) {
+            case false:
+                if ($(window).scrollTop() >= distance-10) {
+                    map_stuck = true;
+                    $('#map').addClass('fixedmap');
+                }
+                break;
+            case true:
+                if ($(window).scrollTop() < distance-10) {
+                    map_stuck = false;
+                    $('#map').removeClass('fixedmap');
+                }
+                break;
+            default:
+                break;
+        }
+    });
 });
 
 /* 
@@ -138,8 +163,29 @@ function mapInit() {
 						title: data[i]['title'],
 						infoWindow: {
 							content: content_str
+						},
+						details: {
+						    'index':i
+						},
+						click: function (){
+						    this.infoWindow.open(mapObj, this);
+						    var ename = 'l'+this.details.index;
+						    $('#'+ename).parent().addClass('clicked_loc');
+						    google.maps.event.addListener(this.infoWindow, 'closeclick', function() {
+						        $('#'+ename).parent().removeClass('clicked_loc');
+						    });
+						    
+						},
+						mouseover: function() {
+						    var ename = 'l'+this.details.index;
+  					    $('#'+ename).parent().addClass('mouseover_loc');
+						},
+						mouseout: function() {
+  						  var ename = 'l'+this.details.index;
+	  					  $('#'+ename).parent().removeClass('mouseover_loc');
 						}
 					});
+
 				}
 			},  
 			error: function (data) {
@@ -169,6 +215,15 @@ function mapInit() {
 			}
 		});
 	}
+}
+
+function markerClicked() {
+    var mark_id = $(this).attr('id').substr(1);   
+    mapObj.markers[mark_id].infoWindow.open(mapObj, mapObj.markers[mark_id]);
+    $(this).parent().addClass('clicked_loc');
+    google.maps.event.addListener(mapObj.markers[mark_id].infoWindow, 'closeclick', function() {
+        $('#l'+mark_id).parent().removeClass('clicked_loc');
+    });
 }
 
 /* 

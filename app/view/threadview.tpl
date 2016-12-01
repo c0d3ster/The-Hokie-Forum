@@ -9,6 +9,8 @@
 			}
 		}
 	}
+	
+	$location_count = 0;        //used to keep track of location index in db location table. needed for js
 ?>
 <script type='text/javascript'>
 	topic_id = <?=$top->get('id')?>;
@@ -35,6 +37,10 @@
 <?php endif;?>		
 	<p class="topic-post"> <?=$top->get('post') ?> </p>
 	<label class="topic-time"> <?= $top->get('date_created') ?> </label>
+<?php if($top->get('location')):?> 
+	<img src='<?=IMAGES?>/marker.png' id='l<?=$location_count?>' class='marker'>
+<?php $location_count++; 
+    endif;?>
 	<input class="hidden-id" type="hidden" value="<?=$top->get('id') ?>"> 	
 </div> 
 
@@ -59,7 +65,12 @@
 		<?php if(($this->currUser and $uname == $this->currUser->get('username')) or $this->admin):?> 
 				<img src='<?=IMAGES?>/deleteitem.png' class='delete-item'>
 		<?php endif;?>	
-
+        
+		<?php if($reply->get('location')):?> 
+				<img src='<?=IMAGES?>/marker.png' id='l<?=$location_count?>' class='marker'>
+		<?php $location_count++; 
+		    endif;?>
+		
 		<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
 	
