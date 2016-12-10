@@ -15,6 +15,10 @@ function isChildSelected($pn, $type) {
 		if ($pn == 'My Favorites' || $pn == 'My Activity')
 			return ' id="parent-tab" ';
 	}
+	else if ($type == 'Explore') {
+		if( $pn == 'Explore Map' || $pn == 'Explore Bubbles')
+			return ' id= "parent-tab" ';
+	}
 }
 ?>
 <!DOCTYPE HTML>
@@ -27,7 +31,7 @@ function isChildSelected($pn, $type) {
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/style.css">		
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/header.css">
 	<link rel="stylesheet" type="text/css" href="<?= STYLES ?>/footer.css">
-	
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 	<script src="https://code.jquery.com/jquery-3.1.0.min.js"   integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s="   crossorigin="anonymous"></script>
 	<script src="<?= SCRIPTS ?>/index.js" type="text/javascript"> </script>
 	<script type="text/javascript">
@@ -54,7 +58,7 @@ if($this->currUser) { ?>
 		  <a href="<?= BASE_URL ?>/profile/" ><button id="profile"> Profile & Preferences </button></a>
 		</div>
 		<ul id="primary-nav">
-	  	<a href="<?= BASE_URL ?>/" ><li <?= isSelected($pageName, 'Explore') ?>>  Explore </li> </a>
+	  	<a href="<?= BASE_URL ?>/" ><li <?= isChildSelected($pageName, 'Explore') ?>>  Explore </li> </a>
 	  	<a href="<?= BASE_URL ?>/recentTopics/"><li <?= isChildSelected($pageName, 'topic') ?>> Topics </li> </a> 
 	  	<a href="<?= BASE_URL ?>/myActivity/"><li <?= isChildSelected($pageName, 'activity') ?>> My Stuff </li></a> 
 		</ul>
@@ -65,7 +69,7 @@ else { ?>
 			<button id="signup"> Sign Up </button>
 		</div>
 		<ul id="primary-nav">
-			<a href="<?= BASE_URL ?>/" > <li <?= isSelected($pageName, 'Explore') ?>>  Explore   </li></a>
+			<a href="<?= BASE_URL ?>/" > <li <?= isChildSelected($pageName, 'Explore') ?>>  Explore   </li></a>
 			<a href="<?= BASE_URL ?>/recentTopics/"> <li <?= isChildSelected($pageName, 'topic') ?>> Topics </li></a> 
 		</ul>
 <?php } ?>
@@ -76,7 +80,7 @@ else { ?>
 		<form class="popup" action="<?= BASE_URL ?>/login/process" method="POST">
 			<!--http://sweetclipart.com/multisite/sweetclipart/files/x_mark_red_circle.png-->
 			<img src="<?= IMAGES ?>/exit.png" class="exit" alt="exit" width="50" height="50">
-			<h2 id="hype"> Get Back in the Game! </h2>
+			<h2 id="hype"> Get Back to the Talk! </h2>
 			<input id="username" type="text" name="un" placeholder="enter your username">
 			<input id="password" type="password" name="pw"  placeholder="enter your password">
 			<input type="submit" name="submit" id="verify-login" value="Go Hokies!">
@@ -94,5 +98,3 @@ else { ?>
 
 	</div>
 	<div id="wrapper">	
-
-	<!--need to add submenu which is also based on whether user is logged in or not-->

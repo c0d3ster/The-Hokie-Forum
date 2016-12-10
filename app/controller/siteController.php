@@ -26,11 +26,15 @@ class SiteController {
 		}
 
 		switch($action) {
-			case 'explore':
-				$this->explore();
-				break;			
+			case 'exploreMap':
+				$this->exploreMap();
+				break;
 
-  			case 'recentTopics':
+			case 'exploreBubbles':
+				$this->exploreBubbles();
+				break;
+
+  		case 'recentTopics':
 				$this->recentTopics();
 				break;
 
@@ -87,12 +91,16 @@ class SiteController {
   			exit();
 		}
 	}
-  public function explore() {
-		$pageName = 'Explore';
+  public function exploreMap() {
+		$pageName = 'Explore Map';
 		include_once SYSTEM_PATH.'/view/header.tpl';
- 		if(!$this->currUser) {
-			include_once SYSTEM_PATH.'/view/intro.tpl';
-		}
+		include_once SYSTEM_PATH.'/view/explore.tpl';
+		include_once SYSTEM_PATH.'/view/footer.tpl';
+  }
+
+  public function exploreBubbles() {
+		$pageName = 'Explore Bubbles';
+		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/explore.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
   }

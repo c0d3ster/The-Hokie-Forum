@@ -9,7 +9,9 @@ RewriteEngine on
 
 # Menu Items
 
-RewriteRule ^$ app/controller/siteController.php?action=explore [QSA,L]
+RewriteRule ^$ app/controller/siteController.php?action=exploreMap [QSA,L]
+
+RewriteRule ^exploreBubbles/?$ app/controller/siteController.php?action=exploreBubbles [QSA,L]
 
 RewriteRule ^recentTopics/?$ app/controller/siteController.php?action=recentTopics [QSA,L]
 
@@ -57,6 +59,10 @@ RewriteRule ^deleteReply/process/(\d+)/?$ app/controller/postController.php?acti
 
 # For AJAX getting locations
 
-RewriteRule ^exploreMap/?$ app/controller/postController.php?action=populateExplore [QSA,L]
+RewriteRule ^exploreMapData/?$ app/controller/postController.php?action=populateExplore [QSA,L]
 
 RewriteRule ^populateMap/(\d+)/?$ app/controller/postController.php?action=populateMap&tid=$1 [QSA,L]
+
+# For AJAX getting all topics
+
+RewriteRule ^populateBubbles/?$ app/controller/postController.php?action=populateBubbles [QSA,L]

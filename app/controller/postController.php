@@ -96,6 +96,10 @@ class PostController {
 				$this->populateMap($topic_id);
 				break;
 
+			case 'populateBubbles':
+				$this->populateBubbles();
+				break;
+
 			case 'switchFavorite':
 				if (!$this->currUser) {
 					echo json_encode(array('added'=>2));
@@ -127,20 +131,6 @@ class PostController {
 		include_once SYSTEM_PATH.'/view/header.tpl';
 		include_once SYSTEM_PATH.'/view/addtopic.tpl';
 		include_once SYSTEM_PATH.'/view/footer.tpl';
-	}
-	
-	public function populateExplore() {
-		
-		$locs = Location::getAllLocations();
-		echo json_encode($locs);
-		exit();	
-		
-	}
-	
-	public function populateMap($t_id) {
-		$locs = Location::getLocationsByTopic($t_id);
-		echo json_encode($locs);
-		exit();
 	}
 	
 	/**For AJAX, does not reload page, use exit()! **/
@@ -280,6 +270,30 @@ class PostController {
 	public function processDeleteTopic($t) {
 		$t->remove();
 		header('Location: '.BASE_URL.'/myActivity/');
+	}
+
+	public function populateExplore() {
+		$locs = Location::getAllLocations();
+		echo json_encode($locs);
+		exit();	
+		
+	}
+	
+	public function populateMap($t_id) {
+		$locs = Location::getLocationsByTopic($t_id);
+		echo json_encode($locs);
+		exit();
+	}
+
+	public function populateBubbles() {
+		$topics = Topic::getAllTopics();
+		$objArray = array();
+		foreach($topics as $top) {
+			$user = User::loadById($top->get('user_id'))->get('username');
+			$obj = array('name'=>$top->get('title'),'size'=>$top->get('favorite_count')+1,'user'=>$user, 'id'=>$top->get('id'));
+			array_push($objArray, $obj);
+		}
+		echo json_encode($objArray);
 	}
 
 	public function switchFavorite($user_id, $topic_id) {

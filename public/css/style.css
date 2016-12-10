@@ -90,6 +90,33 @@ body {
 	width: 60%;
 }
 
+#button-holder {
+	clear: both;
+	display: block;
+	width: 60%;
+	margin: auto;	
+	align-items: center;
+}
+
+#button-holder > * {
+	margin: 2%;
+	padding: 10px 20px;
+	border: ridge grey 2px;
+}
+
+svg {
+	display: block;
+	margin: auto;
+}
+
+#chart {
+	clear: both;
+	display: block;
+	margin: auto;
+	min-height: 500px;
+	width: 90%;
+}
+
 .edit-item, .delete-item {
 	float: left;
 	margin: 2px 5px;
