@@ -78,10 +78,10 @@ $(function() {
 	******************************/
 
 	if(pageName == "Explore Bubbles") {
-		var width = 750,
+		var width = 800,
 			format = d3.format(",d");
 
-		var height = 500,
+		var height = 600,
 				format = d3.format(",d");
 
 		var color = d3.scale.ordinal()
@@ -139,11 +139,6 @@ $(function() {
 			return "translate(" + d.x + "," + d.y + ")";
 		});
 
-		node.append("title")
-			.text(function (d) {
-			return d.className + ": " + format(d.value-1);
-		});
-
 		node.append("circle")
 			.attr("r", function (d) {
 			return d.r;
@@ -155,13 +150,15 @@ $(function() {
 			window.location.replace(baseURL+"/view/"+d.id);
 		})
 		.on("mouseover", function(d) {
-            tooltip.text(d.className + ": " + format(d.value));
+            tooltip.text("Number of Favorites: " + format(d.value-1) + " (click for more info!)");
             tooltip.style("visibility", "visible");
       	})
       	.on("mousemove", function() {
           	return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
       	})
-      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
+      	.on("mouseout", function() {
+      		return tooltip.style("visibility", "hidden");
+      	});
 
 		node.append("text")
 			.attr("dy", "-.5em")
@@ -175,12 +172,19 @@ $(function() {
 			.style("text-anchor", "middle")
 			.text(function(d) { return "posted by: " + (d.user); });
 
-		node.append("image")
-			.attr("xlink:href", baseURL+"/public/img/deleteitem.png")
-			.style("padding-top", "5px")
-			.attr("width", 20)
-			.attr("height", 20);
 
+		node.append("image")
+			.style("visibility", function(d) {if(curr_user != d.user) return "hidden";})
+			.attr("xlink:href", baseURL+"/public/img/deleteitem.png")
+			.style("y", "6%")
+			.style("x", "-1.2%")
+			.attr("width", 20)
+			.attr("height", 20)
+			.on("click", deleteClicked);
+
+		node.append("input")
+			.attr("class", "hidden-id")
+			.attr("value", function(d) { return d.id; });
 
 		// Returns a flattened hierarchy containing all leaf nodes under the root.
 		function classes(root1) {
@@ -243,13 +247,19 @@ $(function() {
 				})
 				.on("click", function(d) {
 					window.location.replace(baseURL+"/view/"+d.id);
-				});
+				})
+				.on("mouseover", function(d) {
+		            tooltip.text("Number of Favorites: " + format(d.value-1) + " click for more!");
+		            tooltip.style("visibility", "visible");
+		      	})
+		      	.on("mousemove", function() {
+		          	return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+		      	})
+		      	.on("mouseout", function() {
+		      		return tooltip.style("visibility", "hidden");
+		      	});
 			
 			// re-use enter selection for titles
-			nodeEnter.append("title")
-				.text(function (d) {
-					return d.className + ": " + format(d.value-1);
-				});
 
 			nodeEnter.append("text")
 				.attr("dy", "-.5em")
@@ -660,12 +670,14 @@ function switchFavorite() {
  */
 function deleteClicked() {
 	var type = 'Topic';
-	var idString = '<input id="rid" type="hidden" name="rid" value="id">';
+	var idString = '<input id="tid" type="hidden" name="tid" value="id">';
 	if ($(this).parent().attr('class') == 'reply') { //distinguish between reply and topic
 		type = 'Reply';
-		idString = '<input id="rid" type="hidden" name="tid" value="id">';
+		idString = '<input id="rid" type="hidden" name="rid" value="id">';
 		}
-	var id = $(this).siblings('input').filter('.hidden-id').eq(0).val();
+	var parent = $(this).parent();
+	var content = parent.find('.hidden-id').first();
+	var id = content.attr('value');
 	$('body').append( //populate the delete item confirmation box
 	'<div class="background-fade-red"></div>'+
 		'<form class="popup-red" action="'+baseURL+'/delete'+type+'/process/'+id+'" method="POST">'+

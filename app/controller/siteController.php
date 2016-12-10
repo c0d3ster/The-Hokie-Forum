@@ -106,7 +106,7 @@ class SiteController {
   }
 
   public function recentTopics() {
-    	$pageName = 'Recent Topics';
+    $pageName = 'Recent Topics';
 		$topics = Topic::getAllTopics();
 		$threads = array();
         foreach($topics as $topic) {
