@@ -91,7 +91,7 @@ $(function() {
 		var bubble = d3.layout.pack()
 			.sort(null)
 			.size([width, height])
-			.padding(10);
+			.padding(20);
 
 		var svg = d3.select("#chart").append("svg")
 			.attr("width", width)
@@ -109,12 +109,24 @@ $(function() {
 		var root3 = {
 			"children": [
 			{
-				"name": "hi",
-				"size": 50,
-				"user": "c0d3ster",
-				"id" : 8
+				"name": " Post your favorite local spot to go hiking! ",
+				"size": 1,
+				"user": "nick",
+				"id" : 7
 			}]
 		};
+
+		var tooltip = d3.select("body")
+		    .append("div")
+		    .style("position", "absolute")
+		    .style("z-index", "10")
+		    .style("visibility", "hidden")
+		    .style("color", "white")
+		    .style("padding", "8px")
+		    .style("background-color", "rgba(0, 0, 0, 0.75)")
+		    .style("border-radius", "6px")
+		    .style("font", "12px sans-serif")
+		    .text("tooltip");
 
 		var node = svg.selectAll(".node")
 			.data(bubble.nodes(classes(root1))
@@ -141,7 +153,15 @@ $(function() {
 		})  
 			.on("click", function(d) {
 			window.location.replace(baseURL+"/view/"+d.id);
-		});
+		})
+		.on("mouseover", function(d) {
+            tooltip.text(d.className + ": " + format(d.value));
+            tooltip.style("visibility", "visible");
+      	})
+      	.on("mousemove", function() {
+          	return tooltip.style("top", (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");
+      	})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
 
 		node.append("text")
 			.attr("dy", "-.5em")
@@ -154,6 +174,12 @@ $(function() {
 			.style("font-size", "10px")
 			.style("text-anchor", "middle")
 			.text(function(d) { return "posted by: " + (d.user); });
+
+		node.append("image")
+			.attr("xlink:href", baseURL+"/public/img/deleteitem.png")
+			.style("padding-top", "5px")
+			.attr("width", 20)
+			.attr("height", 20);
 
 
 		// Returns a flattened hierarchy containing all leaf nodes under the root.
@@ -283,13 +309,11 @@ $(function() {
 		function updateBubble1() {changebubble(root1);};
 		d3.select("#view-single").on("click",updateBubble3);
 		function updateBubble3() {changebubble(root3);};
-
 			},
 			error: function(data) {
 				console.log("fail");
 			}
 		});
-
 	}
 
 });
