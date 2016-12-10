@@ -72,7 +72,6 @@
 		
 		<input class="hidden-id" type="hidden" value="<?=$reply->get('id') ?>"> 
 		</div>
-	
 <?php }
 } else { ?>
 	<h2 id='no-replies'> Looks like no one has replied to this topic yet... :( </h2>
